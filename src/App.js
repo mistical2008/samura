@@ -29,7 +29,7 @@ function App() {
             <form action="echo.htmlacademy.com" className="post-form">
               <textarea name="text" id="post-text" cols="100" rows="5">
                 ...Type your text
-              </textarea>
+              </textarea><br></br>
               <button type="submit">Post</button>
             </form>
           </section>
