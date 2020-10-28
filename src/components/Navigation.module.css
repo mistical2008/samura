@@ -1,6 +1,6 @@
 .navigation {
   grid-area: nav;
-  background-color: sandybrown;
+  background-color: #05be52;
   padding: 20px 30px;
 }
 
@@ -8,4 +8,13 @@
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+ul a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+li:hover a {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3)
 }
