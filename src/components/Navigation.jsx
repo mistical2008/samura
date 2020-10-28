@@ -1,8 +1,9 @@
 import React from "react";
+import s from "./Navigation.module.css"
 
 const Navigation = () => {
   return (
-    <nav className="navigation">
+    <nav className={s.navigation}>
       <ul>
         <li>
           <a href="#">Profile</a>

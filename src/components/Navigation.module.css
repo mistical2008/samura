@@ -1,0 +1,11 @@
+.navigation {
+  grid-area: nav;
+  background-color: sandybrown;
+  padding: 20px 30px;
+}
+
+.navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
