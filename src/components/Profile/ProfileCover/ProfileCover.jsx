@@ -1,6 +1,6 @@
 import React from "react";
 
-import s from "./ProfileHeader.module.css";
+import s from "./ProfileCover.module.css";
 
 const ProfileHeader = () => {
   return (
