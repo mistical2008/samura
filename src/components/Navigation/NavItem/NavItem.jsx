@@ -1,11 +1,11 @@
 import React from "react";
-import s from "./NavItem.module.css"
+import s from "./NavItem.module.css";
 
-const NavItem = () => {
+const NavItem = (props) => {
   return (
-        <li>
-          <a href="#">Link text</a>
-        </li>
+    <li className={s.item}>
+      <a href="#">{props.text}</a>
+    </li>
   );
 };
 

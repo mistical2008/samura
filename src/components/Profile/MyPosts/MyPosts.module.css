@@ -1,0 +1,22 @@
+.postForm {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.postForm textarea {
+  align-self: stretch;
+}
+
+.postForm button {
+  align-self: right;
+  max-width: 100px;
+  border: none;
+  padding: 8px 24px;
+  background-color: #05be52;
+  color: #ffffff;
+  font: inherit;
+  font-size: 110%;
+  font-weight: 700;
+  cursor: pointer;
+}

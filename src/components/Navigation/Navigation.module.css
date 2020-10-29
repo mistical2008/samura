@@ -10,7 +10,11 @@
   padding: 0;
 }
 
-ul a {
+.navigation li {
+  padding: 8px 0;
+}
+
+.navigation a {
   color: #ffffff;
   text-decoration: none;
 }

@@ -1,14 +1,15 @@
 import React from "react";
 import s from "./Post.module.css";
+import Userpic from "./Userpic/Userpic";
 
-const Post = () => {
+const Post = (props) => {
   return (
     <div id="post-1" className={s.post}>
-      <img
-        src="https://vignette.wikia.nocookie.net/theamazingworldofgumball/images/3/35/Face_will_smith.png"
-        alt=""
-      />
-      Post 1<div className={s.likes}>1like</div>
+      <Userpic src={props.user.avatar} />
+      <span className={s.postBody}>
+        <p className={s.message}>{props.message}</p>
+        <p className={s.likes}>{props.likes || 0} likes</p>
+      </span>
     </div>
   );
 };

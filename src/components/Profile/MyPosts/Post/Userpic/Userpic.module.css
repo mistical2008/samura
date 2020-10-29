@@ -1,0 +1,14 @@
+.imgContainer {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.imgContainer img {
+  /* vertical-align: bottom; */
+  object-fit: cover;
+  object-position: bottom;
+  max-width: 100%;
+  height: auto;
+}
