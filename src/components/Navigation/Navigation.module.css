@@ -14,7 +14,3 @@ ul a {
   color: #ffffff;
   text-decoration: none;
 }
-
-li:hover a {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3)
-}
