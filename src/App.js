@@ -11,7 +11,9 @@ function App() {
     <div className="app-wrapper">
       <Header />
       <Navigation />
-      <Profile />
+      <div className="app-wrapper-content">
+        <Profile />
+      </div>
     </div>
   );
 }
