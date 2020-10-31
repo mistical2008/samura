@@ -6,11 +6,11 @@ const Navigation = () => {
   return (
     <nav className={s.navigation}>
       <ul>
-        <NavItem text="Profile" />
-        <NavItem text="Messages" />
-        <NavItem text="News" />
-        <NavItem text="Music" />
-        <NavItem text="Settings" />
+        <NavItem href="/profile" text="Profile" />
+        <NavItem href="/dialogs" text="Messages" />
+        <NavItem href="/news" text="News" />
+        <NavItem href="/music" text="Music" />
+        <NavItem href="/settings" text="Settings" />
       </ul>
     </nav>
   );

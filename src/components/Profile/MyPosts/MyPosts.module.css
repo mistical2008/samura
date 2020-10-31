@@ -9,7 +9,7 @@
 }
 
 .postForm button {
-  align-self: right;
+  align-self: flex-end;
   max-width: 100px;
   border: none;
   padding: 8px 24px;
