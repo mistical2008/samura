@@ -1,6 +1,6 @@
 .navigation {
   grid-area: nav;
-  background-color: #05be52;
+  background-color: #470c36;
   padding: 20px 30px;
 }
 
@@ -10,11 +10,3 @@
   padding: 0;
 }
 
-.navigation li {
-  padding: 8px 0;
-}
-
-.navigation a {
-  color: #ffffff;
-  text-decoration: none;
-}

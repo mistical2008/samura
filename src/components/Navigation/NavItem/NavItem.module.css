@@ -2,6 +2,19 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.3)
 }
 
-.item a.activeLink {
-  color: #1f2718;
+a {
+  color: #ffffff;
+  text-decoration: none;
 }
+
+.item a.activeLink {
+  color: #cc0a62;
+  padding-left: 6px;
+  border-left: 1px solid #f9f0f0;
+}
+
+li {
+  margin-bottom: 20px;
+}
+
+

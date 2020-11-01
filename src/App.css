@@ -10,5 +10,9 @@
 
 .app-wrapper-content {
   grid-area: content;
-  background-color: antiquewhite; 
+  background-color: #f9f0f0; 
+}
+
+.container {
+  padding: 64px;
 }
