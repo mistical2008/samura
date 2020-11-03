@@ -18,6 +18,11 @@ const users = [
   },
 ];
 
+const messages = [
+  { id: 1, user: users[0], text: "Hello! How are you?" },
+  { id: 2, user: users[1], text: "Hi there!" },
+];
+
 const MyPosts = () => {
   return (
     <div className={s.myPosts}>
@@ -31,8 +36,8 @@ const MyPosts = () => {
         </form>
       </section>
       <section className={s.posts}>
-        <Post message="Hello! How are you?" user={users[0]} />
-        <Post message="Hi there!" user={users[1]} />
+        <Post message={messages[0].text} user={messages[0].user} />
+        <Post message={messages[1].text} user={messages[1].user} />
       </section>
     </div>
   );
