@@ -4,6 +4,21 @@ import { NavLink } from "react-router-dom";
 import "../../App.css";
 import s from "./Dialogs.module.css";
 
+const dialogData = [
+  { id: 1, name: "Dimych" },
+  { id: 2, name: "Sveta" },
+  { id: 3, name: "Sasha" },
+  { id: 4, name: "Valera" },
+  { id: 5, name: "Anya" },
+  { id: 6, name: "Zhenya" },
+];
+
+const messages = [
+  { id: 1, text: "Hi there!" },
+  { id: 1, text: "Hello" },
+  { id: 1, text: "How are you?" },
+];
+
 const DialogItem = (props) => {
   const path = `/dialogs/${props.id}`;
   return (
