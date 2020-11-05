@@ -10,15 +10,24 @@ import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 
-function App() {
+function App(props) {
+  const { posts, dialogs, messages } = props.data;
   return (
     <Router>
       <div className="app-wrapper">
         <Header />
         <Navigation />
         <div className="app-wrapper-content">
-          <Route exact path="/dialogs" component={Dialogs} />
-          <Route exact path="/profile" component={Profile} />
+          <Route
+            exact
+            path="/dialogs"
+            render={() => <Dialogs dialogs={dialogs} messages={messages} />}
+          />
+          <Route
+            exact
+            path="/profile"
+            render={() => <Profile posts={posts} />}
+          />
           <Route exact path="/news" component={News} />
           <Route exact path="/music" component={Music} />
           <Route exact path="/settings" component={Settings} />

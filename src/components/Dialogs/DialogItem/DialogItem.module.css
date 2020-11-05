@@ -1,0 +1,16 @@
+.dialog {
+  border-bottom: 1px solid rgba(15, 10, 69, 0.10);
+}
+
+.dialog a {
+  display: block;
+  padding: 16px;
+  text-decoration: none;
+  font: inherit;
+  color: inherit;
+}
+
+.dialog a.activeDialog {
+  color: #0f0a45
+}
+

@@ -5,7 +5,7 @@ import Userpic from "./Userpic/Userpic";
 const Post = (props) => {
   return (
     <div id="post-1" className={s.post}>
-      <Userpic src={props.user.avatar} />
+      <Userpic src={props.avatar} />
       <span className={s.postBody}>
         <p className={s.message}>{props.message}</p>
         <p className={s.likes}>{props.likes || 0} likes</p>

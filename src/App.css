@@ -16,3 +16,7 @@
 .container {
   padding: 64px;
 }
+
+.u-box {
+  display: block;
+}
