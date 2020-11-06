@@ -3,12 +3,14 @@
   height: 50px;
   border-radius: 50%;
   overflow: hidden;
+  box-shadow: 0px, 0px, 2px, 3px, rgba(0, 0, 0, 0.1);
+  background-color: #000000;
+  flex-shrink: 0;
 }
 
 .imgContainer img {
-  /* vertical-align: bottom; */
-  object-fit: cover;
-  object-position: bottom;
   max-width: 100%;
+  object-fit: contain;
+  object-position: bottom;
   height: auto;
 }

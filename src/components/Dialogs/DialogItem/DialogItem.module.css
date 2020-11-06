@@ -1,13 +1,31 @@
 .dialog {
   border-bottom: 1px solid rgba(15, 10, 69, 0.10);
+  max-width: 408px;
+  overflow: ellipsis;
 }
 
 .dialog a {
-  display: block;
+  display: flex;
+  /* flex-direction: row; */
+  justify-content: flex-start;
+  /* align-content: center; */
+  align-items: center;
   padding: 16px;
   text-decoration: none;
   font: inherit;
   color: inherit;
+  max-width: 250px;
+}
+
+.dialog img {
+  padding-right: 10px;
+}
+
+.dialog span {
+  padding-left: 8px;
+  padding-right: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dialog a.activeDialog {
