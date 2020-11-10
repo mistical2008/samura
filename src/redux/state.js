@@ -60,7 +60,7 @@ const state = {
       { id: 1, my: false, text: "How are you?" },
     ],
   },
-  navigation: {
+  sidebar: {
     items: [
       { name: "Profile", href: "profile" },
       { name: "Messages", href: "dialogs" },

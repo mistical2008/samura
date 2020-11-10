@@ -1,3 +1,7 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 .dialogsPage {
   display: grid;
   grid-template-columns: 3fr 7fr;
@@ -7,7 +11,35 @@
 }
 
 .messages {
+  position: relative;
   background-color: #f0f9f0;
   padding: 0 16px;
 }
 
+.inputText {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 99%;
+  resize: none;
+  height: 40px;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 18px;
+  line-height: 40px;
+}
+
+.buttonMessage {
+  position: absolute;
+  right: 3px;
+  bottom: 2px;
+  font: inherit;
+  font-size: 20px;
+  line-height: 40px;
+  color: #f0f9f0;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  cursor: pointer;
+  background-color: #0f0a45;
+}
