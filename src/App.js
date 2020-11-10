@@ -11,12 +11,12 @@ import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
 
 function App(props) {
-  const { profilePage, dialogsPage } = props.state;
+  const { profilePage, dialogsPage, navigation } = props.state;
   return (
     <Router>
       <div className="app-wrapper">
         <Header />
-        <Navigation />
+        <Navigation state={navigation} />
         <div className="app-wrapper-content">
           <Route
             exact

@@ -15,9 +15,14 @@ const MyPosts = (props) => {
       <section className={s.postFormSection}>
         <h2 className={s.subheading}>My posts</h2>
         <form action="echo.htmlacademy.com" className={s.postForm}>
-          <textarea name="text" id="post-text" cols="100" rows="5">
-            ...Type your text
-          </textarea>
+          <textarea
+            name="text"
+            id="post-text"
+            className="input-text"
+            placeholder="...Type your text"
+            cols="100"
+            rows="5"
+          ></textarea>
           <div className="u-block">
             <button type="submit">Post</button>
           </div>

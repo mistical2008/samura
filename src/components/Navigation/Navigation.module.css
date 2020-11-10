@@ -1,7 +1,11 @@
+.sidebar {
+  background-color: #470c36;
+  color: #ffffff;
+}
+
 .navigation {
   grid-area: nav;
-  background-color: #470c36;
-  padding: 20px 30px;
+  padding: 20px 36px;
 }
 
 .navigation ul {
@@ -10,3 +14,11 @@
   padding: 0;
 }
 
+.widgets {
+  padding: 20px 30px;
+  background-color: #842e6b;
+}
+
+.widgets h3 {
+  margin-block-start: 0;
+}

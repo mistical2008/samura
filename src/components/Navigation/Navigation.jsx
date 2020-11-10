@@ -1,18 +1,22 @@
 import React from "react";
+import Friends from "../Friends/Friends";
 import s from "./Navigation.module.css";
 import NavItem from "./NavItem/NavItem";
 
-const Navigation = () => {
+const Navigation = (props) => {
+  const { widgets } = props.state;
+  const navItems = props.state.items.map((item) => {
+    return <NavItem href={"/" + item.href} text={item.name} />;
+  });
   return (
-    <nav className={s.navigation}>
-      <ul>
-        <NavItem href="/profile" text="Profile" />
-        <NavItem href="/dialogs" text="Messages" />
-        <NavItem href="/news" text="News" />
-        <NavItem href="/music" text="Music" />
-        <NavItem href="/settings" text="Settings" />
-      </ul>
-    </nav>
+    <div className={s.sidebar}>
+      <nav className={s.navigation}>
+        <ul>{navItems}</ul>
+      </nav>
+      <div className={s.widgets}>
+        <Friends className={s.widget} state={widgets[0]["my-friends"]} />
+      </div>
+    </div>
   );
 };
 

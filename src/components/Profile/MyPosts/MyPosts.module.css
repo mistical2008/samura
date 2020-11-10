@@ -5,11 +5,11 @@
 }
 
 .postForm textarea {
-  align-self: stretch;
+  resize: none;
+  width: 100%;
 }
 
 .postForm button {
-  align-self: flex-end;
   max-width: 100px;
   border: none;
   padding: 8px 24px;
