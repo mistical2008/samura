@@ -11,7 +11,11 @@ const Profile = (props) => {
       <ProfileHeader />
       <div className={s.wrapper}>
         <ProfileBio />
-        <MyPosts posts={props.state.posts} addPost={props.addPost} />
+        <MyPosts
+          state={props.state}
+          addPost={props.addPost}
+          updateNewPostText={props.updateNewPostText}
+        />
       </div>
     </div>
   );

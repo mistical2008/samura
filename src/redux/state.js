@@ -18,6 +18,7 @@ const state = {
         likes: 112,
       },
     ],
+    newPostText: "",
   },
 
   dialogsPage: {
@@ -58,9 +59,10 @@ const state = {
     ],
     messages: [
       { id: 1, my: false, text: "Hi there!" },
-      { id: 1, my: true, text: "Hello" },
+      { id: 2, my: true, text: "Hello" },
       { id: 1, my: false, text: "How are you?" },
     ],
+    newMessageText: "New Text!",
   },
 
   sidebar: {
@@ -96,14 +98,32 @@ const state = {
   },
 };
 
-export const addPost = (message) => {
+export const addPost = () => {
   state.profilePage.posts.push({
     id: 5,
     avatar:
       "http://static1.wikia.nocookie.net/__cb20131010204622/theamazingworldofgumball/images/3/35/Face_will_smith.png",
-    text: message,
+    text: state.profilePage.newPostText,
     likes: 0,
   });
+  updateNewPostText("");
+  renderApp(state);
+};
+
+export const updateNewPostText = (NewText) => {
+  state.profilePage.newPostText = NewText;
+  renderApp(state);
+};
+
+export const addMessage = () => {
+  const newMessageText = state.dialogsPage.newMessageText;
+  state.dialogsPage.messages.push({ id: 1, my: true, text: newMessageText });
+  updateNewMessageText("");
+  renderApp(state);
+};
+
+export const updateNewMessageText = (NewText) => {
+  state.dialogsPage.newMessageText = NewText;
   renderApp(state);
 };
 

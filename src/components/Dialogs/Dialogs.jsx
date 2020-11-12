@@ -17,34 +17,35 @@ const Dialogs = (props) => {
   });
 
   const newMessageElement = React.createRef();
+
   const addMessage = () => {
+    props.addMessage();
+  };
+
+  const onChangeMessage = () => {
     const text = newMessageElement.current.value;
-    alert(text);
+    props.updateNewMessageText(text);
   };
 
   return (
     <div className={s.dialogsPage}>
       <div className={s.dialogs}>{dialogNodes}</div>
-      <div className={s.messages}>
-        {messageNodes}
-        <div>
-          <textarea
-            className={s.inputText}
-            ref={newMessageElement}
-            name="type-text"
-            id="type-text"
-            cols="30"
-            rows="10"
-            placeholder="Type your text..."
-          ></textarea>
-          <button
-            type="button"
-            onClick={addMessage}
-            className={s.buttonMessage}
-          >
-            Post
-          </button>
-        </div>
+      <div className={s.messagesContainer}>
+        <div className={s.messages}>{messageNodes}</div>
+        <textarea
+          className={s.inputText}
+          ref={newMessageElement}
+          onChange={onChangeMessage}
+          value={props.state.newMessageText}
+          name="type-text"
+          id="type-text"
+          cols="30"
+          rows="10"
+          placeholder="Type your text..."
+        ></textarea>
+        <button type="button" onClick={addMessage} className={s.buttonMessage}>
+          Post
+        </button>
       </div>
     </div>
   );

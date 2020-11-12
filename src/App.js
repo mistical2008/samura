@@ -1,5 +1,6 @@
 import React from "react";
 import { Route } from "react-router-dom";
+import "./index.css";
 import "./App.css";
 
 import Header from "./components/Header/Header";
@@ -21,12 +22,24 @@ function App(props) {
         <Route
           exact
           path="/dialogs"
-          render={() => <Dialogs state={dialogsPage} />}
+          render={() => (
+            <Dialogs
+              state={dialogsPage}
+              updateNewMessageText={props.updateNewMessageText}
+              addMessage={props.addMessage}
+            />
+          )}
         />
         <Route
           exact
           path="/profile"
-          render={() => <Profile state={profilePage} addPost={props.addPost} />}
+          render={() => (
+            <Profile
+              state={profilePage}
+              addPost={props.addPost}
+              updateNewPostText={props.updateNewPostText}
+            />
+          )}
         />
         <Route exact path="/news" component={News} />
         <Route exact path="/music" component={Music} />

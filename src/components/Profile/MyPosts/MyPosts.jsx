@@ -5,15 +5,20 @@ import "../../../App.css";
 import s from "./MyPosts.module.css";
 
 const MyPosts = (props) => {
-  const posts = props.posts;
+  const posts = props.state.posts;
   const postsNodes = posts.map((post) => {
     return <Post message={post.text} avatar={post.avatar} likes={post.likes} />;
   });
+
   const newPostElement = React.createRef();
+
   const addPost = () => {
+    props.addPost();
+  };
+
+  const onPostChange = () => {
     const text = newPostElement.current.value;
-    props.addPost(text);
-    newPostElement.current.value = "";
+    props.updateNewPostText(text);
   };
 
   return (
@@ -23,6 +28,8 @@ const MyPosts = (props) => {
         <form action="echo.htmlacademy.com" className={s.postForm}>
           <textarea
             ref={newPostElement}
+            onChange={onPostChange}
+            value={props.state.newPostText}
             name="text"
             id="post-text"
             className="input-text"

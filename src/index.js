@@ -1,6 +1,8 @@
 import { renderApp } from "./renderApp";
 import state from "./redux/state";
 
+window.state = state;
+
 renderApp(state);
 
 // If you want to start measuring performance in your app, pass a function
