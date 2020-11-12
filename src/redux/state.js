@@ -1,3 +1,5 @@
+import { renderApp } from "../renderApp";
+
 const state = {
   profilePage: {
     posts: [
@@ -60,6 +62,7 @@ const state = {
       { id: 1, my: false, text: "How are you?" },
     ],
   },
+
   sidebar: {
     items: [
       { name: "Profile", href: "profile" },
@@ -91,6 +94,17 @@ const state = {
       },
     ],
   },
+};
+
+export const addPost = (message) => {
+  state.profilePage.posts.push({
+    id: 5,
+    avatar:
+      "http://static1.wikia.nocookie.net/__cb20131010204622/theamazingworldofgumball/images/3/35/Face_will_smith.png",
+    text: message,
+    likes: 0,
+  });
+  renderApp(state);
 };
 
 export default state;

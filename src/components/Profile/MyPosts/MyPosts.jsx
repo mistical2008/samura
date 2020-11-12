@@ -10,10 +10,10 @@ const MyPosts = (props) => {
     return <Post message={post.text} avatar={post.avatar} likes={post.likes} />;
   });
   const newPostElement = React.createRef();
-
   const addPost = () => {
     const text = newPostElement.current.value;
-    alert(text);
+    props.addPost(text);
+    newPostElement.current.value = "";
   };
 
   return (
