@@ -1,4 +1,6 @@
-import { renderApp } from "../renderApp";
+let renderApp = () => {
+  console.log("State has been changed");
+}
 
 const state = {
   profilePage: {
@@ -126,5 +128,9 @@ export const updateNewMessageText = (NewText) => {
   state.dialogsPage.newMessageText = NewText;
   renderApp(state);
 };
+
+export const subscribe = (observer) {
+  renderApp = observer;
+}
 
 export default state;
