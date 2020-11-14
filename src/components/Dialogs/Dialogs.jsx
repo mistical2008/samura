@@ -20,6 +20,7 @@ const Dialogs = (props) => {
 
   const addMessage = () => {
     props.addMessage();
+    newMessageElement.current.focus();
   };
 
   const onChangeMessage = () => {

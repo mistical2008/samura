@@ -14,6 +14,7 @@ const MyPosts = (props) => {
 
   const addPost = () => {
     props.addPost();
+    newPostElement.current.focus();
   };
 
   const onPostChange = () => {

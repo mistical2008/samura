@@ -1,38 +1,30 @@
-import state, { subscribe } from "./redux/state";
-
-import { BrowserRouter as Router } from "react-router-dom";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./App.css";
-
-window.state = state;
-
-import {
-  addMessage,
-  addPost,
-  updateNewMessageText,
-  updateNewPostText,
-} from "./redux/state";
+import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
+import "./App.css";
+import store from "./redux/state";
 
-const renderApp = (state) => {
+window.state = store.getState();
+
+const renderApp = (store) => {
   // console.log("State: %s", state);
   ReactDOM.render(
     <Router>
       <App
-        state={state}
-        addPost={addPost}
-        updateNewPostText={updateNewPostText}
-        addMessage={addMessage}
-        updateNewMessageText={updateNewMessageText}
+        state={store.getState()}
+        addPost={store.addPost}
+        updateNewPostText={store.updateNewPostText}
+        addMessage={store.addMessage}
+        updateNewMessageText={store.updateNewMessageText}
       />
     </Router>,
     document.getElementById("root")
   );
 };
-renderApp(state);
+renderApp(store);
 
-subscribe(renderApp)
+store.subscribe(renderApp);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
