@@ -1,5 +1,10 @@
+const ADD_MESSAGE = "ADD-MESSAGE";
+const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+
 const store = {
-  _renderApp() {
+  _callSubscriber() {
     console.log("State has been changed");
   },
 
@@ -107,7 +112,7 @@ const store = {
   },
 
   subscribe(observer) {
-    this._renderApp = observer;
+    this._callSubscriber = observer;
   },
 
   dispatch(action) {
@@ -120,10 +125,10 @@ const store = {
         likes: 0,
       });
       this._state.profilePage.newPostText = "";
-      this._renderApp(this._state);
+      this._callSubscriber(this._state);
     } else if (action.type === "UPDATE-NEW-POST-TEXT") {
       this._state.profilePage.newPostText = action.text;
-      this._renderApp(this._state);
+      this._callSubscriber(this._state);
     } else if (action.type === "ADD-MESSAGE") {
       const newMessageText = this._state.dialogsPage.newMessageText;
       this._state.dialogsPage.messages.push({
@@ -132,15 +137,29 @@ const store = {
         text: newMessageText,
       });
       this._state.dialogsPage.newMessageText = "";
-      this._renderApp(this._state);
-    } else if (action.type === "UPDATE-NEW-MESSAGE-TEXt") {
+      this._callSubscriber(this._state);
+    } else if (action.type === "UPDATE-NEW-MESSAGE-TEXT") {
       this._state.dialogsPage.newMessageText = action.text;
-      this._renderApp(this._state);
+      this._callSubscriber(this._state);
     }
-  }
-
+  },
 };
 
 export default store;
 
+export const addMessageActionCreator = () => ({ type: ADD_MESSAGE });
+
+export const updateNewMessageTextActionCreator = (text) => ({
+  type: UPDATE_NEW_MESSAGE_TEXT,
+  text: text,
+});
+
+export const addPostActionCreator = () => ({ type: ADD_POST });
+
+export const updateNewPostTextActionCreator = (text) => ({
+  type: UPDATE_NEW_POST_TEXT,
+  text: text,
+});
+
 window.store = store;
+
