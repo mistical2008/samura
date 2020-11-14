@@ -106,43 +106,39 @@ const store = {
     return this._state;
   },
 
-  addPost() {
-    this._state.profilePage.posts.push({
-      id: 5,
-      avatar:
-        "http://static1.wikia.nocookie.net/__cb20131010204622/theamazingworldofgumball/images/3/35/Face_will_smith.png",
-      text: this._state.profilePage.newPostText,
-      likes: 0,
-    });
-    this.updateNewPostText("");
-    this._renderApp(this._state);
-  },
-
-  updateNewPostText(NewText) {
-    this._state.profilePage.newPostText = NewText;
-    this._renderApp(this._state);
-  },
-
-  addMessage() {
-    debugger;
-    const newMessageText = this._state.dialogsPage.newMessageText;
-    this._state.dialogsPage.messages.push({
-      id: 1,
-      my: true,
-      text: newMessageText,
-    });
-    this.updateNewMessageText("");
-    this._renderApp(this._state);
-  },
-
-  updateNewMessageText(NewText) {
-    this._state.dialogsPage.newMessageText = NewText;
-    this._renderApp(this._state);
-  },
-
   subscribe(observer) {
     this._renderApp = observer;
   },
+
+  dispatch(action) {
+    if (action.type === "ADD-POST") {
+      this._state.profilePage.posts.push({
+        id: 5,
+        avatar:
+          "http://static1.wikia.nocookie.net/__cb20131010204622/theamazingworldofgumball/images/3/35/Face_will_smith.png",
+        text: this._state.profilePage.newPostText,
+        likes: 0,
+      });
+      this._state.profilePage.newPostText = "";
+      this._renderApp(this._state);
+    } else if (action.type === "UPDATE-NEW-POST-TEXT") {
+      this._state.profilePage.newPostText = action.text;
+      this._renderApp(this._state);
+    } else if (action.type === "ADD-MESSAGE") {
+      const newMessageText = this._state.dialogsPage.newMessageText;
+      this._state.dialogsPage.messages.push({
+        id: 1,
+        my: true,
+        text: newMessageText,
+      });
+      this._state.dialogsPage.newMessageText = "";
+      this._renderApp(this._state);
+    } else if (action.type === "UPDATE-NEW-MESSAGE-TEXt") {
+      this._state.dialogsPage.newMessageText = action.text;
+      this._renderApp(this._state);
+    }
+  }
+
 };
 
 export default store;
