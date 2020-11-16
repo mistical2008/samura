@@ -1,6 +1,6 @@
-import dialogsReducer from './dialogs-reducer';
+import dialogsReducer from "./dialogs-reducer";
 import profileReducer from "./profile-reducer";
-import sidebarReducer from './sidebar-reducer';
+import sidebarReducer from "./sidebar-reducer";
 
 const store = {
   _callSubscriber() {

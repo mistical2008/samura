@@ -23,20 +23,14 @@ function App(props) {
           exact
           path="/dialogs"
           render={() => (
-            <Dialogs
-              state={dialogsPage}
-              dispatch={props.dispatch}
-            />
+            <Dialogs state={dialogsPage} dispatch={props.dispatch} />
           )}
         />
         <Route
           exact
           path="/profile"
           render={() => (
-            <Profile
-              state={profilePage}
-              dispatch={props.dispatch}
-            />
+            <Profile state={profilePage} dispatch={props.dispatch} />
           )}
         />
         <Route exact path="/news" component={News} />

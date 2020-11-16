@@ -4,6 +4,7 @@ import s from "./Navigation.module.css";
 import NavItem from "./NavItem/NavItem";
 
 const Navigation = (props) => {
+  debugger;
   const { widgets } = props.state;
   const navItems = props.state.items.map((item) => {
     return <NavItem href={"/" + item.href} text={item.name} />;
