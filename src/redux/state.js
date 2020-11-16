@@ -1,7 +1,6 @@
-const ADD_MESSAGE = "ADD-MESSAGE";
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
-const ADD_POST = "ADD-POST";
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+import dialogsReducer from './dialogs-reducer';
+import profileReducer from "./profile-reducer";
+import sidebarReducer from './sidebar-reducer';
 
 const store = {
   _callSubscriber() {
@@ -116,50 +115,14 @@ const store = {
   },
 
   dispatch(action) {
-    if (action.type === "ADD-POST") {
-      this._state.profilePage.posts.push({
-        id: 5,
-        avatar:
-          "http://static1.wikia.nocookie.net/__cb20131010204622/theamazingworldofgumball/images/3/35/Face_will_smith.png",
-        text: this._state.profilePage.newPostText,
-        likes: 0,
-      });
-      this._state.profilePage.newPostText = "";
-      this._callSubscriber(this._state);
-    } else if (action.type === "UPDATE-NEW-POST-TEXT") {
-      this._state.profilePage.newPostText = action.text;
-      this._callSubscriber(this._state);
-    } else if (action.type === "ADD-MESSAGE") {
-      const newMessageText = this._state.dialogsPage.newMessageText;
-      this._state.dialogsPage.messages.push({
-        id: 1,
-        my: true,
-        text: newMessageText,
-      });
-      this._state.dialogsPage.newMessageText = "";
-      this._callSubscriber(this._state);
-    } else if (action.type === "UPDATE-NEW-MESSAGE-TEXT") {
-      this._state.dialogsPage.newMessageText = action.text;
-      this._callSubscriber(this._state);
-    }
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+    this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+
+    this._callSubscriber(this._state);
   },
 };
 
-export default store;
-
-export const addMessageActionCreator = () => ({ type: ADD_MESSAGE });
-
-export const updateNewMessageTextActionCreator = (text) => ({
-  type: UPDATE_NEW_MESSAGE_TEXT,
-  text: text,
-});
-
-export const addPostActionCreator = () => ({ type: ADD_POST });
-
-export const updateNewPostTextActionCreator = (text) => ({
-  type: UPDATE_NEW_POST_TEXT,
-  text: text,
-});
-
 window.store = store;
 
+export default store;
