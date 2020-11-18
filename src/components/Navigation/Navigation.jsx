@@ -4,9 +4,10 @@ import s from "./Navigation.module.css";
 import NavItem from "./NavItem/NavItem";
 
 const Navigation = (props) => {
-  const { widgets } = props.state;
+  const items = props.items;
+  const widgets = props.widgets;
 
-  const navItems = props.state.items.map((item) => {
+  const navItems = items.map((item) => {
     return <NavItem href={"/" + item.href} text={item.name} />;
   });
 
