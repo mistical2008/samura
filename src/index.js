@@ -1,24 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import App from "./App";
-import "./App.css";
 import store from "./redux/redux-store";
 
-const renderApp = (state) => {
+import App from "./App";
+import StoreContext from "./StoreContext";
+
+import "./App.css";
+
+const renderApp = () => {
   // console.log("State: %s", state);
   ReactDOM.render(
     <Router>
-      <App state={state} dispatch={store.dispatch.bind(store)} />
+      <StoreContext.Provider value={store}>
+        <App />
+      </StoreContext.Provider>
     </Router>,
     document.getElementById("root")
   );
 };
-renderApp(store.getState());
+renderApp();
 
 store.subscribe(() => {
-  const state = store.getState();
-  renderApp(state);
+  renderApp();
 });
 
 // If you want to start measuring performance in your app, pass a function

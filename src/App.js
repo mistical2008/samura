@@ -1,38 +1,27 @@
-import React from "react";
-import { Route } from "react-router-dom";
-import "./index.css";
 import "./App.css";
+import "./index.css";
 
+import { Route } from "react-router-dom";
+import React from "react";
+
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import Header from "./components/Header/Header";
-import Navigation from "./components/Navigation/Navigation";
-import Dialogs from "./components/Dialogs/Dialogs";
-import Profile from "./components/Profile/Profile";
-import News from "./components/News/News";
 import Music from "./components/Music/Music";
+import Navigation from "./components/Navigation/Navigation";
+import NavigationContainer from './components/Navigation/NavigationContainer';
+import News from "./components/News/News";
+import Profile from "./components/Profile/Profile";
 import Settings from "./components/Settings/Settings";
 
-function App(props) {
+function App() {
   // console.log("App props: ", props);
-  const { profilePage, dialogsPage, sidebar } = props.state;
   return (
     <div className="app-wrapper">
       <Header />
-      <Navigation state={sidebar} />
+      <NavigationContainer />
       <div className="app-wrapper-content">
-        <Route
-          exact
-          path="/dialogs"
-          render={() => (
-            <Dialogs state={dialogsPage} dispatch={props.dispatch} />
-          )}
-        />
-        <Route
-          exact
-          path="/profile"
-          render={() => (
-            <Profile state={profilePage} dispatch={props.dispatch} />
-          )}
-        />
+        <Route exact path="/dialogs" render={() => <DialogsContainer />} />
+        <Route exact path="/profile" render={() => <Profile />} />
         <Route exact path="/news" component={News} />
         <Route exact path="/music" component={Music} />
         <Route exact path="/settings" component={Settings} />

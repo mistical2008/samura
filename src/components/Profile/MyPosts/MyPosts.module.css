@@ -5,6 +5,8 @@
 }
 
 .postForm textarea {
+  font-size: 18px;
+  padding: 8px;
   resize: none;
   width: 100%;
 }

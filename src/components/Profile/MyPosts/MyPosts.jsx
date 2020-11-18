@@ -1,15 +1,13 @@
 import "../../../App.css";
 
 import React from "react";
-import {
-  addPostActionCreator,
-  updateNewPostTextActionCreator,
-} from "../../../redux/profile-reducer";
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css";
 
 const MyPosts = (props) => {
-  const posts = props.state.posts;
+  const posts = props.posts;
+  const newPostText = props.newPostText;
+
   const postsNodes = posts.map((post) => {
     return <Post message={post.text} avatar={post.avatar} likes={post.likes} />;
   });
@@ -17,13 +15,13 @@ const MyPosts = (props) => {
   const newPostElement = React.createRef();
 
   const addPost = () => {
-    props.dispatch(addPostActionCreator());
+    props.addPost();
     newPostElement.current.focus();
   };
 
   const onPostChange = () => {
     const text = newPostElement.current.value;
-    props.dispatch(updateNewPostTextActionCreator(text));
+    props.onPostChange(text);
   };
 
   return (
@@ -34,13 +32,11 @@ const MyPosts = (props) => {
           <textarea
             ref={newPostElement}
             onChange={onPostChange}
-            value={props.state.newPostText}
+            value={newPostText}
             name="text"
             id="post-text"
             className="input-text"
-            placeholder="...Type your text"
-            cols="100"
-            rows="5"
+            placeholder="Type your text..."
           ></textarea>
           <div className="u-block">
             <button onClick={addPost} type="button">
