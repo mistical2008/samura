@@ -31,8 +31,9 @@ const initialState = {
 };
 
 const sidebarReducer = (state = initialState) => {
-  // debugger;
-  return state;
+  const items = [...state.items];
+  const widgets = [...state.widgets];
+  return { items, widgets };
 };
 
 export default sidebarReducer;
