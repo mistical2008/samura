@@ -30,22 +30,20 @@ const initialState = {
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST: {
-      const stateCopy = { ...state };
-      stateCopy.posts = [...state.posts];
-      stateCopy.posts.push({
+      const newPost = {
         id: 5,
         avatar:
           "http://static1.wikia.nocookie.net/__cb20131010204622/theamazingworldofgumball/images/3/35/Face_will_smith.png",
         text: state.newPostText,
         likes: 0,
-      });
-      stateCopy.newPostText = "";
-      return stateCopy;
+      };
+      return { ...state, posts: [...state.posts, newPost], newPostText: "" };
     }
     case UPDATE_NEW_POST_TEXT: {
-      const stateCopy = { ...state };
-      stateCopy.newPostText = action.text;
-      return stateCopy;
+      return {
+        ...state,
+        newPostText: action.text,
+      };
     }
     default:
       return state;
