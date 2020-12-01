@@ -12,6 +12,7 @@ import News from "./components/News/News";
 import Profile from "./components/Profile/Profile";
 import Settings from "./components/Settings/Settings";
 import { Redirect } from "react-router-dom";
+import UsersContainer from "./components/Users/UsersContainer";
 
 function App() {
   // console.log("App props: ", props);
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/" render={() => <Profile />} />
         <Route exact path="/dialogs" render={() => <DialogsContainer />} />
         <Route exact path="/profile" render={() => <Profile />} />
+        <Route exact path="/users" render={() => <UsersContainer />} />
         <Route exact path="/news" component={News} />
         <Route exact path="/music" component={Music} />
         <Route exact path="/settings" component={Settings} />

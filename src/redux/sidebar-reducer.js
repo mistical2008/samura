@@ -5,6 +5,7 @@ const initialState = {
     { name: "News", href: "news" },
     { name: "Music", href: "music" },
     { name: "Settings", href: "settings" },
+    { name: "Users", href: "users" },
   ],
   widgets: [
     {
