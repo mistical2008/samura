@@ -7,19 +7,7 @@ export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId });
 export const setUsersAC = (users) => ({ type: SET_USERS, users });
 
 const initialState = {
-  users: [
-    {
-      id: 1,
-      avatarUrl: "",
-      fullName: "Dmitriy K.",
-      description: "Hi! I like to live!",
-      followed: false,
-      location: {
-        city: "Минск",
-        country: "Беларусь",
-      },
-    },
-  ],
+  users: [],
 };
 
 const usersReducer = (state = initialState, action) => {
