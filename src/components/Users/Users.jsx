@@ -2,11 +2,11 @@ import React from 'react';
 import s from './Users.module.css';
 
 const Users = (props) => {
-    if (props.users === 0) {
+    if (props.users.length === 0) {
         props.setUsers([
             {
                 id: 1,
-                avatarUrl: "",
+                avatarUrl: "http://cliparts101.com/files/367/63BA654AECB7FD26A32D08915C923030/avatar_nick.png",
                 fullName: "Dmitriy K.",
                 description: "Hi! I like to live!",
                 followed: false,
