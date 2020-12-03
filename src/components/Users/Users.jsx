@@ -1,43 +1,51 @@
-import React from 'react';
-import s from './Users.module.css';
+import React, { Component } from "react";
 
-const Users = (props) => {
-    if (props.users.length === 0) {
-        props.setUsers([
-            {
-                id: 1,
-                avatarUrl: "http://cliparts101.com/files/367/63BA654AECB7FD26A32D08915C923030/avatar_nick.png",
-                fullName: "Dmitriy K.",
-                description: "Hi! I like to live!",
-                followed: false,
-                location: {
-                    city: "Минск",
-                    country: "Беларусь",
-                },
-            },
-        ])
-    }
+import s from "./Users.module.css";
+import defAvatar from "./user.png";
 
-    console.log(props)
-    const usersElements = props.users.map(user => <div>
-                <img src={user.avatarUrl} alt={user.fullName} className={s.avatar} />
-                <ul className={s.userInfo}>
-                    <li className={s.infoItem}>
-                        <h3 className={s.fullName}>{user.fullName}</h3>
-                        <span>{user.description}</span>
-                    </li>
-                    <li className={s.infoItem}>
-                        <span className={s.infoGeo}>{user.location.country}</span>
-                        <span className={s.infoGeo}>{user.location.city}</span>
-                    </li>
-                </ul>
-            </div>
-    )
+import axios from "axios";
+
+export default class User extends Component {
+  componentDidMount() {
+    axios
+      .get("https://social-network.samuraijs.com/api/1.0/users")
+      .then((response) => {
+        this.props.setUsers(response.data.items);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  render() {
     return (
-        <div>
-            {usersElements}
-        </div>
-    )
+      <ul>
+        {this.props.users.map((user) => (
+          <li className={s.user}>
+            <img
+              src={user.photos.small ? user.photos.small : defAvatar}
+              alt={user.fullName}
+              className={s.avatar}
+            />
+            <br />
+            {user.followed ? (
+              <button onClick={() => this.props.unfollow(user.id)}>
+                Unfollow
+              </button>
+            ) : (
+              <button onClick={() => this.props.follow(user.id)}>Follow</button>
+            )}
+            <ul className={s.userInfo}>
+              <li className={s.infoItem}>
+                <h3 className={s.fullName}>{user.name}</h3>
+                <span>{user.status}</span>
+              </li>
+              <li className={s.infoItem}>
+                <span className={s.infoGeo}>{"user.location.country"}</span>
+                <span className={s.infoGeo}>{"user.location.city"}</span>
+              </li>
+            </ul>
+          </li>
+        ))}
+      </ul>
+    );
+  }
 }
-
-export default Users;
