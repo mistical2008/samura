@@ -8,18 +8,27 @@ import * as axios from "axios";
 export default class User extends Component {
   componentDidMount() {
     axios
-      .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersCount}&page=${this.props.currentPage}`)
+      .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`)
       .then((response) => {
+        this.props.setUsersCount(response.data.totalCount);
         this.props.setUsers(response.data.items);
       })
       .catch((err) => console.log(err));
   }
 
-  setCurrentPage() {}
+  onPageChanged(pageNumber) {
+    this.props.setCurrentPage(pageNumber)
+    axios
+      .get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`)
+      .then((response) => {
+        // this.props.setUsersCount(response.data.totalCount);
+        this.props.setUsers(response.data.items);
+      })
+      .catch((err) => console.log(err));
+  }
 
   render() {
     let pagesCount = Math.ceil(this.props.usersCount / this.props.usersPerPage);
-    console.log(pagesCount);
     return (
         <div>
             <ul className={s.pagination}>
@@ -27,7 +36,7 @@ export default class User extends Component {
                     let number = index + 1;
                     return  (
                         <li className={ (number === this.props.currentPage && s.paginationActiveItem) + " " + s.paginationItem}>
-                            <button>{ number }</button>
+                            <button onClick={() => { this.onPageChanged(number) }}>{ number }</button>
                         </li>  
                     )
                 } ) }
