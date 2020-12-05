@@ -15,9 +15,17 @@ export default class User extends Component {
       .catch((err) => console.log(err));
   }
 
+  setCurrentPage() {}
+
   render() {
     return (
       <ul>
+        <div>
+          <a href="#">1</a>
+          <a href="#">2</a>
+          <a href="#">3</a>
+          <a href="#">4</a>
+        </div>
         {this.props.users.map((user) => (
           <li className={s.user}>
             <img
