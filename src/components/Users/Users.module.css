@@ -22,3 +22,18 @@
 .infoGeo {
 
 }
+
+.pagination {
+  list-style: none;
+  display: flex;
+}
+
+.paginationItem  button {
+  font: inherit;
+  background-color: transparent;
+  border: none;
+}
+
+.paginationActiveItem button {
+  font-weight: bold;
+}

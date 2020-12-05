@@ -13,7 +13,9 @@ const mapStateToProps = (state) => {
   return {
     users: state.usersPage.users,
     currentPage: state.usersPage.currentPage,
+    currentPage: state.usersPage.currentPage,
     usersCount: state.usersPage.usersCount,
+    usersPerPage: state.usersPage.usersPerPage,
   };
 };
 
