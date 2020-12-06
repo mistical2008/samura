@@ -13,13 +13,16 @@ export const setUsersCountAC = (count) => ({
   type: SET_USERS_COUNT,
   usersCount: count,
 });
-export const setPageSizeAC = (size) => ({type: SET_USERS_PER_PAGE, usersPerPage: size})
+export const setUsersPerPageAC = (size) => ({
+  type: SET_USERS_PER_PAGE,
+  usersPerPage: size,
+});
 
 const initialState = {
   users: [],
   currentPage: 1,
-  usersCount: 50,
-  usersPerPage: 5
+  usersCount: 0,
+  usersPerPage: 5,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -45,13 +48,13 @@ const usersReducer = (state = initialState, action) => {
         }),
       };
     case SET_USERS:
-      return { ...state, users: [ ...action.users ] };
+      return { ...state, users: [...action.users] };
     case SET_CURRENT_PAGE:
       return { ...state, currentPage: action.page };
     case SET_USERS_COUNT:
       return { ...state, usersCount: action.usersCount };
     case SET_USERS_PER_PAGE:
-      return { ...state, usersPerPage: action.usersPerPage }
+      return { ...state, usersPerPage: action.usersPerPage };
     default:
       return state;
   }
