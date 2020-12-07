@@ -8,16 +8,20 @@ import {
   setUsersAC,
   unfollowAC,
   setUsersPerPageAC,
+  toggleIsFetchingAC
 } from "../../redux/users-reducer";
 import Users from "./Users";
+import Preloader from '../Preloader/Preloader';
 
 class UsersAPI extends Component {
   componentDidMount() {
+    this.props.toggleIsFetching(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`
       )
       .then((response) => {
+        this.props.toggleIsFetching(false);
         this.props.setUsers(response.data.items);
         this.props.setUsersCount(response.data.totalCount);
       })
@@ -26,11 +30,13 @@ class UsersAPI extends Component {
 
   onPageChanged = (pageNumber) => {
     this.props.setCurrentPage(pageNumber);
+    this.props.toggleIsFetching(true);
     axios
       .get(
         `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`
       )
       .then((response) => {
+        this.props.toggleIsFetching(false);
         this.props.setUsers(response.data.items);
       })
       .catch((err) => console.log(err));
@@ -38,15 +44,19 @@ class UsersAPI extends Component {
 
   render() {
     return (
-      <Users
-        usersCount={this.props.usersCount}
-        usersPerPage={this.props.usersPerPage}
-        currentPage={this.props.currentPage}
-        users={this.props.users}
-        unfollow={this.props.unfollow}
-        follow={this.props.follow}
-        onPageChanged={this.onPageChanged}
-      />
+      <>
+        { this.props.isFetching ? <Preloader /> :
+          <Users
+            usersCount={this.props.usersCount}
+            usersPerPage={this.props.usersPerPage}
+            currentPage={this.props.currentPage}
+            users={this.props.users}
+            unfollow={this.props.unfollow}
+            follow={this.props.follow}
+            onPageChanged={this.onPageChanged}
+          />
+        }
+      </>
     );
   }
 }
@@ -57,6 +67,7 @@ const mapStateToProps = (state) => {
     currentPage: state.usersPage.currentPage,
     usersCount: state.usersPage.usersCount,
     usersPerPage: state.usersPage.usersPerPage,
+    isFetching: state.usersPage.isFetching,
   };
 };
 
@@ -80,6 +91,9 @@ const mapDispatchToProps = (dispatch) => {
     setUsersPerPage: (count) => {
       dispatch(setUsersPerPageAC(count));
     },
+    toggleIsFetching: (bool) => {
+      dispatch(toggleIsFetchingAC(bool))
+    }
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(UsersAPI);

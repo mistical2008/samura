@@ -4,6 +4,7 @@ const SET_USERS = "SET_USERS";
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 const SET_USERS_COUNT = "SET_USERS_COUNT";
 const SET_USERS_PER_PAGE = "SET_USERS_PER_PAGE";
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
 
 export const followAC = (userId) => ({ type: FOLLOW, userId });
 export const unfollowAC = (userId) => ({ type: UNFOLLOW, userId });
@@ -17,12 +18,14 @@ export const setUsersPerPageAC = (size) => ({
   type: SET_USERS_PER_PAGE,
   usersPerPage: size,
 });
+export const toggleIsFetchingAC = (bool) => ({type: TOGGLE_IS_FETCHING, isFetching: bool})
 
 const initialState = {
   users: [],
   currentPage: 1,
   usersCount: 0,
   usersPerPage: 5,
+  isFetching: false,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -55,6 +58,8 @@ const usersReducer = (state = initialState, action) => {
       return { ...state, usersCount: action.usersCount };
     case SET_USERS_PER_PAGE:
       return { ...state, usersPerPage: action.usersPerPage };
+    case TOGGLE_IS_FETCHING:
+      return { ...state, isFetching: action.isFetching }
     default:
       return state;
   }
