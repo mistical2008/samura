@@ -8,7 +8,7 @@ import Header from "./components/Header/Header";
 import Music from "./components/Music/Music";
 import NavigationContainer from "./components/Navigation/NavigationContainer";
 import News from "./components/News/News";
-import ProfileContainer from './components/Profile/ProfileContainer';
+import ProfileContainer from "./components/Profile/ProfileContainer";
 import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 
@@ -27,7 +27,7 @@ function App() {
         />
         <Route exact path="/" render={() => <ProfileContainer />} />
         <Route exact path="/dialogs" render={() => <DialogsContainer />} />
-        <Route path="/profile" render={() => <ProfileContainer />} />
+        <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
         <Route exact path="/users" render={() => <UsersContainer />} />
         <Route exact path="/news" component={News} />
         <Route exact path="/music" component={Music} />

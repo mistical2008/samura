@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React from "react";
 
 import s from "./Users.module.css";
-import defAvatar from "./user.png";
+import defAvatar from "../../assets/user-1.png";
 import { NavLink } from "react-router-dom";
 
 const Users = (props) => {

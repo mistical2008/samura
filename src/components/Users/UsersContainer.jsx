@@ -8,10 +8,10 @@ import {
   setUsersAC,
   unfollowAC,
   setUsersPerPageAC,
-  toggleIsFetchingAC
+  toggleIsFetchingAC,
 } from "../../redux/users-reducer";
 import Users from "./Users";
-import Preloader from '../Preloader/Preloader';
+import Preloader from "../Preloader/Preloader";
 
 class UsersAPI extends Component {
   componentDidMount() {
@@ -43,9 +43,12 @@ class UsersAPI extends Component {
   };
 
   render() {
+    debugger;
     return (
       <>
-        { this.props.isFetching ? <Preloader /> :
+        {this.props.isFetching ? (
+          <Preloader />
+        ) : (
           <Users
             usersCount={this.props.usersCount}
             usersPerPage={this.props.usersPerPage}
@@ -55,7 +58,7 @@ class UsersAPI extends Component {
             follow={this.props.follow}
             onPageChanged={this.onPageChanged}
           />
-        }
+        )}
       </>
     );
   }
@@ -92,8 +95,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(setUsersPerPageAC(count));
     },
     toggleIsFetching: (bool) => {
-      dispatch(toggleIsFetchingAC(bool))
-    }
+      dispatch(toggleIsFetchingAC(bool));
+    },
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(UsersAPI);

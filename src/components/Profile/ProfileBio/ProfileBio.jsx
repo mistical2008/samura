@@ -5,7 +5,9 @@ import Userpic from "../MyPosts/Post/Userpic/Userpic";
 import s from "./ProfileBio.module.css";
 
 const ProfileBio = (props) => {
-  if (!props.profile) return <Preloader />;
+  if (!props.profile) {
+    return <Preloader />;
+  }
   return (
     <section className={s.bio}>
       <h2 className={s.subheading}>{props.profile.fullName}</h2>

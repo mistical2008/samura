@@ -1,16 +1,11 @@
 import React from "react";
 import s from "./Userpic.module.css";
+import defAvatar from "../../../../../assets/user-1.png";
 
 const Userpic = (props) => {
   return (
     <div className={s.imgContainer}>
-      <img
-        src={
-          props.src ||
-          "http://activerain.com/image_store/uploads/8/5/6/3/5/ar125466439853658.jpg"
-        }
-        alt={props.alt || ""}
-      />
+      <img src={props.src || defAvatar} alt={props.alt || ""} />
     </div>
   );
 };
