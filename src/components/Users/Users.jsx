@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import s from "./Users.module.css";
 import defAvatar from "./user.png";
+import { NavLink } from "react-router-dom";
 
 const Users = (props) => {
   let pagesCount = Math.ceil(props.usersCount / props.usersPerPage);
@@ -33,11 +34,13 @@ const Users = (props) => {
       <ul>
         {props.users.map((user) => (
           <li className={s.user}>
-            <img
-              src={user.photos.small ? user.photos.small : defAvatar}
-              alt={user.fullName}
-              className={s.avatar}
-            />
+            <NavLink to={"/profile/" + user.id}>
+              <img
+                src={user.photos.small ? user.photos.small : defAvatar}
+                alt={user.fullName}
+                className={s.avatar}
+              />
+            </NavLink>
             <br />
             {user.followed ? (
               <button onClick={() => props.unfollow(user.id)}>Unfollow</button>

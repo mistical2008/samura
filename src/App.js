@@ -1,7 +1,6 @@
 import "./App.css";
 import "./index.css";
-
-import { Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import React from "react";
 
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
@@ -9,9 +8,8 @@ import Header from "./components/Header/Header";
 import Music from "./components/Music/Music";
 import NavigationContainer from "./components/Navigation/NavigationContainer";
 import News from "./components/News/News";
-import Profile from "./components/Profile/Profile";
+import ProfileContainer from './components/Profile/ProfileContainer';
 import Settings from "./components/Settings/Settings";
-import { Redirect } from "react-router-dom";
 import UsersContainer from "./components/Users/UsersContainer";
 
 function App() {
@@ -21,10 +19,15 @@ function App() {
       <Header />
       <NavigationContainer />
       <div className="app-wrapper-content">
-        <Redirect exact from="/" to="/profile" render={() => <Profile />} />
-        <Route exact path="/" render={() => <Profile />} />
+        <Redirect
+          exact
+          from="/"
+          to="/profile"
+          render={() => <ProfileContainer />}
+        />
+        <Route exact path="/" render={() => <ProfileContainer />} />
         <Route exact path="/dialogs" render={() => <DialogsContainer />} />
-        <Route exact path="/profile" render={() => <Profile />} />
+        <Route path="/profile" render={() => <ProfileContainer />} />
         <Route exact path="/users" render={() => <UsersContainer />} />
         <Route exact path="/news" component={News} />
         <Route exact path="/music" component={Music} />
