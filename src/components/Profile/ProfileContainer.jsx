@@ -9,7 +9,6 @@ import Profile from "./Profile";
 
 class ProfileContainer extends Component {
   componentDidMount() {
-    debugger;
     let userId = this.props.match.params.userId
       ? this.props.match.params.userId
       : 2;

@@ -2,10 +2,23 @@
   grid-area: header;
   display: flex;
   justify-content: start;
+  align-items: center;
+  align-content: center;
   padding: 10px;
   background-color: #0f0a45;
 }
 
 .header img {
   width: 60px;
+}
+
+.userBlock {
+  line-height: 100%;
+  margin-left: auto;
+  color: #ffffff;
+  vertical-align: middle;
+}
+
+.userBlock a {
+  color: #ffffff;
 }
