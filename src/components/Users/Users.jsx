@@ -1,5 +1,5 @@
 import React from "react";
-
+import * as axios from "axios";
 import s from "./Users.module.css";
 import defAvatar from "../../assets/user-1.png";
 import { NavLink } from "react-router-dom";
@@ -43,9 +43,52 @@ const Users = (props) => {
             </NavLink>
             <br />
             {user.followed ? (
-              <button onClick={() => props.unfollow(user.id)}>Unfollow</button>
+              <button
+                onClick={() => {
+                  axios
+                    .delete(
+                      `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
+                      {
+                        withCredentials: true,
+                        headers: {
+                          "API-KEY": "285a2ecc-40bb-4abe-bf10-4dd0e2c34c42",
+                        },
+                      }
+                    )
+                    .then((response) => {
+                      if (response.data.resultCode === 0) {
+                        props.unfollow(user.id);
+                      }
+                    })
+                    .catch((err) => console.log(err));
+                }}
+              >
+                Unfollow
+              </button>
             ) : (
-              <button onClick={() => props.follow(user.id)}>Follow</button>
+              <button
+                onClick={() => {
+                  axios
+                    .post(
+                      `https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,
+                      {},
+                      {
+                        withCredentials: true,
+                        headers: {
+                          "API-KEY": "285a2ecc-40bb-4abe-bf10-4dd0e2c34c42",
+                        },
+                      }
+                    )
+                    .then((response) => {
+                      if (response.data.resultCode === 0) {
+                        props.follow(user.id);
+                      }
+                    })
+                    .catch((err) => console.log(err));
+                }}
+              >
+                Follow
+              </button>
             )}
             <ul className={s.userInfo}>
               <li className={s.infoItem}>

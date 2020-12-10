@@ -15,11 +15,11 @@ import Preloader from "../Preloader/Preloader";
 
 class UsersAPI extends Component {
   componentDidMount() {
-    debugger;
     this.props.toggleIsFetching(true);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`
+        `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`,
+        { withCredentials: true }
       )
       .then((response) => {
         this.props.toggleIsFetching(false);
@@ -34,7 +34,8 @@ class UsersAPI extends Component {
     this.props.toggleIsFetching(true);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`
+        `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`,
+        { withCredentials: true }
       )
       .then((response) => {
         this.props.toggleIsFetching(false);
