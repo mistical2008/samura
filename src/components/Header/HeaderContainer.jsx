@@ -13,9 +13,11 @@ class HeaderContainer extends Component {
         withCredentials: true,
       })
       .then((response) => {
-        const { id, email, login } = response.data.data;
-        this.props.toggleIsFetching(false);
-        this.props.setUserAuthData(id, email, login);
+        if (response.data.resultCode === 0) {
+          const { id, email, login } = response.data.data;
+          this.props.toggleIsFetching(false);
+          this.props.setUserAuthData(id, email, login);
+        }
       })
       .catch((err) => console.log(err));
   }
