@@ -13,7 +13,7 @@ import {
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
 
-class UsersAPI extends Component {
+class UsersContainer extends Component {
   componentDidMount() {
     this.props.toggleIsFetching(true);
     axios
@@ -83,4 +83,4 @@ export default connect(mapStateToProps, {
   setUsersCount,
   setUsersPerPage,
   toggleIsFetching,
-})(UsersAPI);
+})(UsersContainer);
