@@ -17,10 +17,10 @@ class UsersContainer extends Component {
   componentDidMount() {
     this.props.toggleIsFetching(true);
       usersAPI.getUsers(this.props.usersPerPage, this.props.currentPage)
-      .then((response) => {
+      .then((data) => {
         this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items);
-        this.props.setUsersCount(response.data.totalCount);
+        this.props.setUsers(data.items);
+        this.props.setUsersCount(data.totalCount);
       })
       .catch((err) => console.log(err));
   }
@@ -29,9 +29,9 @@ class UsersContainer extends Component {
     this.props.setCurrentPage(pageNumber);
     this.props.toggleIsFetching(true);
       usersAPI.getUsers(this.props.usersPerPage, pageNumber)
-      .then((response) => {
+      .then((data) => {
         this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items);
+        this.props.setUsers(data.items);
       })
       .catch((err) => console.log(err));
   };
