@@ -1,6 +1,5 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
-import * as axios from "axios";
 import {
   follow,
   unfollow,
@@ -12,15 +11,12 @@ import {
 } from "../../redux/users-reducer";
 import Users from "./Users";
 import Preloader from "../Preloader/Preloader";
+import { usersAPI } from "../../api/usersAPI"
 
 class UsersContainer extends Component {
   componentDidMount() {
     this.props.toggleIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`,
-        { withCredentials: true }
-      )
+      usersAPI.getUsers(this.props.usersPerPage, this.props.currentPage)
       .then((response) => {
         this.props.toggleIsFetching(false);
         this.props.setUsers(response.data.items);
@@ -32,11 +28,7 @@ class UsersContainer extends Component {
   onPageChanged = (pageNumber) => {
     this.props.setCurrentPage(pageNumber);
     this.props.toggleIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPerPage}&page=${this.props.currentPage}`,
-        { withCredentials: true }
-      )
+      usersAPI.getUsers(this.props.usersPerPage, pageNumber)
       .then((response) => {
         this.props.toggleIsFetching(false);
         this.props.setUsers(response.data.items);
