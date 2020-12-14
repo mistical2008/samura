@@ -48,16 +48,17 @@ const Users = (props) => {
                   (id) => id === user.id
                 )}
                 onClick={() => {
-                  props.toggleFollowingInProgress(true, user.id);
-                  usersAPI
-                    .unfollow(user.id)
-                    .then((data) => {
-                      props.toggleFollowingInProgress(false, user.id);
-                      if (data.resultCode === 0) {
-                        props.unfollow(user.id);
-                      }
-                    })
-                    .catch((err) => console.log(err));
+                  props.unfollow(user.id)
+                  // props.toggleFollowingInProgress(true, user.id);
+                  // usersAPI
+                  //   .unfollow(user.id)
+                  //   .then((data) => {
+                  //     props.toggleFollowingInProgress(false, user.id);
+                  //     if (data.resultCode === 0) {
+                  //       props.unfollow(user.id);
+                  //     }
+                  //   })
+                  //   .catch((err) => console.log(err));
                 }}
               >
                 Unfollow
@@ -68,16 +69,17 @@ const Users = (props) => {
                   (id) => id === user.id
                 )}
                 onClick={() => {
-                  props.toggleFollowingInProgress(true, user.id);
-                  usersAPI
-                    .follow(user.id)
-                    .then((data) => {
-                      props.toggleFollowingInProgress(false, user.id);
-                      if (data.resultCode === 0) {
-                        props.follow(user.id);
-                      }
-                    })
-                    .catch((err) => console.log(err));
+                  props.follow(user.id)
+                  // props.toggleFollowingInProgress(true, user.id);
+                  // usersAPI
+                  //   .follow(user.id)
+                  //   .then((data) => {
+                  //     props.toggleFollowingInProgress(false, user.id);
+                  //     if (data.resultCode === 0) {
+                  //       props.follow(user.id);
+                  //     }
+                  //   })
+                  //   .catch((err) => console.log(err));
                 }}
               >
                 Follow
