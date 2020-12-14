@@ -2,7 +2,6 @@ import React from "react";
 import s from "./Users.module.css";
 import defAvatar from "../../assets/user-1.png";
 import { NavLink } from "react-router-dom";
-import { usersAPI } from "../../api/usersAPI";
 
 const Users = (props) => {
   let pagesCount = Math.ceil(props.usersCount / props.usersPerPage);
@@ -48,17 +47,7 @@ const Users = (props) => {
                   (id) => id === user.id
                 )}
                 onClick={() => {
-                  props.unfollow(user.id)
-                  // props.toggleFollowingInProgress(true, user.id);
-                  // usersAPI
-                  //   .unfollow(user.id)
-                  //   .then((data) => {
-                  //     props.toggleFollowingInProgress(false, user.id);
-                  //     if (data.resultCode === 0) {
-                  //       props.unfollow(user.id);
-                  //     }
-                  //   })
-                  //   .catch((err) => console.log(err));
+                  props.unfollow(user.id);
                 }}
               >
                 Unfollow
@@ -69,17 +58,7 @@ const Users = (props) => {
                   (id) => id === user.id
                 )}
                 onClick={() => {
-                  props.follow(user.id)
-                  // props.toggleFollowingInProgress(true, user.id);
-                  // usersAPI
-                  //   .follow(user.id)
-                  //   .then((data) => {
-                  //     props.toggleFollowingInProgress(false, user.id);
-                  //     if (data.resultCode === 0) {
-                  //       props.follow(user.id);
-                  //     }
-                  //   })
-                  //   .catch((err) => console.log(err));
+                  props.follow(user.id);
                 }}
               >
                 Follow

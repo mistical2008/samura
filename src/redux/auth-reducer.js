@@ -1,11 +1,31 @@
+import { authAPI } from "../api/api";
+
 const SET_USER_AUTH_DATA = "SET_USER_AUTH_DATA";
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 
-export const setUserAuthData = (userId, email, login) => ({
+const setUserAuthDataAction = (userId, email, login) => ({
   type: SET_USER_AUTH_DATA,
   data: { userId, email, login },
 });
-export const toggleIsFetching = (bool) => ({
+
+export const getUserAuthData = () => {
+  return (dispatch) => {
+    dispatch(toggleIsFetchingAction(true));
+    authAPI
+      .getMe()
+      .then((response) => {
+        debugger;
+        if (response.data.resultCode === 0) {
+          const { id, email, login } = response.data.data;
+          dispatch(toggleIsFetchingAction(false));
+          dispatch(setUserAuthDataAction(id, email, login));
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+const toggleIsFetchingAction = (bool) => ({
   type: TOGGLE_IS_FETCHING,
   isFetching: bool,
 });
