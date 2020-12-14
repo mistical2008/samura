@@ -1,3 +1,5 @@
+import { usersAPI } from '../api/usersAPI';
+
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
@@ -28,6 +30,20 @@ export const toggleFollowingInProgress = (bool, userId) => ({
   isFetching: bool,
   userId: userId,
 })
+export const unfollowThunkCreator = (userId) => {
+  return (userId) => {
+    toggleFollowingInProgress(true, userId);
+    usersAPI
+      .unfollow(userId)
+      .then((data) => {
+        toggleFollowingInProgress(false, userId);
+        if (data.resultCode === 0) {
+          unfollow(userId);
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+}
 
 const initialState = {
   users: [],
