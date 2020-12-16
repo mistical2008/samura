@@ -25,7 +25,6 @@ function App() {
           to="/profile"
           render={() => <ProfileContainer />}
         />
-        <Route exact path="/" render={() => <ProfileContainer />} />
         <Route exact path="/dialogs" render={() => <DialogsContainer />} />
         <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
         <Route exact path="/users" render={() => <UsersContainer />} />

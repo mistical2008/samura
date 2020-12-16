@@ -3,6 +3,7 @@ import React from "react";
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import s from "./Dialogs.module.css";
+import Login from "../Login/Login";
 
 const Dialogs = (props) => {
   const state = props.dialogsPage;
@@ -28,6 +29,8 @@ const Dialogs = (props) => {
     const text = newMessageElement.current.value;
     props.updateNewMessageText(text);
   };
+
+  if (!props.isAuth) return <Login />;
 
   return (
     <div className={s.dialogsPage}>
