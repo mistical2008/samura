@@ -1,19 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
 
 import Navigation from "./Navigation";
 
-// const NavigationContainer = () => {
-// return (
-// <StoreConext.Consumer>
-// {(store) => {
-// const { items, widgets } = store.getState().sidebar;
-//
-// return <Navigation items={items} widgets={widgets} />;
-// }}
-// </StoreConext.Consumer>
-// );
-// };
 const mapStateToProps = (state) => {
   return {
     items: state.sidebar.items,
@@ -21,6 +11,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const NavigationContainer = connect(mapStateToProps)(Navigation);
-
-export default NavigationContainer;
+export default compose(connect(mapStateToProps))(Navigation);

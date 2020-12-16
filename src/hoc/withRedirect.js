@@ -14,7 +14,5 @@ export const withRedirect = (Component) => {
     return <Component {...props} />;
   };
 
-  const connectedWithRedirect = connect(mapStateToProps)(withLoginRedirect);
-
-  return connectedWithRedirect;
+  return connect(mapStateToProps)(withLoginRedirect);
 };
