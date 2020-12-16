@@ -1,8 +1,8 @@
 const ADD_MESSAGE = "ADD-MESSAGE";
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
 
-export const addMessageActionCreator = () => ({ type: ADD_MESSAGE });
-export const updateNewMessageTextActionCreator = (text) => ({
+export const addMessage = () => ({ type: ADD_MESSAGE });
+export const updateNewMessageText = (text) => ({
   type: UPDATE_NEW_MESSAGE_TEXT,
   text: text,
 });
