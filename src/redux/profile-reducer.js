@@ -18,8 +18,9 @@ export const getUserProfile = (userId) => {
   return (dispatch) => {
     return usersAPI
       .getUserProfile(userId)
-      .then((response) => {
-        dispatch(setUserProfileAction(response.data));
+      .then((data) => {
+        console.log(data);
+        dispatch(setUserProfileAction(data));
       })
       .catch((err) => console.log(err));
   };

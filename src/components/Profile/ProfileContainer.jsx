@@ -10,7 +10,7 @@ class ProfileContainer extends Component {
   componentDidMount() {
     let userId = this.props.match.params.userId
       ? this.props.match.params.userId
-      : 2;
+      : this.props.myId;
 
     this.props.getUserProfile(userId);
   }
@@ -25,6 +25,7 @@ const ProfileContainerWithRouter = withRouter(ProfileContainer);
 const mapStateToProps = (state) => {
   return {
     profile: state.profilePage.profile,
+    myId: state.auth.userId,
   };
 };
 
