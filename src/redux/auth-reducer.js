@@ -14,7 +14,6 @@ export const getUserAuthData = () => {
     authAPI
       .getMe()
       .then((response) => {
-        debugger;
         if (response.data.resultCode === 0) {
           const { id, email, login } = response.data.data;
           dispatch(toggleIsFetchingAction(false));

@@ -4,10 +4,12 @@ import s from "./ProfileStatus.module.css";
 class ProfileStatus extends Component {
   state = {
     isEditMode: false,
+    status: this.props.status,
   };
 
   activateEditMode = this.activateEditMode.bind(this);
   deactivateEditMode = this.deactivateEditMode.bind(this);
+  onStatusChange = this.onStatusChange.bind(this);
 
   activateEditMode() {
     this.setState({ isEditMode: true });
@@ -15,6 +17,11 @@ class ProfileStatus extends Component {
 
   deactivateEditMode() {
     this.setState({ isEditMode: false });
+    this.props.updateUserStatus(this.state.status);
+  }
+
+  onStatusChange(e) {
+    this.setState({ status: e.target.value });
   }
 
   render() {
@@ -23,14 +30,15 @@ class ProfileStatus extends Component {
       <div>
         {this.state.isEditMode ? (
           <input
+            onChange={this.onStatusChange}
             type="text"
             name="input-status"
             className={s.inputStatus}
-            value={props.statusText}
+            value={this.state.status}
             onBlur={this.deactivateEditMode}
           />
         ) : (
-          <p onClick={this.activateEditMode}>{props.statusText}</p>
+          <p onClick={this.activateEditMode}>{props.status}</p>
         )}
       </div>
     );

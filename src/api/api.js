@@ -14,25 +14,60 @@ export const usersAPI = {
       .get(`users?count=${usersPerPage}&page=${currentPage}`)
       .then((response) => {
         return response.data;
-      });
+      })
+      .catch((err) => console.log(err));
   },
 
   follow(userId) {
-    return instance.post(`follow/${userId}`).then((response) => {
-      return response.data;
-    });
+    return instance
+      .post(`follow/${userId}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => console.log(err));
   },
 
   unfollow(userId) {
-    return instance.delete(`follow/${userId}`).then((response) => {
-      return response.data;
-    });
+    return instance
+      .delete(`follow/${userId}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => console.log(err));
   },
 
   getUserProfile(userId) {
-    return instance.get(`profile/${userId}`).then((response) => {
-      return response.data;
-    });
+    console.warn("Obsolette method. Please user profileAPI object.");
+    profileAPI.getUserProfile(userId);
+  },
+};
+
+export const profileAPI = {
+  getUserProfile(userId) {
+    return instance
+      .get(`profile/${userId}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => console.log(err));
+  },
+
+  getUserStatus(userId) {
+    return instance
+      .get(`profile/status/${userId}`)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => console.log(err));
+  },
+
+  updateUserStatus(status) {
+    return instance
+      .put(`profile/status`, { status: status })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((err) => console.log(err));
   },
 };
 
