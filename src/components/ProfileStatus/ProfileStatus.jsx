@@ -24,6 +24,18 @@ class ProfileStatus extends Component {
     this.setState({ status: e.target.value });
   }
 
+  componentDidMount() {
+    this.setState({state: this.props.state})
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.status !== this.props.status) {
+      this.setState({
+        status: this.props.status
+      });
+    }
+  }
+
   render() {
     const props = this.props;
     return (
