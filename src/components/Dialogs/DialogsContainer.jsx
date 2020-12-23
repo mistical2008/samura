@@ -1,3 +1,4 @@
+import React from 'react'
 import { addMessage } from "../../redux/dialogs-reducer";
 import { withRedirect } from "../../hoc/withRedirect";
 import { connect } from "react-redux";

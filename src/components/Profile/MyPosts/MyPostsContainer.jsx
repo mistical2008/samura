@@ -7,10 +7,17 @@ import MyPosts from "./MyPosts";
 const mapStateToProps = (state) => {
   return {
     posts: state.profilePage.posts,
-    newPostText: state.profilePage.newPostText,
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addPost: (NewPostText) => {
+      dispatch(addPost(NewPostText))
+    }
+  }
+}
+
 export default compose(
-  connect(mapStateToProps, { addPost, updateNewPostText })
+  connect(mapStateToProps, mapDispatchToProps)
 )(MyPosts);
