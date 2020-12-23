@@ -4,7 +4,7 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import s from "./Dialogs.module.css";
 import Login from "../Login/Login";
-import { Field, reduxForm } from 'react-form'
+import { Field, reduxForm } from 'redux-form'
 
 const Dialogs = (props) => {
   const state = props.dialogsPage;
@@ -30,7 +30,7 @@ const Dialogs = (props) => {
       <div className={s.dialogs}>{dialogNodes}</div>
       <div className={s.messagesContainer}>
         <div className={s.messages}>{messageNodes}</div>
-          <AddMessageFormRedux onSumbit={addMessage} />
+          <AddMessageFormRedux onSubmit={addMessage} />
       </div>
     </div>
   );
@@ -38,7 +38,7 @@ const Dialogs = (props) => {
 
 const AddMessageForm = (props) => {
   return (
-    <form onSumbit={props.handleSubmit}>
+    <form onSubmit={props.handleSubmit}>
       <Field
         className={s.inputText}
         name="new-message-text"
