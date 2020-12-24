@@ -10,16 +10,19 @@ const minLength2 = minLength(2);
 const AddMessageForm = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
-      <Field
-        className={s.inputText}
-        name="new-message-text"
-        id="type-text"
-        cols="30"
-        rows="10"
-        placeholder="Type your text..."
-        component="textarea"
-        validate={[required, maxLength130, minLength2]}
-      ></Field>
+      <div className={s.formControl}>
+        <Field
+          className={s.inputText}
+          name="new-message-text"
+          id="type-text"
+          cols="30"
+          rows="10"
+          placeholder="Type your text..."
+          component="textarea"
+          validate={[required, maxLength130, minLength2]}
+        ></Field>
+        <span>Error</span>
+      </div>
       <button className={s.buttonMessage}>
         Post
       </button>
