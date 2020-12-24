@@ -4,6 +4,10 @@ import React from "react";
 import Post from "./Post/Post";
 import s from "./MyPosts.module.css";
 import { Field, reduxForm } from "redux-form";
+import { maxLength, minLength, required } from "../../../utils/validators/validators";
+
+const maxLength130 = maxLength(130);
+const minLength2 = minLength(2);
 
 const MyPosts = (props) => {
   const posts = props.posts;
@@ -36,6 +40,7 @@ const AddPostForm = (props) => {
         className="input-text"
         placeholder="Type your text..."
         component="textarea"
+        validate={[required, maxLength130, minLength2]}
       ></Field>
       <div className="u-block">
         <button type="submit">
