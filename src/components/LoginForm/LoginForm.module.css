@@ -1,0 +1,11 @@
+.loginForm {
+}
+
+.submitWrapper {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.submitWrapper button {
+  margin-left: auto;
+}

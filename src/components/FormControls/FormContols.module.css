@@ -1,0 +1,37 @@
+.formControl {
+  position: relative;
+  width: 100%;
+  height: 52px;
+}
+
+.formControlWrapper {
+  height: 100%;
+}
+
+.formControl span {
+    color: red;
+    position: absolute;
+    font-size: 12px;
+    left: 11px;
+    top: -18px;
+}
+.formControl textarea,
+.formControl input {
+  width: 100%;
+}
+
+.formControl textarea {
+  height: 100%;
+  resize: none;
+  padding-left: 12px;
+  padding-right: 12px;
+  font-size: 18px;
+  line-height: 1.5;
+  border: none;
+  padding: 12px;
+}
+
+.formControl.error textarea,
+.formControl.error input {
+  outline: 1px solid red;
+}

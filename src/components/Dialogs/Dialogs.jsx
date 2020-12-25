@@ -4,7 +4,7 @@ import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import s from "./Dialogs.module.css";
 import Login from "../Login/Login";
-import AddMessageForm from '../MessageForm/MessageForm'
+import MessageForm from "../MessageForm/MessageForm";
 
 const Dialogs = (props) => {
   const state = props.dialogsPage;
@@ -30,11 +30,10 @@ const Dialogs = (props) => {
       <div className={s.dialogs}>{dialogNodes}</div>
       <div className={s.messagesContainer}>
         <div className={s.messages}>{messageNodes}</div>
-          <AddMessageForm onSubmit={addMessage} />
+        <MessageForm onSubmit={addMessage} />
       </div>
     </div>
   );
 };
-
 
 export default Dialogs;

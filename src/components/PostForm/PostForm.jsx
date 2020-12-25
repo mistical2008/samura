@@ -1,26 +1,27 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
-
 import { maxLength, minLength } from "../../utils/validators/validators";
 import { Textarea } from "../FormControls/FormControls";
-import s from "./MessageForm.module.css";
+import s from "./PostForm.module.css";
 
 const maxLength130 = maxLength(130);
 const minLength1 = minLength(1);
 
-const MessageForm = (props) => {
+const PostForm = (props) => {
   return (
-    <form onSubmit={props.handleSubmit} className={s.messageForm}>
+    <form onSubmit={props.handleSubmit} className={s.postForm}>
       <Field
-        name="new-message-text"
-        id="type-text"
+        name="text"
+        id="post-text"
         placeholder="Type your text..."
         component={Textarea}
         validate={[minLength1, maxLength130]}
       ></Field>
-      <button className={s.buttonMessage}>Post</button>
+      <div className="u-block">
+        <button type="submit">Post</button>
+      </div>
     </form>
   );
 };
 
-export default reduxForm({ form: "dialogsAddMessage" })(MessageForm);
+export default reduxForm({ form: "profile-add-post" })(PostForm);
