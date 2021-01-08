@@ -1,16 +1,18 @@
 import "./App.css";
 import "./index.css";
+
 import { Redirect, Route } from "react-router-dom";
 import React from "react";
 
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
 import Music from "./components/Music/Music";
 import NavigationContainer from "./components/Navigation/NavigationContainer";
 import News from "./components/News/News";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
 
 function App() {
   // console.log("App props: ", props);
@@ -25,6 +27,7 @@ function App() {
           to="/profile"
           render={() => <ProfileContainer />}
         />
+        <Route exact path="/login" render={() => <Login />} />
         <Route exact path="/dialogs" render={() => <DialogsContainer />} />
         <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
         <Route exact path="/users" render={() => <UsersContainer />} />

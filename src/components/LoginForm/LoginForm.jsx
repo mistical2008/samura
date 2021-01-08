@@ -17,8 +17,8 @@ const LoginForm = (props) => {
   return (
     <form onSubmit={handleSubmit} className={s.loginForm}>
       <Field
-        type="text"
-        name="login"
+        type="email"
+        name="email"
         placeholder="Login"
         component={Input}
         validate={[required, minLength8, maxLength32]}
