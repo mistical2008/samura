@@ -30,6 +30,7 @@ const mapStateToProps = (state) => {
     profile: state.profilePage.profile,
     status: state.profilePage.status,
     myId: state.auth.userId,
+    isAuth: state.auth.isAuth,
   };
 };
 

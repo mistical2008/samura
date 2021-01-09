@@ -15,7 +15,6 @@ export const getUserProfile = (userId) => {
     return profileAPI
       .getUserProfile(userId)
       .then((data) => {
-        console.log(data);
         dispatch(setUserProfileAction(data));
       })
       .catch((err) => console.log(err));

@@ -31,6 +31,7 @@ const LoginForm = (props) => {
         validate={[required, minLength8, maxLength32]}
       />
       <div className={s.submitWrapper}>
+        {props.error && <div className={s.formError}>{props.error}</div>}
         <Field
           type="checkbox"
           name="rememberMe"

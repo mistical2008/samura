@@ -20,3 +20,10 @@
 .u-box {
   display: block;
 }
+
+input,
+textarea,
+checkbox,
+radio {
+  margin: 0;
+}
