@@ -1,26 +1,33 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import {
   getUserProfile,
   getUserStatus,
   updateUserStatus,
 } from "../../redux/profile-reducer";
 import Profile from "./Profile";
+import Login from "../Login/Login";
 
 class ProfileContainer extends Component {
   componentDidMount() {
     let userId = this.props.match.params.userId
       ? this.props.match.params.userId
       : this.props.myId;
-    // : 2;
+
+    if (!userId) {
+      this.props.history.push("/login");
+    }
 
     this.props.getUserProfile(userId);
     this.props.getUserStatus(userId);
   }
 
   render() {
+    if (!this.props.isAuth) {
+      return <Login />;
+    }
     return <Profile {...this.props} />;
   }
 }

@@ -12,7 +12,7 @@ const setUserAuthData = (userId, email, login, isAuth) => ({
 export const getUserAuthData = () => {
   return (dispatch) => {
     dispatch(toggleIsFetchingAction(true));
-    authAPI
+    return authAPI
       .getMe()
       .then((response) => {
         if (response.data.resultCode === 0) {
@@ -46,7 +46,8 @@ export const logout = () => {
   return (dispatch) => {
     dispatch(toggleIsFetchingAction);
     authAPI.logout().then((response) => {
-      if (response.resultCode === 0) {
+      console.log(response);
+      if (response.data.resultCode === 0) {
         dispatch(setUserAuthData(null, null, null, false));
       }
     });

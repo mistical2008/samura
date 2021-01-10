@@ -1,21 +1,31 @@
 import "./App.css";
 import "./index.css";
-
 import { Redirect, Route } from "react-router-dom";
-import React from "react";
-
+import { compose } from "redux";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import React, { useEffect } from "react";
+import { initializeApp } from "./redux/app-reducer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import Music from "./components/Music/Music";
 import NavigationContainer from "./components/Navigation/NavigationContainer";
 import News from "./components/News/News";
+import Preloader from "./components/Preloader/Preloader";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import Settings from "./components/Settings/Settings";
 import UsersContainer from "./components/Users/UsersContainer";
 
-function App() {
-  // console.log("App props: ", props);
+const App = (props) => {
+  useEffect(() => {
+    props.initializeApp();
+  });
+
+  if (!props.isInitialized) {
+    return <Preloader />;
+  }
+
   return (
     <div className="app-wrapper">
       <HeaderContainer />
@@ -37,6 +47,13 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
-export default App;
+const mapStateToProps = (state) => ({
+  isInitialized: state.app.isInitialized,
+});
+
+export default compose(
+  withRouter,
+  connect(mapStateToProps, { initializeApp })
+)(App);
