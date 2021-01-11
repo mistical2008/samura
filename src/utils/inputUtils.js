@@ -1,9 +1,4 @@
+// TODO: make an iterable logic for an array of keyConf and default keys handling
 export const handleInputKeys = (event, keyConf) => {
-  switch (event.code) {
-    case keyConf.keyCode:
-      keyConf.action();
-      break;
-    default:
-      break;
-  }
+  event.code === keyConf.keyCode && keyConf.action();
 };
