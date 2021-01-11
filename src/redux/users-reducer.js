@@ -68,7 +68,7 @@ export const getUsers = (usersPerPage, pageNumber) => {
   return (dispatch) => {
     dispatch(toggleIsFetchingAction(true));
     usersAPI
-      .getUsers(usersPerPage, pageNumber)
+      .fetchUsers(usersPerPage, pageNumber)
       .then((data) => {
         dispatch(toggleIsFetchingAction(false));
         dispatch(setUsersAction(data.items));
