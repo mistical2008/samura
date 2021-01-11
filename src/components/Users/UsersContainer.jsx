@@ -10,6 +10,7 @@ import { withRedirect } from "../../hoc/withRedirect";
 import Preloader from "../Preloader/Preloader";
 import Users from "./Users";
 import { compose } from "redux";
+import { getUsersSelector, getCurrentPage, getUsersCount, getUsersPerPage, getIsFetching, getFollowingInProgress } from "../../redux/users-selectors";
 
 class UsersContainer extends Component {
   componentDidMount() {
@@ -45,12 +46,12 @@ class UsersContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.usersPage.users,
-    currentPage: state.usersPage.currentPage,
-    usersCount: state.usersPage.usersCount,
-    usersPerPage: state.usersPage.usersPerPage,
-    isFetching: state.usersPage.isFetching,
-    followingInProgress: state.usersPage.followingInProgress,
+    users: getUsersSelector(state),
+    currentPage: getCurrentPage(state),
+    usersCount: getUsersCount(state),
+    usersPerPage: getUsersPerPage(state),
+    isFetching: getIsFetching(state),
+    followingInProgress: getFollowingInProgress(state),
   };
 };
 
