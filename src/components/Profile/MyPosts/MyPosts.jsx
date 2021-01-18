@@ -1,9 +1,11 @@
+import React from "react";
 import Post from "./Post/Post";
 import PostForm from "../../PostForm/PostForm";
 import s from "./MyPosts.module.css";
 
 const MyPosts = (props) => {
   const posts = props.posts;
+  console.count("MyPosts renders:");
 
   const postsNodes = posts.map((post) => {
     return <Post message={post.text} avatar={post.avatar} likes={post.likes} />;
@@ -24,5 +26,4 @@ const MyPosts = (props) => {
   );
 };
 
-export default MyPosts;
-
+export default React.memo(MyPosts);
