@@ -8,14 +8,14 @@ import React, { useEffect } from "react";
 import { initializeApp } from "./redux/app-reducer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import NavigationContainer from "./components/Navigation/NavigationContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 import Login from "./components/Login/Login";
 import Music from "./components/Music/Music";
-import NavigationContainer from "./components/Navigation/NavigationContainer";
 import News from "./components/News/News";
 import Preloader from "./components/Preloader/Preloader";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import Settings from "./components/Settings/Settings";
-import UsersContainer from "./components/Users/UsersContainer";
 
 const App = (props) => {
   useEffect(() => {
