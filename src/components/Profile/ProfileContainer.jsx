@@ -12,16 +12,15 @@ import Login from "../Login/Login";
 
 class ProfileContainer extends Component {
   componentDidMount() {
-    let userId = this.props.match.params.userId
-      ? this.props.match.params.userId
-      : this.props.myId;
+    let { history, match, myId, getUserProfile, getUserStatus } = this.props;
+    let userId = match.params.userId ? match.params.userId : myId;
 
     if (!userId) {
-      this.props.history.push("/login");
+      history.push("/login");
     }
 
-    this.props.getUserProfile(userId);
-    this.props.getUserStatus(userId);
+    getUserProfile(userId);
+    getUserStatus(userId);
   }
 
   render() {

@@ -9,31 +9,25 @@ const instance = axios.create({
 });
 
 export const usersAPI = {
-  fetchUsers(usersPerPage = 10, currentPage = 1) {
-    return instance
+  async fetchUsers(usersPerPage = 10, currentPage = 1) {
+    const response = await instance
       .get(`users?count=${usersPerPage}&page=${currentPage}`)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
+    return response.data;
   },
 
-  follow(userId) {
-    return instance
+  async follow(userId) {
+    const response = await instance
       .post(`follow/${userId}`)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
+    return response.data;
   },
 
-  unfollow(userId) {
-    return instance
+  async unfollow(userId) {
+    const response = await instance
       .delete(`follow/${userId}`)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
+    return response.data;
   },
 
   getUserProfile(userId) {
@@ -43,31 +37,25 @@ export const usersAPI = {
 };
 
 export const profileAPI = {
-  getUserProfile(userId) {
-    return instance
+  async getUserProfile(userId) {
+    const response = await instance
       .get(`profile/${userId}`)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
+    return response.data;
   },
 
-  getUserStatus(userId) {
-    return instance
+  async getUserStatus(userId) {
+    const response = await instance
       .get(`profile/status/${userId}`)
-      .then((response) => {
-        return response.data;
-      })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
+    return response.data;
   },
 
-  updateUserStatus(status) {
-    return instance
+  async updateUserStatus(status) {
+    const response = await instance
       .put(`profile/status`, { status: status })
-      .then((response) => {
-        return response.data;
-      })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
+    return response.data;
   },
 };
 

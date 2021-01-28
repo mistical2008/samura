@@ -1,6 +1,12 @@
-const ADD_MESSAGE = "ADD-MESSAGE";
+const app = "samuraijs";
+const reducer = "dialogs";
 
-export const addMessage = (newMessageText) => ({ type: ADD_MESSAGE, newMessageText });
+const ADD_MESSAGE = `${app}/${reducer}/ADD-MESSAGE`;
+
+export const addMessage = (newMessageText) => ({
+  type: ADD_MESSAGE,
+  newMessageText,
+});
 
 const initialState = {
   dialogs: [

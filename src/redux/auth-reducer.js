@@ -1,8 +1,11 @@
 import { stopSubmit } from "redux-form";
 import { authAPI } from "../api/api";
 
-const SET_USER_AUTH_DATA = "SET_USER_AUTH_DATA";
-const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
+const app = "samuraijs";
+const reducer = "auth";
+
+const SET_USER_AUTH_DATA = `${app}/${reducer}/SET_USER_AUTH_DATA`;
+const TOGGLE_IS_FETCHING = `${app}/${reducer}TOGGLE_IS_FETCHING`;
 
 const setUserAuthData = (userId, email, login, isAuth) => ({
   type: SET_USER_AUTH_DATA,
@@ -10,47 +13,45 @@ const setUserAuthData = (userId, email, login, isAuth) => ({
 });
 
 export const getUserAuthData = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleIsFetchingAction(true));
-    return authAPI
-      .getMe()
-      .then((response) => {
-        if (response.data.resultCode === 0) {
-          const { id, email, login } = response.data.data;
-          dispatch(toggleIsFetchingAction(false));
-          dispatch(setUserAuthData(id, email, login, true));
-        }
-      })
-      .catch((err) => console.log(err));
+    const response = await authAPI.getMe().catch((err) => console.error(err));
+
+    if (response.data.resultCode === 0) {
+      const { id, email, login } = response.data.data;
+      dispatch(toggleIsFetchingAction(false));
+      dispatch(setUserAuthData(id, email, login, true));
+    }
   };
 };
 
 export const login = (email, password, rememberMe) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleIsFetchingAction(true));
-    authAPI.login(email, password, rememberMe).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(getUserAuthData());
-      } else {
-        // let [firstMessage] = response.data.messages;
-        let { messages } = response.data;
-        let firstMessage =
-          messages.length > 0 ? messages[0] : "Some error occurred.";
-        dispatch(stopSubmit("login", { _error: firstMessage }));
-      }
-    });
+    const response = await authAPI
+      .login(email, password, rememberMe)
+      .catch((err) => console.error(err));
+
+    if (response.data.resultCode === 0) {
+      dispatch(getUserAuthData());
+    } else {
+      // let [firstMessage] = response.data.messages;
+      let { messages } = response.data;
+      let firstMessage =
+        messages.length > 0 ? messages[0] : "Some error occurred.";
+      dispatch(stopSubmit("login", { _error: firstMessage }));
+    }
   };
 };
 
 export const logout = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     dispatch(toggleIsFetchingAction);
-    authAPI.logout().then((response) => {
-      console.log(response);
-      if (response.data.resultCode === 0) {
-        dispatch(setUserAuthData(null, null, null, false));
-      }
-    });
+    const response = await authAPI.logout().catch((err) => console.error(err));
+
+    if (response.data.resultCode === 0) {
+      dispatch(setUserAuthData(null, null, null, false));
+    }
   };
 };
 

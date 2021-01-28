@@ -7,9 +7,9 @@ import s from "./PostForm.module.css";
 const maxLength130 = maxLength(130);
 const minLength1 = minLength(1);
 
-const PostForm = (props) => {
+const PostForm = ({ handleSubmit }) => {
   return (
-    <form onSubmit={props.handleSubmit} className={s.postForm}>
+    <form onSubmit={handleSubmit} className={s.postForm}>
       <Field
         name="text"
         id="post-text"

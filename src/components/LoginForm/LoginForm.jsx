@@ -12,8 +12,7 @@ const minLength8 = minLength(8);
 const maxLength32 = maxLength(32);
 // const required = required();
 
-const LoginForm = (props) => {
-  const { handleSubmit } = props;
+const LoginForm = ({ handleSubmit, error }) => {
   return (
     <form onSubmit={handleSubmit} className={s.loginForm}>
       <Field
@@ -31,7 +30,7 @@ const LoginForm = (props) => {
         validate={[required, minLength8, maxLength32]}
       />
       <div className={s.submitWrapper}>
-        {props.error && <div className={s.formError}>{props.error}</div>}
+        {error && <div className={s.formError}>{error}</div>}
         <Field
           type="checkbox"
           name="rememberMe"

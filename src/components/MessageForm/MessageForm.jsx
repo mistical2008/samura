@@ -8,9 +8,9 @@ import s from "./MessageForm.module.css";
 const maxLength130 = maxLength(130);
 const minLength1 = minLength(1);
 
-const MessageForm = (props) => {
+const MessageForm = ({ handleSubmit }) => {
   return (
-    <form onSubmit={props.handleSubmit} className={s.messageForm}>
+    <form onSubmit={handleSubmit} className={s.messageForm}>
       <Field
         name="new-message-text"
         id="type-text"

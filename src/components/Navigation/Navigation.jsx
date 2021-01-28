@@ -3,10 +3,7 @@ import Friends from "../Friends/Friends";
 import s from "./Navigation.module.css";
 import NavItem from "./NavItem/NavItem";
 
-const Navigation = (props) => {
-  const items = props.items;
-  const widgets = props.widgets;
-
+const Navigation = ({ items, widgets }) => {
   const navItems = items.map((item) => {
     return <NavItem href={"/" + item.href} text={item.name} />;
   });

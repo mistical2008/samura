@@ -1,8 +1,11 @@
 import { profileAPI } from "../api/api";
 
-const ADD_POST = "ADD-POST";
-const SET_USER_PROFILE = "SET_USER_PROFILE";
-const SET_STATUS = "SET_STATUS";
+const app = "samuraijs";
+const reducer = "profile";
+
+const ADD_POST = `${app}/${reducer}/ADD-POST`;
+const SET_USER_PROFILE = `${app}/${reducer}/SET_USER_PROFILE`;
+const SET_STATUS = `${app}/${reducer}/SET_STATUS`;
 
 export const addPost = (newPostText) => ({ type: ADD_POST, newPostText });
 const setUserProfileAction = (profile) => ({
@@ -11,13 +14,12 @@ const setUserProfileAction = (profile) => ({
 });
 
 export const getUserProfile = (userId) => {
-  return (dispatch) => {
-    return profileAPI
+  return async (dispatch) => {
+    const response = await profileAPI
       .getUserProfile(userId)
-      .then((data) => {
-        dispatch(setUserProfileAction(data));
-      })
       .catch((err) => console.log(err));
+
+    dispatch(setUserProfileAction(response));
   };
 };
 
@@ -27,26 +29,24 @@ const setUserStatus = (status) => ({
 });
 
 export const getUserStatus = (userId) => {
-  return (dispatch) => {
-    return profileAPI
+  return async (dispatch) => {
+    const response = await profileAPI
       .getUserStatus(userId)
-      .then((data) => {
-        dispatch(setUserStatus(data));
-      })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
+
+    dispatch(setUserStatus(response));
   };
 };
 
 export const updateUserStatus = (status) => {
-  return (dispatch) => {
-    return profileAPI
+  return async (dispatch) => {
+    const response = await profileAPI
       .updateUserStatus(status)
-      .then((data) => {
-        if (data.resultCode === 0) {
-          dispatch(setUserStatus(status));
-        }
-      })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
+
+    if (response.resultCode === 0) {
+      dispatch(setUserStatus(status));
+    }
   };
 };
 

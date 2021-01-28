@@ -5,8 +5,8 @@ import s from "./Friends.module.css";
 
 import Userpic from "../Profile/MyPosts/Post/Userpic/Userpic";
 
-const Friends = (props) => {
-  const friendsItems = props.state.map((item) => {
+const Friends = ({ state }) => {
+  const friendsItems = state.map((item) => {
     return (
       <li className={s.friend}>
         <NavLink to={`/dialogs/${item.id}`}>

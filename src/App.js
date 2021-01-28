@@ -1,9 +1,8 @@
 import "./App.css";
 import "./index.css";
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, withRouter } from "react-router-dom";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import React, { useEffect } from "react";
 import { initializeApp } from "./redux/app-reducer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
@@ -20,7 +19,7 @@ import Settings from "./components/Settings/Settings";
 const App = (props) => {
   useEffect(() => {
     props.initializeApp();
-  });
+  }, []);
 
   if (!props.isInitialized) {
     return <Preloader />;

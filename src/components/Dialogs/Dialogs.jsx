@@ -6,8 +6,8 @@ import s from "./Dialogs.module.css";
 import Login from "../Login/Login";
 import MessageForm from "../MessageForm/MessageForm";
 
-const Dialogs = (props) => {
-  const state = props.dialogsPage;
+const Dialogs = ({ addMessage, isAuth, dialogsPage }) => {
+  const state = dialogsPage;
 
   const dialogNodes = state.dialogs.map((dialog) => {
     return (
@@ -19,18 +19,18 @@ const Dialogs = (props) => {
     return <Message my={message.my} id={message.id} text={message.text} />;
   });
 
-  const addMessage = (values) => {
-    props.addMessage(values["new-message-text"]);
+  const addMessageHandler = (values) => {
+    addMessage(values["new-message-text"]);
   };
 
-  if (!props.isAuth) return <Login />;
+  if (!isAuth) return <Login />;
 
   return (
     <div className={s.dialogsPage}>
       <div className={s.dialogs}>{dialogNodes}</div>
       <div className={s.messagesContainer}>
         <div className={s.messages}>{messageNodes}</div>
-        <MessageForm onSubmit={addMessage} />
+        <MessageForm onSubmit={addMessageHandler} />
       </div>
     </div>
   );

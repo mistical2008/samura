@@ -3,17 +3,17 @@ import React, { useEffect, useState } from "react";
 import { handleInputKeys } from "../../utils/inputUtils";
 import s from "./ProfileStatus.module.css";
 
-const ProfileStatusWH = (props) => {
+const ProfileStatusWH = ({ status, updateUserStatus }) => {
   // state = {
   // isEditMode: false,
-  // status: props.status,
+  // status: status,
   // };
   const [isEditMode, setEditMode] = useState(false);
-  const [status, setStatus] = useState(props.status);
+  const [newUserStatus, setStatus] = useState(status);
 
   useEffect(() => {
-    setStatus(props.status);
-  }, [props.status]);
+    setStatus(status);
+  }, [status]);
 
   const activateEditMode = () => {
     setEditMode(true);
@@ -21,7 +21,7 @@ const ProfileStatusWH = (props) => {
 
   const deactivateEditMode = () => {
     setEditMode(false);
-    props.updateUserStatus(status);
+    updateUserStatus(newUserStatus);
   };
 
   const onStatusChange = (e) => {
@@ -40,12 +40,12 @@ const ProfileStatusWH = (props) => {
           type="text"
           name="input-status"
           className={s.inputStatus}
-          value={status}
+          value={newUserStatus}
           onBlur={deactivateEditMode}
           onKeyDown={handleKeys}
         />
       ) : (
-        <p onClick={activateEditMode}>{props.status}</p>
+        <p onClick={activateEditMode}>{status}</p>
       )}
     </div>
   );
