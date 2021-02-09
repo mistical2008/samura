@@ -1,0 +1,16 @@
+.pagination {
+  max-width: 100%;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.paginationItem  button {
+  font: inherit;
+  background-color: transparent;
+  border: none;
+}
+
+.paginationActiveItem button {
+  font-weight: bold;
+}
