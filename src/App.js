@@ -15,6 +15,7 @@ import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Preloader from "./components/Preloader/Preloader";
 import Settings from "./components/Settings/Settings";
+import withStoreAndRouter from "./hoc/withStoreAndRouter";
 
 const App = (props) => {
   useEffect(() => {
@@ -52,7 +53,10 @@ const mapStateToProps = (state) => ({
   isInitialized: state.app.isInitialized,
 });
 
-export default compose(
+const AppContainer = compose(
+  withStoreAndRouter,
   withRouter,
   connect(mapStateToProps, { initializeApp })
 )(App);
+
+export default AppContainer;
