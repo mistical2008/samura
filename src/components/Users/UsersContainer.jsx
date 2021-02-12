@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import React, { Component } from "react";
 import {
   changePage,
+  setCurrentSection,
   follow,
   getUsers,
   unfollow,
@@ -13,6 +14,8 @@ import { compose } from "redux";
 import {
   getAllUsers,
   getCurrentPage,
+  getCurrentSection,
+  getSectionSize,
   getUsersCount,
   getUsersPerPage,
   getIsFetching,
@@ -24,9 +27,10 @@ class UsersContainer extends Component {
     this.props.getUsers(this.props.usersPerPage, this.props.currentPage);
   }
 
-  onPageChanged = (pageNumber) => {
+  onPageChanged = (pageNumber, sectionNumber) => {
     this.props.getUsers(this.props.usersPerPage, pageNumber);
     this.props.changePage(pageNumber);
+    this.props.setCurrentSection(sectionNumber);
   };
 
   render() {
@@ -44,6 +48,7 @@ class UsersContainer extends Component {
             follow={this.props.follow}
             onPageChanged={this.onPageChanged}
             followingInProgress={this.props.followingInProgress}
+            currentSection={this.props.currentSection}
           />
         )}
       </>
@@ -55,6 +60,8 @@ const mapStateToProps = (state) => {
   return {
     users: getAllUsers(state),
     currentPage: getCurrentPage(state),
+    currentSection: getCurrentSection(state),
+    sectionSize: getSectionSize(state),
     usersCount: getUsersCount(state),
     usersPerPage: getUsersPerPage(state),
     isFetching: getIsFetching(state),
@@ -69,5 +76,6 @@ export default compose(
     unfollow,
     getUsers,
     changePage,
+    setCurrentSection,
   })
 )(UsersContainer);

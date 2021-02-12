@@ -6,6 +6,14 @@ export const getCurrentPage = (state) => {
   return state.usersPage.currentPage;
 };
 
+export const getCurrentSection = (state) => {
+  return state.usersPage.currentSection;
+};
+
+export const getSectionSize = (state) => {
+  return state.usersPage.sectionSize;
+};
+
 export const getUsersCount = (state) => {
   return state.usersPage.usersCount;
 };
@@ -21,4 +29,3 @@ export const getIsFetching = (state) => {
 export const getFollowingInProgress = (state) => {
   return state.usersPage.followingInProgress;
 };
-
