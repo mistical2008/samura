@@ -26,7 +26,7 @@ const Pagination = ({
           PREV
         </button>
       )}
-      <ul className={s.pagesNumbers}>
+      <ul className={s.pageNumbers}>
         {pagesArr
           .filter((page) => page >= minSectionPage && page <= maxSectionPage)
           .map((number) => {
