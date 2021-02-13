@@ -5,17 +5,19 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import React, { useEffect } from "react";
 import { initializeApp } from "./redux/app-reducer";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import NavigationContainer from "./components/Navigation/NavigationContainer";
-import ProfileContainer from "./components/Profile/ProfileContainer";
-import UsersContainer from "./components/Users/UsersContainer";
-import Login from "./components/Login/Login";
 import Music from "./components/Music/Music";
 import News from "./components/News/News";
 import Preloader from "./components/Preloader/Preloader";
-import Settings from "./components/Settings/Settings";
 import withStoreAndRouter from "./hoc/withStoreAndRouter";
+import withSuspense from "./hoc/withSuspense";
+
+const DialogsContainer = React.lazy(() => import("./components/Dialogs/DialogsContainer"));
+const Settings = React.lazy(() => import("./components/Settings/Settings"));
+const UsersContainer = React.lazy(() => import("./components/Users/UsersContainer"));
+const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileContainer"));
+const Login = React.lazy(() => import("./components/Login/Login"));
 
 const App = (props) => {
   useEffect(() => {
@@ -37,13 +39,13 @@ const App = (props) => {
           to="/profile"
           render={() => <ProfileContainer />}
         />
-        <Route exact path="/login" render={() => <Login />} />
-        <Route exact path="/dialogs" render={() => <DialogsContainer />} />
-        <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-        <Route exact path="/users" render={() => <UsersContainer />} />
+        <Route exact path="/login" render={withSuspense(Login)} />
+        <Route exact path="/dialogs" render={withSuspense(DialogsContainer)} />
+        <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)} />
+        <Route exact path="/users" render={withSuspense(UsersContainer)} />
         <Route exact path="/news" component={News} />
         <Route exact path="/music" component={Music} />
-        <Route exact path="/settings" component={Settings} />
+        <Route exact path="/settings" component={withSuspense(Settings)} />
       </div>
     </div>
   );
