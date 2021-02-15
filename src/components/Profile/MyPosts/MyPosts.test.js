@@ -11,12 +11,10 @@ import { BrowserRouter as Router } from "react-router-dom";
 // Post: text<string>, avatar:<string>, likes:<number>
 // TODO: create hoc for connecting to the store and provider
 
-const withStoreAndRouter = ({children}) => {
+const withStoreAndRouter = ({ children }) => {
   return (
     <Router>
-      <Provider store={store}>
-        {children}
-      </Provider>
+      <Provider store={store}>{children}</Provider>
     </Router>
   );
 };
@@ -39,12 +37,15 @@ const mockData = {
     },
   ],
 };
+const { posts } = mockData;
+const {
+  posts: [{ likes: firstPostLikes }],
+} = mockData;
 
 describe("MyPosts", () => {
-  const { posts } = mockData;
-  const [ {text: message},  ] = posts;
+  const [{ text: message }] = posts;
   test("Renders MyPosts component", () => {
-    const {debug} = render(<MyPosts posts={posts} addPost={addPost} />, {
+    const { debug } = render(<MyPosts posts={posts} addPost={addPost} />, {
       wrapper: withStoreAndRouter,
     });
     debug();
@@ -55,5 +56,23 @@ describe("MyPosts", () => {
       wrapper: withStoreAndRouter,
     });
     expect(screen.getByText(message)).toBeInTheDocument();
+  });
+
+  test(`First post likes should be equal to '${firstPostLikes} likes'`, () => {
+    const myPosts = render(<MyPosts posts={posts} addPost={addPost} />, {
+      wrapper: withStoreAndRouter,
+    });
+    expect(myPosts.container.querySelector(".likes")).toHaveTextContent(
+      `${firstPostLikes} likes`
+    );
+  });
+
+  test(`Posts length should be equal to ${posts.length} `, () => {
+    const myPosts = render(<MyPosts posts={posts} addPost={addPost} />, {
+      wrapper: withStoreAndRouter,
+    });
+    expect(myPosts.container.querySelectorAll(".post").length).toBe(
+      posts.length
+    );
   });
 });
