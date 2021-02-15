@@ -1,12 +1,25 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import withStoreAndRouter from "../../../hoc/withStoreAndRouter";
-import { addPost, updateNewPostText } from "../../../redux/profile-reducer";
+import { addPost } from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
+
+import store from "./../../../redux/redux-store";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
 
 // props: posts<array>, addPost<function>
 // Post: text<string>, avatar:<string>, likes:<number>
 // TODO: create hoc for connecting to the store and provider
+
+const withStoreAndRouter = ({children}) => {
+  return (
+    <Router>
+      <Provider store={store}>
+        {children}
+      </Provider>
+    </Router>
+  );
+};
 
 const mockData = {
   posts: [
@@ -28,9 +41,16 @@ const mockData = {
 };
 
 describe("MyPosts", () => {
+  const { posts } = mockData;
+  const [ {text: message},  ] = posts;
   test("Renders MyPosts component", () => {
-    const { posts } = mockData;
-    const message = posts[0].text;
+    const {debug} = render(<MyPosts posts={posts} addPost={addPost} />, {
+      wrapper: withStoreAndRouter,
+    });
+    debug();
+  });
+
+  test(`Post with text: '${message}' should be in document`, () => {
     render(<MyPosts posts={posts} addPost={addPost} />, {
       wrapper: withStoreAndRouter,
     });
