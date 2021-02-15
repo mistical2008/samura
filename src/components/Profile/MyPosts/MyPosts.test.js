@@ -1,5 +1,6 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import React from "react";
+import withStoreAndRouter from "../../../hoc/withStoreAndRouter";
 import { addPost, updateNewPostText } from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 
@@ -29,7 +30,10 @@ const mockData = {
 describe("MyPosts", () => {
   test("Renders MyPosts component", () => {
     const { posts } = mockData;
-    const { screen } = render(<MyPosts posts={posts} addPost={alert} />);
-    // screen.debug();
+    const message = posts[0].text;
+    render(<MyPosts posts={posts} addPost={addPost} />, {
+      wrapper: withStoreAndRouter,
+    });
+    expect(screen.getByText(message)).toBeInTheDocument();
   });
 });
