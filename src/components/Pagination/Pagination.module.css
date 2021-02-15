@@ -3,7 +3,7 @@
   display: flex;
 }
 
-.pagesNumbers {
+.pageNumbers {
   max-width: 100%;
   list-style: none;
   display: flex;
