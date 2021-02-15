@@ -71,7 +71,7 @@ describe("MyPosts", () => {
     const myPosts = render(<MyPosts posts={posts} addPost={addPost} />, {
       wrapper: withStoreAndRouter,
     });
-    expect(myPosts.container.querySelectorAll(".post").length).toBe(
+    expect(myPosts.container.querySelectorAll(".post")).toHaveLength(
       posts.length
     );
   });
