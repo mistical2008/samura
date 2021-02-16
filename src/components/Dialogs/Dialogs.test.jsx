@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import store from "./../../../redux/redux-store";
+import store from "./../../redux/redux-store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import Dialogs from './Dialogs'
+import Dialogs from "./Dialogs";
 
 // props: addMessage<function>, isAuth<bool>, dialogsPage<object>
 // dialogsPage<object>: dialogs<array>, messages<array>
@@ -53,59 +53,109 @@ const mockData = {
   ],
 };
 // Dialogs: length, name, avatar
-const {dialogs: [{name,avatar}], messages: [id,my,text]} = mockData;
+const { dialogs, messages } = mockData;
+const {
+  dialogs: [{ name, avatar }],
+  messages: [{ id, my, text: messageText }],
+} = mockData;
 
-const withStoreAndRouter = ({children}) => {
+const withStoreAndRouter = ({ children }) => {
   return (
     <Router>
-      <Provider store={store}>
-        {children}
-      </Provider>
+      <Provider store={store}>{children}</Provider>
     </Router>
   );
 };
 
 // Dialogs: length, name, avatar
 describe("Dialogs list", () => {
-  test("Renders Dialogs", () => {
-    const { debug } = render(<Dialogs dialogsPage={mockData} />, {wrapper: withStoreAndRouter})
-  })
+  test("Renders Dialogs on authorized user", () => {
+    const { debug } = render(<Dialogs isAuth={true} dialogsPage={mockData} />, {
+      wrapper: withStoreAndRouter,
+    });
+  });
+
+  test("Renders Login on unauthorized user", () => {
+    const { container } = render(<Dialogs dialogsPage={mockData} />, {
+      wrapper: withStoreAndRouter,
+    });
+    expect(container.querySelector(".loginForm")).toBeInTheDocument();
+  });
 
   test(`Dialogs length should be ${dialogs.length}`, () => {
-    const { container } = render(<Dialogs dialogsPage={mockData} />, {wrapper: withStoreAndRouter})
-    expect(container.querySelectorAll(".dialog")).toHaveLength(dialogs.length)
-  })
+    const { container } = render(
+      <Dialogs isAuth={true} dialogsPage={mockData} />,
+      {
+        wrapper: withStoreAndRouter,
+      }
+    );
+    expect(container.querySelectorAll(".dialog")).toHaveLength(dialogs.length);
+  });
 
   test(`First dialog name should be ${name}`, () => {
-    const { container } = render(<Dialogs dialogsPage={mockData} />, {wrapper: withStoreAndRouter})
-    expect(container.querySelectorAll(".dialog")).toHaveLength(dialogs.length)
-  })
+    render(<Dialogs isAuth={true} dialogsPage={mockData} />, {
+      wrapper: withStoreAndRouter,
+    });
+    expect(screen.getByText(name)).toHaveTextContent(name);
+  });
 
   test(`First dialog avatar src should be ${avatar}`, () => {
-
-  })
-})
+    const { container } = render(
+      <Dialogs isAuth={true} dialogsPage={mockData} />,
+      {
+        wrapper: withStoreAndRouter,
+      }
+    );
+    expect(
+      container.querySelectorAll(".dialog")[0].querySelector("span")
+    ).toHaveTextContent(name);
+  });
+});
 
 // Messages: length, messageText, id, my
 describe("Messages", () => {
   test("Renders Messages", () => {
-
-  })
+    const { container } = render(
+      <Dialogs isAuth={true} dialogsPage={mockData} />,
+      {
+        wrapper: withStoreAndRouter,
+      }
+    );
+    expect(container.querySelector(".messages")).toBeInTheDocument();
+  });
 
   test(`Messages length should be ${messages.length}`, () => {
+    const { container } = render(
+      <Dialogs isAuth={true} dialogsPage={mockData} />,
+      {
+        wrapper: withStoreAndRouter,
+      }
+    );
+    expect(container.querySelectorAll(".message")).toHaveLength(
+      messages.length
+    );
+  });
 
-  })
+  test(`First message text should be '${messageText}'`, () => {
+    render(<Dialogs isAuth={true} dialogsPage={mockData} />, {
+      wrapper: withStoreAndRouter,
+    });
+    expect(screen.getByText(messageText)).toHaveTextContent(messageText);
+  });
 
-  test(`First dialog text should be ${text}`, () => {
+  let isMineMessage = my ? "shold be " : "sholdn't be ";
+  let isMineExpect = my ? "Truthy" : "Falsy";
+  test(`First message ${isMineMessage} mine`, () => {
+    const { container } = render(
+      <Dialogs isAuth={true} dialogsPage={mockData} />,
+      {
+        wrapper: withStoreAndRouter,
+      }
+    );
 
-  })
+    expect(container.querySelectorAll(".message")[0].classList.contains("my"))[
+      `toBe${isMineExpect}`
+    ]();
+  });
+});
 
-  test(`First message id should be ${id}`, () => {
-
-  })
-
-  let isMine = my ? "shold be ": "sholdn't be" ;
-  test(`First message ${isMine} mine`, () => {
-
-  })
-})
