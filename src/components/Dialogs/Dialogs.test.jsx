@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import store from "./../../../redux/redux-store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
+import Dialogs from './Dialogs'
 
 // props: addMessage<function>, isAuth<bool>, dialogsPage<object>
 // dialogsPage<object>: dialogs<array>, messages<array>
@@ -67,15 +68,17 @@ const withStoreAndRouter = ({children}) => {
 // Dialogs: length, name, avatar
 describe("Dialogs list", () => {
   test("Renders Dialogs", () => {
-
+    const { debug } = render(<Dialogs dialogsPage={mockData} />, {wrapper: withStoreAndRouter})
   })
 
   test(`Dialogs length should be ${dialogs.length}`, () => {
-
+    const { container } = render(<Dialogs dialogsPage={mockData} />, {wrapper: withStoreAndRouter})
+    expect(container.querySelectorAll(".dialog")).toHaveLength(dialogs.length)
   })
 
   test(`First dialog name should be ${name}`, () => {
-
+    const { container } = render(<Dialogs dialogsPage={mockData} />, {wrapper: withStoreAndRouter})
+    expect(container.querySelectorAll(".dialog")).toHaveLength(dialogs.length)
   })
 
   test(`First dialog avatar src should be ${avatar}`, () => {
