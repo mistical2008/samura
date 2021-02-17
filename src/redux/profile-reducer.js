@@ -6,12 +6,19 @@ const reducer = "profile";
 const ADD_POST = `${app}/${reducer}/ADD-POST`;
 const SET_USER_PROFILE = `${app}/${reducer}/SET_USER_PROFILE`;
 const SET_STATUS = `${app}/${reducer}/SET_STATUS`;
+const SET_USER_PHOTO = `${app}/${reducer}/SET_USER_PHOTO`;
 
 export const addPost = (newPostText) => ({ type: ADD_POST, newPostText });
 const setUserProfileAction = (profile) => ({
   type: SET_USER_PROFILE,
   profile,
 });
+
+export const setUserPhoto = (photo) => ({
+  type: SET_USER_PHOTO,
+  photo,
+})
+
 
 export const getUserProfile = (userId) => {
   return async (dispatch) => {
@@ -49,6 +56,19 @@ export const updateUserStatus = (status) => {
     }
   };
 };
+
+export const savePhoto = (photo) => {
+  return async (dispatch) => {
+    const response = await profileAPI
+      .updateUserPhoto(photo)
+      .catch((err) => console.error(err))
+
+    if (response.resultCode === 0) {
+      dispatch(setUserPhoto(response.data.photos));
+    }
+  }
+}
+
 
 const initialState = {
   posts: [
@@ -92,6 +112,11 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         status: action.status,
+      };
+    case SET_USER_PHOTO:
+      return {
+        ...state,
+        profile: { ...state.profile, photos: action.photo },
       };
     default:
       return state;

@@ -57,6 +57,18 @@ export const profileAPI = {
       .catch((err) => console.error(err));
     return response.data;
   },
+
+  async updateUserPhoto(photo) {
+    const formData = new FormData();
+    formData.append("image", photo)
+
+    const response = await instance
+      .put(`profile/photo`, formData, { headers: {
+        "Content-type": "multipart/form-data",
+      }})
+      .catch((err) => console.error(err));
+    return response;
+  },
 };
 
 export const authAPI = {

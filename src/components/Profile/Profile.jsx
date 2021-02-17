@@ -3,7 +3,7 @@ import ProfileBio from "./ProfileBio/ProfileBio";
 import ProfileHeader from "./ProfileCover/ProfileCover";
 import s from "./Profile.module.css";
 
-const Profile = ({ profile, status, updateUserStatus, store }) => {
+const Profile = ({ profile, status, updateUserStatus, store, savePhoto, isOwner }) => {
   // const state = store.getState().profilePage;
   return (
     <div className={s.content}>
@@ -13,6 +13,8 @@ const Profile = ({ profile, status, updateUserStatus, store }) => {
           profile={profile}
           status={status}
           updateUserStatus={updateUserStatus}
+          savePhoto={savePhoto}
+          isOwner={isOwner}
         />
         <MyPostsContainer store={store} />
       </div>
