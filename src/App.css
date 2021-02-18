@@ -1,3 +1,11 @@
+html {
+  box-sizing: border-box;
+}
+
+*,*::before,*::after {
+  box-sizing: inherit;
+}
+
 .app-wrapper {
   display: grid;
   grid-template-rows: 60px auto;

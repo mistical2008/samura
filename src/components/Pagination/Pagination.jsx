@@ -40,6 +40,7 @@ const Pagination = ({
               >
                 <button
                   onClick={(e) => {
+                    if (number === currentPage) return;
                     onPageChanged(number, currentSect);
                   }}
                 >

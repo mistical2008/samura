@@ -3,6 +3,10 @@
   display: flex;
 }
 
+.pagination button {
+  cursor: pointer;
+}
+
 .pageNumbers {
   max-width: 100%;
   list-style: none;
@@ -20,4 +24,5 @@
 
 .paginationActiveItem button {
   font-weight: bold;
+  cursor: initial;
 }
