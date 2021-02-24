@@ -14,11 +14,10 @@ const setUserProfileAction = (profile) => ({
   profile,
 });
 
-export const setUserPhoto = (photo) => ({
+export const setUserPhoto = (photos) => ({
   type: SET_USER_PHOTO,
-  photo,
-})
-
+  photos,
+});
 
 export const getUserProfile = (userId) => {
   return async (dispatch) => {
@@ -61,14 +60,13 @@ export const savePhoto = (photo) => {
   return async (dispatch) => {
     const response = await profileAPI
       .updateUserPhoto(photo)
-      .catch((err) => console.error(err))
+      .catch((err) => console.error(err));
 
     if (response.resultCode === 0) {
       dispatch(setUserPhoto(response.data.photos));
     }
-  }
-}
-
+  };
+};
 
 const initialState = {
   posts: [
@@ -114,9 +112,10 @@ const profileReducer = (state = initialState, action) => {
         status: action.status,
       };
     case SET_USER_PHOTO:
+      console.log("Photos have been setted");
       return {
         ...state,
-        profile: { ...state.profile, photos: action.photo },
+        profile: { ...state.profile, photos: { ...action.photos } },
       };
     default:
       return state;

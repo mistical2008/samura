@@ -60,14 +60,16 @@ export const profileAPI = {
 
   async updateUserPhoto(photo) {
     const formData = new FormData();
-    formData.append("image", photo)
+    formData.append("image", photo);
 
     const response = await instance
-      .put(`profile/photo`, formData, { headers: {
-        "Content-type": "multipart/form-data",
-      }})
+      .put(`profile/photo`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .catch((err) => console.error(err));
-    return response;
+    return response.data;
   },
 };
 

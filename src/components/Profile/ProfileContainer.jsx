@@ -17,7 +17,10 @@ class ProfileContainer extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.match.params.userId !== prevProps.match.params.userId && this.props.profile.photos !== prevProps.profile.photos) {
+    if (
+      this.props.match.params.userId !== prevProps.match.params.userId &&
+      this.props.profile !== prevProps.profile
+    ) {
       this.updateProfile();
     }
   }
@@ -33,13 +36,20 @@ class ProfileContainer extends Component {
     getUserProfile(userId);
     getUserStatus(userId);
   }
-  
 
   render() {
     if (!this.props.isAuth) {
       return <Login />;
     }
-    return <Profile isOwner={!this.props.match.params.userId} {...this.props} />;
+    return (
+      <Profile
+        isOwner={!this.props.match.params.userId}
+        profile={this.props.profile}
+        status={this.props.status}
+        updateUserStatus={this.props.updateUserStatus}
+        savePhoto={this.props.savePhoto}
+      />
+    );
   }
 }
 
