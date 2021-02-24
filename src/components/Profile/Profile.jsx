@@ -5,6 +5,7 @@ import s from "./Profile.module.css";
 
 const Profile = ({ profile, status, updateUserStatus, store, savePhoto, isOwner }) => {
   // const state = store.getState().profilePage;
+  // console.log("profile from profile", profile);
   return (
     <div className={s.content}>
       <ProfileHeader />
