@@ -4,30 +4,49 @@ import ProfileStatusWH from "../../ProfileStatus/ProfileStatusWH";
 import Userpic from "../MyPosts/Post/Userpic/Userpic";
 import s from "./ProfileBio.module.css";
 
-const BioDescription = ({ profile, isOwner }) => {
-  // console.log(profile);
-  const descNodes = Object.keys(profile).map((key) => {
-    if (key === "contacts") {
-      return Object.keys(profile.contacts).map((contact) => {
-        return (
-          <div>
-            {contact}: {profile.contacts[contact]}
-          </div>
-        );
-      });
-    } else if (key === "photos" || key === "fullName") {
-      return null;
-    }
+const ProfileContacts = (contacts) => {
+  const contactNodes = Object.keys(contacts).map((key) => {
     return (
-      <div>
-        {key}: {profile[key]}
-      </div>
+      contacts[key] && (
+        <li>
+          {key}: {contacts[key]}
+        </li>
+      )
     );
   });
-  const [about, contacts, lookJob, lookJobDesc] = descNodes;
 
   return (
-    <>{[about, lookJob, lookJobDesc, ...contacts]}</>
+    <>
+      Contacts:
+      <ul>{contactNodes}</ul>
+    </>
+  );
+};
+
+const BioDescription = ({
+  profile: { aboutMe, fullName, lookingForAJob, lookingForAJobDescription },
+  isOwner,
+}) => {
+  // console.log(profile);
+  return (
+    <>
+      <ul>
+        <li>About Me: {aboutMe}</li>
+        <li>Looking for a job: {lookingForAJob ? "yes" : "no"}</li>
+        {lookingForAJob && (
+          <li>
+            <ul>
+              <li>{lookingForAJobDescription}</li>
+            </ul>
+          </li>
+        )}
+        <li>
+          <ul>
+            <ProfileContacts />
+          </ul>
+        </li>
+      </ul>
+    </>
     //     {
     //   "aboutMe": null,
     //   "contacts": {
