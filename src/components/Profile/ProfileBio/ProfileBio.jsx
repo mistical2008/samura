@@ -15,10 +15,13 @@ const ProfileContacts = (contacts) => {
   };
 
   const contactNodes = Object.keys(contacts).map((key) => {
+    const contactLink = contacts[key];
+    const contactTitle = key[0].toUpperCase() + key.slice(1);
+
     return (
       contacts[key] && (
         <li>
-          <a href={contacts[key]}>{key[0].toUpperCase() + key.slice(1)}</a>
+          <a href={contactLink}>{contactTitle}</a>
         </li>
       )
     );
