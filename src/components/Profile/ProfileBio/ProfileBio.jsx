@@ -5,11 +5,20 @@ import Userpic from "../MyPosts/Post/Userpic/Userpic";
 import s from "./ProfileBio.module.css";
 
 const ProfileContacts = (contacts) => {
+  const isEmpty = (contacts) => {
+    return Object.keys(contacts)
+      .map((item) => {
+        console.log(contacts[item]);
+        return contacts[item];
+      })
+      .every((item) => item || true);
+  };
+
   const contactNodes = Object.keys(contacts).map((key) => {
     return (
       contacts[key] && (
         <li>
-          {key}: {contacts[key]}
+          <a href={contacts[key]}>{key[0].toUpperCase() + key.slice(1)}</a>
         </li>
       )
     );
@@ -17,11 +26,25 @@ const ProfileContacts = (contacts) => {
 
   return (
     <>
-      Contacts:
-      <ul>{contactNodes}</ul>
+      {!isEmpty(contacts) && (
+        <li>
+          <ul>
+            <b>Contacts: </b>
+            {contactNodes}
+          </ul>
+        </li>
+      )}
     </>
   );
 };
+
+const ProfileBioForm = ({
+  aboutMe,
+  fullName,
+  lookingForAJob,
+  lookingForAJobDescription,
+  contacts,
+}) => {};
 
 const BioDescription = ({
   profile: { aboutMe, fullName, lookingForAJob, lookingForAJobDescription },
@@ -31,8 +54,16 @@ const BioDescription = ({
   return (
     <>
       <ul>
-        <li>About Me: {aboutMe}</li>
-        <li>Looking for a job: {lookingForAJob ? "yes" : "no"}</li>
+        {aboutMe && (
+          <li>
+            <b>About Me: </b>
+            {aboutMe}
+          </li>
+        )}
+        <li>
+          <b>Looking for a job: </b>
+          {lookingForAJob ? "yes" : "no"}
+        </li>
         {lookingForAJob && (
           <li>
             <ul>
@@ -40,34 +71,9 @@ const BioDescription = ({
             </ul>
           </li>
         )}
-        <li>
-          <ul>
-            <ProfileContacts />
-          </ul>
-        </li>
+        <ProfileContacts />
       </ul>
     </>
-    //     {
-    //   "aboutMe": null,
-    //   "contacts": {
-    //     "facebook": null,
-    //     "website": null,
-    //     "vk": null,
-    //     "twitter": null,
-    //     "instagram": null,
-    //     "youtube": null,
-    //     "github": null,
-    //     "mainLink": null
-    //   },
-    //   "lookingForAJob": false,
-    //   "lookingForAJobDescription": null,
-    //   "fullName": "Spartasapp",
-    //   "userId": 1342,
-    //   "photos": {
-    //     "small": null,
-    //     "large": null
-    //   }
-    // }
   );
 };
 
@@ -82,12 +88,14 @@ const ProfileBio = ({
     return <Preloader />;
   }
 
+  const isEditMode = false;
+
   const handleAvatarLoad = (e) => {
     const files = e.currentTarget.files;
     if (!files.length) return;
     savePhoto(files[0]);
   };
-  // const isOwner = true;
+
   return (
     <section className={s.bio}>
       <h2 className={s.subheading}>{profile.fullName}</h2>
@@ -99,7 +107,11 @@ const ProfileBio = ({
           onChange={handleAvatarLoad}
         ></input>
       )}
-      <BioDescription profile={profile} />
+      {isEditMode ? (
+        <ProfileBioForm profile={profile} />
+      ) : (
+        <BioDescription profile={profile} />
+      )}
       <ProfileStatusWH status={status} updateUserStatus={updateUserStatus} />
     </section>
   );
