@@ -1,16 +1,14 @@
 import React, { useState } from "react";
-import { Field, reduxForm } from "redux-form";
-import { Input } from "../../FormControls/FormControls";
 import Preloader from "../../Preloader/Preloader";
 import ProfileStatusWH from "../../ProfileStatus/ProfileStatusWH";
 import Userpic from "../MyPosts/Post/Userpic/Userpic";
+import BioForm from "./BioForm";
 import s from "./ProfileBio.module.css";
 
 const ProfileContacts = (contacts) => {
   const isEmpty = (contacts) => {
     return Object.keys(contacts)
       .map((item) => {
-        console.log(contacts[item]);
         return contacts[item];
       })
       .every((item) => item || true);
@@ -42,77 +40,6 @@ const ProfileContacts = (contacts) => {
     </>
   );
 };
-
-const BioForm = ({
-  profile: {
-    aboutMe,
-    fullName,
-    lookingForAJob,
-    lookingForAJobDescription,
-    contacts,
-  },
-  handleSubmit,
-  error,
-}) => {
-  return (
-    <form onSubmit={handleSubmit}>
-      <button>Save</button>
-      <br></br>
-
-      {error && <div>{error}</div>}
-
-      <label htmlFor={"fullNameInput"}>Full Name: </label>
-      <Field
-        component={Input}
-        type="text"
-        name={"fullName"}
-        id={"fullNameInput"}
-      />
-
-      <label htmlFor={"aboutMeInput"}>About Me: </label>
-      <Field
-        component={Input}
-        type="text"
-        name={"aboutMe"}
-        id={"aboutMeInput"}
-      />
-
-      <label htmlFor={"lookingForAJobToggleInput"}>Looking for a job: </label>
-      <Field
-        component={Input}
-        type="checkbox"
-        name={"lookingForAJobToggle"}
-        id={"lookingForAJobToggleInput"}
-      />
-
-      <label htmlFor={"lookingForAJobDescriptionInput"}>
-        Looking for a job description:
-      </label>
-      <Field
-        component={Input}
-        type="text"
-        name={"lookingForAJobDescription"}
-        id={"lookingForAJobDescriptionInput"}
-      />
-
-      {Object.keys(contacts).map((contact) => {
-        return (
-          <>
-            <label htmlFor={contact + "ContactInput"}>{contact}</label>
-            <Field
-              component={Input}
-              type="text"
-              name={"contacts." + contact}
-              id={contact + "ContactInput"}
-            />
-          </>
-        );
-      })}
-    </form>
-  );
-};
-
-const BioFormRedux = reduxForm({ form: "editProfile" })(BioForm);
 
 const BioDescription = ({
   profile: { aboutMe, lookingForAJob, lookingForAJobDescription },
@@ -162,7 +89,7 @@ const ProfileBio = ({
   }
 
   const onFormSubmit = (formData) => {
-    console.log("Submited!");
+    console.log("Submited formData!");
     console.log(formData);
     saveUserProfile(formData).then((res) => {
       console.log(res);
@@ -189,7 +116,7 @@ const ProfileBio = ({
       )}
 
       {isEditMode ? (
-        <BioFormRedux
+        <BioForm
           initialValues={profile}
           profile={profile}
           onSubmit={onFormSubmit}

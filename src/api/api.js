@@ -45,10 +45,11 @@ export const profileAPI = {
   },
 
   async updateUserProfile(profile) {
+    debugger;
     const response = await instance
       .put(`profile`, profile)
       .catch((err) => console.error(err));
-    return response;
+    return response.data;
   },
 
   async getUserStatus(userId) {

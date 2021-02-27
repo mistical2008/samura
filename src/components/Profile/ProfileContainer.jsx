@@ -49,7 +49,7 @@ class ProfileContainer extends Component {
         status={this.props.status}
         updateUserStatus={this.props.updateUserStatus}
         savePhoto={this.props.savePhoto}
-        saveUserProfile={saveUserProfile}
+        saveUserProfile={this.props.saveUserProfile}
       />
     );
   }

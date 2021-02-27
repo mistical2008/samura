@@ -37,12 +37,13 @@ export const saveUserProfile = (profile) => {
     const response = await profileAPI
       .updateUserProfile(profile)
       .catch((err) => console.error(err));
+
     console.log(response);
 
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === 0) {
       dispatch(getUserProfile(userId));
     } else {
-      const message = response.data.messages[0];
+      const message = response.messages[0];
       dispatch(stopSubmit("editProfile", { _error: message }));
       return Promise.reject(message);
     }
