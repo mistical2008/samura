@@ -63,6 +63,7 @@ const BioDescription = ({
         </li>
         {lookingForAJob && (
           <li>
+            <b>My professional skills</b>
             <ul>
               <li>{lookingForAJobDescription}</li>
             </ul>
