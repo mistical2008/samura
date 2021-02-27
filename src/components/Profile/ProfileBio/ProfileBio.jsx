@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import { Field, reduxForm } from "redux-form";
+import { Input } from "../../FormControls/FormControls";
 import Preloader from "../../Preloader/Preloader";
 import ProfileStatusWH from "../../ProfileStatus/ProfileStatusWH";
 import Userpic from "../MyPosts/Post/Userpic/Userpic";
@@ -41,22 +43,87 @@ const ProfileContacts = (contacts) => {
   );
 };
 
-const ProfileBioForm = ({
-  aboutMe,
-  fullName,
-  lookingForAJob,
-  lookingForAJobDescription,
-  contacts,
-}) => {};
+const BioForm = ({
+  profile: {
+    aboutMe,
+    fullName,
+    lookingForAJob,
+    lookingForAJobDescription,
+    contacts,
+  },
+  handleSubmit,
+  error,
+}) => {
+  return (
+    <form onSubmit={handleSubmit}>
+      <button>Save</button>
+      <br></br>
+
+      {error && <div>{error}</div>}
+
+      <label htmlFor={"fullNameInput"}>Full Name: </label>
+      <Field
+        component={Input}
+        type="text"
+        name={"fullName"}
+        id={"fullNameInput"}
+      />
+
+      <label htmlFor={"aboutMeInput"}>About Me: </label>
+      <Field
+        component={Input}
+        type="text"
+        name={"aboutMe"}
+        id={"aboutMeInput"}
+      />
+
+      <label htmlFor={"lookingForAJobToggleInput"}>Looking for a job: </label>
+      <Field
+        component={Input}
+        type="checkbox"
+        name={"lookingForAJobToggle"}
+        id={"lookingForAJobToggleInput"}
+      />
+
+      <label htmlFor={"lookingForAJobDescriptionInput"}>
+        Looking for a job description:
+      </label>
+      <Field
+        component={Input}
+        type="text"
+        name={"lookingForAJobDescription"}
+        id={"lookingForAJobDescriptionInput"}
+      />
+
+      {Object.keys(contacts).map((contact) => {
+        return (
+          <>
+            <label htmlFor={contact + "ContactInput"}>{contact}</label>
+            <Field
+              component={Input}
+              type="text"
+              name={contact}
+              id={contact + "ContactInput"}
+            />
+          </>
+        );
+      })}
+    </form>
+  );
+};
+
+const BioFormRedux = reduxForm({ form: "editProfile" })(BioForm);
 
 const BioDescription = ({
-  profile: { aboutMe, fullName, lookingForAJob, lookingForAJobDescription },
+  profile: { aboutMe, lookingForAJob, lookingForAJobDescription },
   isOwner,
+  setEditMode,
 }) => {
   // console.log(profile);
   return (
     <>
       <ul>
+        {isOwner && <button onClick={setEditMode}>Edit profile</button>}
         {aboutMe && (
           <li>
             <b>About Me: </b>
@@ -87,11 +154,15 @@ const ProfileBio = ({
   savePhoto,
   isOwner,
 }) => {
+  const [isEditMode, setIsEditMode] = useState(false);
+
   if (!profile) {
     return <Preloader />;
   }
 
-  const isEditMode = false;
+  const onFormSubmit = (event) => {
+    console.log("Sumited!");
+  };
 
   const handleAvatarLoad = (e) => {
     const files = e.currentTarget.files;
@@ -110,10 +181,19 @@ const ProfileBio = ({
           onChange={handleAvatarLoad}
         ></input>
       )}
+
       {isEditMode ? (
-        <ProfileBioForm profile={profile} />
+        <BioFormRedux
+          initialValues={profile}
+          profile={profile}
+          onSubmit={onFormSubmit}
+        />
       ) : (
-        <BioDescription profile={profile} />
+        <BioDescription
+          profile={profile}
+          isOwner={isOwner}
+          setEditMode={() => setIsEditMode(true)}
+        />
       )}
       <ProfileStatusWH status={status} updateUserStatus={updateUserStatus} />
     </section>
