@@ -4,6 +4,7 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import {
   getUserProfile,
+  saveUserProfile,
   getUserStatus,
   updateUserStatus,
   savePhoto,
@@ -48,6 +49,7 @@ class ProfileContainer extends Component {
         status={this.props.status}
         updateUserStatus={this.props.updateUserStatus}
         savePhoto={this.props.savePhoto}
+        saveUserProfile={saveUserProfile}
       />
     );
   }
@@ -65,6 +67,7 @@ const mapStateToProps = (state) => {
 export default compose(
   connect(mapStateToProps, {
     getUserProfile,
+    saveUserProfile,
     getUserStatus,
     updateUserStatus,
     savePhoto,

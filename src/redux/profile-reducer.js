@@ -1,3 +1,4 @@
+import { stopSubmit } from "redux-form";
 import { profileAPI } from "../api/api";
 
 const app = "samuraijs";
@@ -26,6 +27,25 @@ export const getUserProfile = (userId) => {
       .catch((err) => console.log(err));
 
     dispatch(setUserProfileAction(response));
+  };
+};
+
+export const saveUserProfile = (profile) => {
+  return async (dispatch, getState) => {
+    const userId = getState().auth.userId;
+
+    const response = await profileAPI
+      .updateUserProfile(profile)
+      .catch((err) => console.error(err));
+    console.log(response);
+
+    if (response.data.resultCode === 0) {
+      dispatch(getUserProfile(userId));
+    } else {
+      const message = response.data.messages[0];
+      dispatch(stopSubmit("editProfile", { _error: message }));
+      return Promise.reject(message);
+    }
   };
 };
 

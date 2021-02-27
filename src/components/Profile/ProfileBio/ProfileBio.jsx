@@ -102,7 +102,7 @@ const BioForm = ({
             <Field
               component={Input}
               type="text"
-              name={contact}
+              name={"contacts." + contact}
               id={contact + "ContactInput"}
             />
           </>
@@ -151,6 +151,7 @@ const ProfileBio = ({
   profile,
   status,
   updateUserStatus,
+  saveUserProfile,
   savePhoto,
   isOwner,
 }) => {
@@ -160,8 +161,13 @@ const ProfileBio = ({
     return <Preloader />;
   }
 
-  const onFormSubmit = (event) => {
-    console.log("Sumited!");
+  const onFormSubmit = (formData) => {
+    console.log("Submited!");
+    console.log(formData);
+    saveUserProfile(formData).then((res) => {
+      console.log(res);
+      setIsEditMode(false);
+    });
   };
 
   const handleAvatarLoad = (e) => {
