@@ -5,10 +5,10 @@ import { login } from "../../redux/auth-reducer";
 import LoginForm from "../LoginForm/LoginForm";
 import s from "./Login.module.css";
 
-const Login = ({ login, isAuth }) => {
+const Login = ({ login, isAuth, captchaUrl }) => {
   const submit = (formData) => {
-    const { email, password, rememberMe } = formData;
-    login(email, password, rememberMe);
+    const { email, password, rememberMe, captchaUrl } = formData;
+    login(email, password, rememberMe, captchaUrl);
   };
 
   if (isAuth) {
@@ -18,13 +18,14 @@ const Login = ({ login, isAuth }) => {
   return (
     <div className={s.loginWrapper}>
       <h1>Login</h1>
-      <LoginForm onSubmit={submit} />
+      <LoginForm onSubmit={submit} captchaUrl={captchaUrl} />
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   isAuth: state.auth.isAuth,
+  captchaUrl: state.auth.captchaUrl,
 });
 
 export default connect(mapStateToProps, { login })(Login);

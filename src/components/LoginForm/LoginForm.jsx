@@ -12,7 +12,7 @@ const minLength8 = minLength(8);
 const maxLength32 = maxLength(32);
 // const required = required();
 
-const LoginForm = ({ handleSubmit, error }) => {
+const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
   return (
     <form onSubmit={handleSubmit} className={s.loginForm}>
       <Field
@@ -31,6 +31,12 @@ const LoginForm = ({ handleSubmit, error }) => {
       />
       <div className={s.submitWrapper}>
         {error && <div className={s.formError}>{error}</div>}
+        {captchaUrl && (
+          <>
+            <img src={captchaUrl} />
+            <Field type="text" name="captcha" id="captcha" component={Input} />
+          </>
+        )}
         <Field
           type="checkbox"
           name="rememberMe"

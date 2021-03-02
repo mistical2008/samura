@@ -35,3 +35,7 @@
 .formControl.error input {
   outline: 1px solid red;
 }
+
+/* .formControl input[type=ckeckbox] { */
+  /* width: 0px; */
+/* } */

@@ -1,15 +1,21 @@
 import { stopSubmit } from "redux-form";
-import { authAPI } from "../api/api";
+import { authAPI, securityAPI } from "../api/api";
 
 const app = "samuraijs";
 const reducer = "auth";
 
 const SET_USER_AUTH_DATA = `${app}/${reducer}/SET_USER_AUTH_DATA`;
 const TOGGLE_IS_FETCHING = `${app}/${reducer}TOGGLE_IS_FETCHING`;
+const SET_CAPTCHA = `${app}/${reducer}/SET_CAPTCHA`;
 
 const setUserAuthData = (userId, email, login, isAuth) => ({
   type: SET_USER_AUTH_DATA,
   data: { userId, email, login, isAuth },
+});
+
+const setCaptcha = (url) => ({
+  type: SET_CAPTCHA,
+  url,
 });
 
 export const getUserAuthData = () => {
@@ -25,15 +31,17 @@ export const getUserAuthData = () => {
   };
 };
 
-export const login = (email, password, rememberMe) => {
+export const login = (email, password, rememberMe, captchaUrl = null) => {
   return async (dispatch) => {
     dispatch(toggleIsFetchingAction(true));
     const response = await authAPI
-      .login(email, password, rememberMe)
+      .login(email, password, rememberMe, captchaUrl)
       .catch((err) => console.error(err));
 
     if (response.data.resultCode === 0) {
       dispatch(getUserAuthData());
+    } else if (response.data.resultCode === 10) {
+      dispatch(getCaptcha());
     } else {
       // let [firstMessage] = response.data.messages;
       let { messages } = response.data;
@@ -41,6 +49,13 @@ export const login = (email, password, rememberMe) => {
         messages.length > 0 ? messages[0] : "Some error occurred.";
       dispatch(stopSubmit("login", { _error: firstMessage }));
     }
+  };
+};
+
+export const getCaptcha = () => {
+  return async (dispatch) => {
+    const { url } = await securityAPI.getCaptcha();
+    dispatch(setCaptcha(url));
   };
 };
 
@@ -66,6 +81,7 @@ const initialState = {
   login: null,
   isAuth: false,
   isFetching: false,
+  captchaUrl: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -74,6 +90,8 @@ const authReducer = (state = initialState, action) => {
       return { ...state, ...action.data };
     case TOGGLE_IS_FETCHING:
       return { ...state, isFetching: action.isFetching };
+    case SET_CAPTCHA:
+      return { ...state, captchaUrl: action.url };
     default:
       return state;
   }
