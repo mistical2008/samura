@@ -1,11 +1,11 @@
 const initialState = {
   items: [
-    { name: "Profile", href: "profile" },
-    { name: "Messages", href: "dialogs" },
-    { name: "News", href: "news" },
-    { name: "Music", href: "music" },
-    { name: "Settings", href: "settings" },
-    { name: "Users", href: "users" },
+    {name: "Profile", href: "profile"},
+    {name: "Messages", href: "dialogs"},
+    {name: "News", href: "news"},
+    {name: "Music", href: "music"},
+    {name: "Settings", href: "settings"},
+    {name: "Users", href: "users"},
   ],
   widgets: [
     {
@@ -31,8 +31,11 @@ const initialState = {
   ],
 };
 
-const sidebarReducer = (state = initialState) => {
-  return { items: [...state.items], widgets: [...state.widgets] };
+export type TInitialState = typeof initialState;
+
+const sidebarReducer = (state = initialState): TInitialState => {
+  return {items: [...state.items], widgets: [...state.widgets]};
 };
+
 
 export default sidebarReducer;

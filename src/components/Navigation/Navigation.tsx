@@ -2,8 +2,9 @@ import React from "react";
 import Friends from "../Friends/Friends";
 import s from "./Navigation.module.css";
 import NavItem from "./NavItem/NavItem";
+import {TInitialState} from '../../redux/sidebar-reducer';
 
-const Navigation = ({ items, widgets }) => {
+const Navigation = ({items, widgets}: TInitialState) => {
   const navItems = items.map((item) => {
     return <NavItem href={"/" + item.href} text={item.name} />;
   });

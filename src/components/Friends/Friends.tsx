@@ -1,12 +1,24 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 import s from "./Friends.module.css";
 
 import Userpic from "../Profile/MyPosts/Post/Userpic/Userpic";
 
-const Friends = ({ state }) => {
-  const friendsItems = state.map((item) => {
+type TFriend = {
+  id: number,
+  name: string,
+  avatar: string,
+}
+
+type TFriendsProps = {
+  state: Array<TFriend>
+  // TODO: remove className hack
+  className?: string
+}
+
+const Friends = ({state}: TFriendsProps) => {
+  const friendsItems = state.map((item: TFriend) => {
     return (
       <li className={s.friend}>
         <NavLink to={`/dialogs/${item.id}`}>

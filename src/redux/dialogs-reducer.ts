@@ -1,9 +1,17 @@
+import {AnyAction} from 'redux';
+
+import {TDialogsArray, TMessagesArray} from '../types/base';
+
 const app = "samuraijs";
 const reducer = "dialogs";
 
 const ADD_MESSAGE = `${app}/${reducer}/ADD-MESSAGE`;
 
-export const addMessage = (newMessageText) => ({
+type TAddMessage = {
+  type: typeof ADD_MESSAGE,
+  newMessageText: string,
+};
+export const addMessage = (newMessageText: string): TAddMessage => ({
   type: ADD_MESSAGE,
   newMessageText,
 });
@@ -43,15 +51,18 @@ const initialState = {
       name: "Zhenya",
       avatar: "https://www.freeiconspng.com/uploads/obama-face-png-3.png",
     },
-  ],
+  ] as TDialogsArray,
   messages: [
-    { id: 1, my: false, text: "Hi there!" },
-    { id: 2, my: true, text: "Hello" },
-    { id: 1, my: false, text: "How are you?" },
-  ],
+    {id: 1, my: false, text: "Hi there!"},
+    {id: 2, my: true, text: "Hello"},
+    {id: 1, my: false, text: "How are you?"},
+  ] as TMessagesArray,
 };
+export type TInitialState = typeof initialState;
 
-const dialogsReducer = (state = initialState, action) => {
+
+
+const dialogsReducer = (state = initialState, action: AnyAction): TInitialState => {
   switch (action.type) {
     case ADD_MESSAGE: {
       const newMessage = {

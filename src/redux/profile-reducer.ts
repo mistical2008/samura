@@ -1,5 +1,13 @@
-import { stopSubmit } from "redux-form";
-import { profileAPI } from "../api/api";
+import {AnyAction} from 'redux';
+import {stopSubmit} from "redux-form";
+
+import {
+  TPostArray,
+  TProfilePhotos,
+  TUserId,
+  TUserProfile
+} from '../types/base';
+import {profileAPI} from "../api/api";
 
 const app = "samuraijs";
 const reducer = "profile";
@@ -9,19 +17,29 @@ const SET_USER_PROFILE = `${app}/${reducer}/SET_USER_PROFILE`;
 const SET_STATUS = `${app}/${reducer}/SET_STATUS`;
 const SET_USER_PHOTO = `${app}/${reducer}/SET_USER_PHOTO`;
 
-export const addPost = (newPostText) => ({ type: ADD_POST, newPostText });
-const setUserProfileAction = (profile) => ({
+type TAddPost = {type: typeof ADD_POST, newPostText: string};
+export const addPost = (newPostText: string): TAddPost => ({type: ADD_POST, newPostText});
+
+type TSetUserProfile = {
+  type: typeof SET_USER_PROFILE,
+  profile: TUserProfile,
+};
+const setUserProfileAction = (profile: TUserProfile): TSetUserProfile => ({
   type: SET_USER_PROFILE,
   profile,
 });
 
-export const setUserPhoto = (photos) => ({
+type TSetUserPhoto = {
+  type: typeof SET_USER_PHOTO,
+  photos: TProfilePhotos,
+};
+export const setUserPhoto = (photos: TProfilePhotos): TSetUserPhoto => ({
   type: SET_USER_PHOTO,
   photos,
 });
 
-export const getUserProfile = (userId) => {
-  return async (dispatch) => {
+export const getUserProfile = (userId: TUserId) => {
+  return async (dispatch: any) => {
     const response = await profileAPI
       .getUserProfile(userId)
       .catch((err) => console.log(err));
@@ -30,8 +48,8 @@ export const getUserProfile = (userId) => {
   };
 };
 
-export const saveUserProfile = (profile) => {
-  return async (dispatch, getState) => {
+export const saveUserProfile = (profile: TUserProfile) => {
+  return async (dispatch: any, getState: any) => {
     const userId = getState().auth.userId;
 
     const response = await profileAPI
@@ -44,19 +62,23 @@ export const saveUserProfile = (profile) => {
       dispatch(getUserProfile(userId));
     } else {
       const message = response.messages[0];
-      dispatch(stopSubmit("editProfile", { _error: message }));
+      dispatch(stopSubmit("editProfile", {_error: message}));
       return Promise.reject(message);
     }
   };
 };
 
-const setUserStatus = (status) => ({
+type TSetUserStatus = {
+  type: typeof SET_STATUS,
+  status: string,
+};
+const setUserStatus = (status: string): TSetUserStatus => ({
   type: SET_STATUS,
   status,
 });
 
-export const getUserStatus = (userId) => {
-  return async (dispatch) => {
+export const getUserStatus = (userId: TUserId) => {
+  return async (dispatch: any) => {
     const response = await profileAPI
       .getUserStatus(userId)
       .catch((err) => console.error(err));
@@ -65,8 +87,8 @@ export const getUserStatus = (userId) => {
   };
 };
 
-export const updateUserStatus = (status) => {
-  return async (dispatch) => {
+export const updateUserStatus = (status: string) => {
+  return async (dispatch: any) => {
     const response = await profileAPI
       .updateUserStatus(status)
       .catch((err) => console.error(err));
@@ -77,8 +99,8 @@ export const updateUserStatus = (status) => {
   };
 };
 
-export const savePhoto = (photo) => {
-  return async (dispatch) => {
+export const savePhoto = (photo: any) => {
+  return async (dispatch: any) => {
     const response = await profileAPI
       .updateUserPhoto(photo)
       .catch((err) => console.error(err));
@@ -105,12 +127,14 @@ const initialState = {
       text: "Hi there!!!!!",
       likes: 112,
     },
-  ],
-  profile: null,
+  ] as TPostArray,
+  profile: null as TUserProfile | null,
   status: "",
+  newPostText: "",
 };
+type TInitialState = typeof initialState;
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action: AnyAction): TInitialState => {
   switch (action.type) {
     case ADD_POST: {
       const newPost = {
@@ -120,7 +144,7 @@ const profileReducer = (state = initialState, action) => {
         text: action.newPostText,
         likes: 0,
       };
-      return { ...state, posts: [...state.posts, newPost] };
+      return {...state, posts: [...state.posts, newPost]};
     }
     case SET_USER_PROFILE:
       return {
@@ -136,7 +160,7 @@ const profileReducer = (state = initialState, action) => {
       console.log("Photos have been setted");
       return {
         ...state,
-        profile: { ...state.profile, photos: { ...action.photos } },
+        profile: {...state.profile, photos: {...action.photos}} as TUserProfile,
       };
     default:
       return state;

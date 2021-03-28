@@ -5,8 +5,19 @@ import Message from "./Message/Message";
 import s from "./Dialogs.module.css";
 import Login from "../Login/Login";
 import MessageForm from "../MessageForm/MessageForm";
+// import {TInitialState} from "../../redux/dialogs-reducer";
 
-const Dialogs = ({ addMessage, isAuth, dialogsPage }) => {
+// type TDialogsProps = {
+// addMessage: (newMessageText: string) => void,
+// isAuth: boolean,
+// dialogsPage: TInitialState,
+// }
+
+// export type TNewMessageValues = {
+// "new-message-text": string
+// }
+
+const Dialogs = ({addMessage, isAuth, dialogsPage}) => {
   const state = dialogsPage;
 
   const dialogNodes = state.dialogs.map((dialog) => {

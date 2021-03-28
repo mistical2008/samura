@@ -1,14 +1,14 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
+import {Field, reduxForm} from "redux-form";
 
-import { maxLength, minLength } from "../../utils/validators/validators";
-import { Textarea } from "../FormControls/FormControls";
+import {maxLength, minLength} from "../../utils/validators/validators";
+import {Textarea} from "../FormControls/FormControls";
 import s from "./MessageForm.module.css";
 
 const maxLength130 = maxLength(130);
 const minLength1 = minLength(1);
 
-const MessageForm = ({ handleSubmit }) => {
+const MessageForm = ({handleSubmit}) => {
   return (
     <form onSubmit={handleSubmit} className={s.messageForm}>
       <Field
@@ -23,4 +23,4 @@ const MessageForm = ({ handleSubmit }) => {
   );
 };
 
-export default reduxForm({ form: "dialogsAddMessage" })(MessageForm);
+export default reduxForm({form: "dialogsAddMessage"})(MessageForm);
