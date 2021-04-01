@@ -1,33 +1,33 @@
-import {TRootState} from './redux-store';
+import {RootState} from './redux-store';
 
-export const getAllUsers = (state: TRootState) => {
+export const getAllUsers = (state: RootState) => {
   return state.usersPage.users;
 };
 
-export const getCurrentPage = (state: TRootState) => {
+export const getCurrentPage = (state: RootState) => {
   return state.usersPage.currentPage;
 };
 
-export const getCurrentSection = (state: TRootState) => {
+export const getCurrentSection = (state: RootState) => {
   return state.usersPage.currentSection;
 };
 
-export const getSectionSize = (state: TRootState) => {
+export const getSectionSize = (state: RootState) => {
   return state.usersPage.sectionSize;
 };
 
-export const getUsersCount = (state: TRootState) => {
+export const getUsersCount = (state: RootState) => {
   return state.usersPage.usersCount;
 };
 
-export const getUsersPerPage = (state: TRootState) => {
+export const getUsersPerPage = (state: RootState) => {
   return state.usersPage.usersPerPage;
 };
 
-export const getIsFetching = (state: TRootState) => {
+export const getIsFetching = (state: RootState) => {
   return state.usersPage.isFetching;
 };
 
-export const getFollowingInProgress = (state: TRootState) => {
+export const getFollowingInProgress = (state: RootState) => {
   return state.usersPage.followingInProgress;
 };

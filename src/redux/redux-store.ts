@@ -1,6 +1,6 @@
-import {combineReducers, createStore, applyMiddleware} from "redux";
+import {combineReducers, createStore, applyMiddleware, Action} from "redux";
 import {reducer as formReducer} from "redux-form";
-import thunkMiddleware from "redux-thunk";
+import thunkMiddleware, {ThunkAction} from "redux-thunk";
 import appReducer from "./app-reducer";
 import authReducer from "./auth-reducer";
 import dialogsReducer from "./dialogs-reducer";
@@ -18,12 +18,15 @@ const rootReducer = combineReducers({
   app: appReducer,
 });
 
-// export type TRootReducer = typeof rootReducer;
-// export type TAppState = ReturnType<TRootReducer>;
-
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
-export type TRootState = ReturnType<typeof store.getState>;
-export type TAppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppThunk<R = void, A extends Action = Action> = ThunkAction<
+  R,
+  RootState,
+  unknown,
+  A
+>
+export type AppAsyncThunk<A extends Action = Action> = AppThunk<Promise<void>, A>
 
 export default store;

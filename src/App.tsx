@@ -14,7 +14,7 @@ import withStoreAndRouter from "./hoc/withStoreAndRouter";
 import withSuspense from "./hoc/withSuspense";
 import NotFound from "./components/404/404";
 import {TAppProps} from "./types/base";
-import {TRootState} from "./redux/redux-store";
+import {RootState} from "./redux/redux-store";
 
 const DialogsContainer = React.lazy(() =>
   import("./components/Dialogs/DialogsContainer")
@@ -66,7 +66,7 @@ const App = (props: TAppProps) => {
   );
 };
 
-const mapStateToProps = (state: TRootState) => ({
+const mapStateToProps = (state: RootState) => ({
   isInitialized: state.app.isInitialized,
 });
 

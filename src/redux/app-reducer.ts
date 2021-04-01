@@ -1,23 +1,22 @@
 import {getUserAuthData} from "./auth-reducer";
-import {AnyAction} from 'redux';
 
 const app: string = "samuraijs";
 const reducer: string = "app";
 
 const SET_INITIALIZING_SUCCESS: string = `${app}/${reducer}/SET_INITIALIZING_SUCCESS`;
 
-type initialStateType = {
+type InitialState = {
   isInitialized: boolean,
 }
-const initialState: initialStateType = {
+const initialState: InitialState = {
   isInitialized: false,
 };
 
-type InitializingSuccessType = {
+type InitializingSuccess = {
   type: typeof SET_INITIALIZING_SUCCESS,
   isInitialized: boolean,
 }
-const setInitializingSuccess = (): InitializingSuccessType => ({
+const setInitializingSuccess = (): InitializingSuccess => ({
   type: SET_INITIALIZING_SUCCESS,
   isInitialized: true,
 });
@@ -32,7 +31,9 @@ export const initializeApp = () => {
   };
 };
 
-const appReducer = (state = initialState, action: AnyAction) => {
+export type AppActions = InitializingSuccess;
+
+const appReducer = (state = initialState, action: AppActions): InitialState => {
   switch (action.type) {
     case SET_INITIALIZING_SUCCESS:
       return {...state, isInitialized: action.isInitialized};
