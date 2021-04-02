@@ -111,8 +111,8 @@ export const savePhoto = (photo: any): ProfileAsyncThunk => {
       .updateUserPhoto(photo)
       .catch((err) => console.error(err));
 
-    if (response.resultCode === 0) {
-      dispatch(setUserPhoto(response.data.photos));
+    if (response && response.resultCode === 0) {
+      dispatch(setUserPhoto(response.data));
     }
   };
 };

@@ -53,8 +53,8 @@ export const getUserAuthData = (): AuthAsyncThunk => {
     dispatch(toggleIsFetchingAction(true));
     const response = await authAPI.getMe().catch((err: any) => console.error(err));
 
-    if (response.data.resultCode === 0) {
-      const {id, email, login} = response.data.data;
+    if (response && response.resultCode === 0) {
+      const {id, email, login} = response.data;
       dispatch(toggleIsFetchingAction(false));
       dispatch(setUserAuthData(id, email, login, true));
     }
@@ -68,16 +68,19 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
       .login(email, password, rememberMe, captchaUrl)
       .catch((err: any) => console.error(err));
 
-    if (response.data.resultCode === 0) {
+    if (response && response.resultCode === 0) {
       dispatch(getUserAuthData());
-    } else if (response.data.resultCode === 10) {
+    } else if (response && response.resultCode === 10) {
       dispatch(getCaptcha());
     } else {
       // let [firstMessage] = response.data.messages;
-      let {messages} = response.data;
-      let firstMessage =
-        messages.length > 0 ? messages[0] : "Some error occurred.";
-      dispatch(stopSubmit("login", {_error: firstMessage}));
+      if (response) {
+        let {messages} = response;
+        let firstMessage =
+          messages &&
+            messages.length > 0 ? messages[0] : "Some error occurred.";
+        dispatch(stopSubmit("login", {_error: firstMessage}));
+      }
     }
   };
 };
@@ -94,7 +97,7 @@ export const logout = (): AuthAsyncThunk => {
     dispatch(toggleIsFetchingAction(true));
     const response = await authAPI.logout().catch((err: any) => console.error(err));
 
-    if (response.data.resultCode === 0) {
+    if (response && response.resultCode === 0) {
       dispatch(setUserAuthData(null, null, null, false));
     }
   };
