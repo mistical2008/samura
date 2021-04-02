@@ -1,10 +1,10 @@
 import React from "react";
-import {TMessage} from "../../../types/base";
+import {MessageShape} from "../../../types/base";
 
 import s from "./Message.module.css";
 
 
-const Message = ({my, text, id}: TMessage) => {
+const Message = ({my, text, id}: MessageShape) => {
   const className = my ? `${s.my} ${s.message}` : `${s.message}`;
   return (
     <div className={className}>

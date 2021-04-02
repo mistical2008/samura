@@ -1,45 +1,59 @@
 import {AnyAction} from 'redux';
-import {stopSubmit} from "redux-form";
-
+import {FormAction, stopSubmit} from "redux-form";
 import {
-  TPostArray,
-  TProfilePhotos,
-  TUserId,
-  TUserProfile
+  PhotosShape,
+  ProfileShape,
+  PostShape
 } from '../types/base';
 import {profileAPI} from "../api/api";
+import {Dispatch} from 'react';
+import {AppAsyncThunk} from './redux-store';
 
-const app = "samuraijs";
-const reducer = "profile";
+const ADD_POST = `ADD-POST`;
+const SET_USER_PROFILE = `SET_USER_PROFILE`;
+const SET_STATUS = `SET_STATUS`;
+const SET_USER_PHOTO = `SET_USER_PHOTO`;
 
-const ADD_POST = `${app}/${reducer}/ADD-POST`;
-const SET_USER_PROFILE = `${app}/${reducer}/SET_USER_PROFILE`;
-const SET_STATUS = `${app}/${reducer}/SET_STATUS`;
-const SET_USER_PHOTO = `${app}/${reducer}/SET_USER_PHOTO`;
+export type ProfileActions =
+  | AddPost
+  | SetUserProfile
+  | SetUserPhoto
+  | SetUserStatus
+export type ProfileDispatch = Dispatch<ProfileActions>;
+export type ProfileAsyncThunk = AppAsyncThunk<ProfileActions>
 
-type TAddPost = {type: typeof ADD_POST, newPostText: string};
-export const addPost = (newPostText: string): TAddPost => ({type: ADD_POST, newPostText});
+type AddPost = {type: typeof ADD_POST, newPostText: string};
+export const addPost = (newPostText: string): AddPost => ({type: ADD_POST, newPostText});
 
-type TSetUserProfile = {
+type SetUserProfile = {
   type: typeof SET_USER_PROFILE,
-  profile: TUserProfile,
+  profile: ProfileShape,
 };
-const setUserProfileAction = (profile: TUserProfile): TSetUserProfile => ({
+const setUserProfileAction = (profile: ProfileShape): SetUserProfile => ({
   type: SET_USER_PROFILE,
   profile,
 });
 
-type TSetUserPhoto = {
+type SetUserPhoto = {
   type: typeof SET_USER_PHOTO,
-  photos: TProfilePhotos,
+  photos: PhotosShape,
 };
-export const setUserPhoto = (photos: TProfilePhotos): TSetUserPhoto => ({
+export const setUserPhoto = (photos: PhotosShape): SetUserPhoto => ({
   type: SET_USER_PHOTO,
   photos,
 });
 
-export const getUserProfile = (userId: TUserId) => {
-  return async (dispatch: any) => {
+type SetUserStatus = {
+  type: typeof SET_STATUS,
+  status: string,
+};
+const setUserStatus = (status: string): SetUserStatus => ({
+  type: SET_STATUS,
+  status,
+});
+
+export const getUserProfile = (userId: number): ProfileAsyncThunk => {
+  return async (dispatch: ProfileDispatch) => {
     const response = await profileAPI
       .getUserProfile(userId)
       .catch((err) => console.log(err));
@@ -48,8 +62,8 @@ export const getUserProfile = (userId: TUserId) => {
   };
 };
 
-export const saveUserProfile = (profile: TUserProfile) => {
-  return async (dispatch: any, getState: any) => {
+export const saveUserProfile = (profile: ProfileShape): ProfileAsyncThunk => {
+  return async (dispatch: Dispatch<ProfileActions | AppAsyncThunk<ProfileActions> | FormAction>, getState: any) => {
     const userId = getState().auth.userId;
 
     const response = await profileAPI
@@ -68,17 +82,9 @@ export const saveUserProfile = (profile: TUserProfile) => {
   };
 };
 
-type TSetUserStatus = {
-  type: typeof SET_STATUS,
-  status: string,
-};
-const setUserStatus = (status: string): TSetUserStatus => ({
-  type: SET_STATUS,
-  status,
-});
 
-export const getUserStatus = (userId: TUserId) => {
-  return async (dispatch: any) => {
+export const getUserStatus = (userId: number): ProfileAsyncThunk => {
+  return async (dispatch: ProfileDispatch) => {
     const response = await profileAPI
       .getUserStatus(userId)
       .catch((err) => console.error(err));
@@ -87,8 +93,8 @@ export const getUserStatus = (userId: TUserId) => {
   };
 };
 
-export const updateUserStatus = (status: string) => {
-  return async (dispatch: any) => {
+export const updateUserStatus = (status: string): ProfileAsyncThunk => {
+  return async (dispatch: ProfileDispatch) => {
     const response = await profileAPI
       .updateUserStatus(status)
       .catch((err) => console.error(err));
@@ -99,8 +105,8 @@ export const updateUserStatus = (status: string) => {
   };
 };
 
-export const savePhoto = (photo: any) => {
-  return async (dispatch: any) => {
+export const savePhoto = (photo: any): ProfileAsyncThunk => {
+  return async (dispatch: ProfileDispatch) => {
     const response = await profileAPI
       .updateUserPhoto(photo)
       .catch((err) => console.error(err));
@@ -127,14 +133,14 @@ const initialState = {
       text: "Hi there!!!!!",
       likes: 112,
     },
-  ] as TPostArray,
-  profile: null as TUserProfile | null,
+  ] as PostShape[],
+  profile: null as ProfileShape | null,
   status: "",
   newPostText: "",
 };
-type TInitialState = typeof initialState;
+type InitialState = typeof initialState;
 
-const profileReducer = (state = initialState, action: AnyAction): TInitialState => {
+const profileReducer = (state = initialState, action: ProfileActions): InitialState => {
   switch (action.type) {
     case ADD_POST: {
       const newPost = {
@@ -160,7 +166,7 @@ const profileReducer = (state = initialState, action: AnyAction): TInitialState 
       console.log("Photos have been setted");
       return {
         ...state,
-        profile: {...state.profile, photos: {...action.photos}} as TUserProfile,
+        profile: {...state.profile, photos: {...action.photos}} as ProfileShape,
       };
     default:
       return state;

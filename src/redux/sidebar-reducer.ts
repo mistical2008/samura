@@ -31,11 +31,10 @@ const initialState = {
   ],
 };
 
-export type TInitialState = typeof initialState;
+export type InitialState = typeof initialState;
 
-const sidebarReducer = (state = initialState): TInitialState => {
+const sidebarReducer = (state = initialState): InitialState => {
   return {items: [...state.items], widgets: [...state.widgets]};
 };
-
 
 export default sidebarReducer;

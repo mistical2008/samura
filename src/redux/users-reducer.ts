@@ -1,4 +1,4 @@
-import {User} from '../types/base';
+import {UserShape} from '../types/base';
 import {usersAPI} from "../api/api";
 import {Dispatch} from 'redux';
 import {AppAsyncThunk, AppThunk} from './redux-store';
@@ -19,8 +19,8 @@ const followAction = (userId: number): FollowAction => ({type: FOLLOW, userId});
 type Unfollow = {type: typeof UNFOLLOW, userId: number};
 const unfollowAction = (userId: number): Unfollow => ({type: UNFOLLOW, userId});
 
-type SetUsers = {type: typeof SET_USERS, users: User[]};
-const setUsersAction = (users: User[]): SetUsers => ({type: SET_USERS, users});
+type SetUsers = {type: typeof SET_USERS, users: UserShape[]};
+const setUsersAction = (users: UserShape[]): SetUsers => ({type: SET_USERS, users});
 
 type SetCurrentPage = {type: typeof SET_CURRENT_PAGE, page: number};
 const setCurrentPageAction = (page: number): SetCurrentPage => ({type: SET_CURRENT_PAGE, page});
@@ -137,7 +137,7 @@ type UserActions =
   | Unfollow;
 
 const initialState = {
-  users: [] as User[],
+  users: [] as UserShape[],
   currentPage: 1,
   currentSection: 1,
   sectionSize: 10,

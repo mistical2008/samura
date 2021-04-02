@@ -8,9 +8,9 @@ const SET_AUTH_USER_DATA = `SET_USER_AUTH_DATA`;
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 const SET_CAPTCHA = `SET_CAPTCHA`;
 
-type AuthActions = AuthUserData | SetCaptcha | ToggleIsFetching;
-type AuthDispatch = Dispatch<AuthActions>
-type AuthAsyncThunk = AppAsyncThunk<AuthActions>
+export type AuthActions = AuthUserData | SetCaptcha | ToggleIsFetching;
+export type AuthDispatch = Dispatch<AuthActions>
+export type AuthAsyncThunk = AppAsyncThunk<AuthActions>
 
 type AuthUserData = {
   type: typeof SET_AUTH_USER_DATA,

@@ -5,24 +5,24 @@ export type TLogin = string | null;
 export type TUrl = number | null;
 
 // Objects:
-export type TAppProps = {
+export type AppProps = {
   isInitialized: boolean,
   initializeApp: Function,
 }
 
-export type TDialog = {
+export type DialogShape = {
   id: number,
   name: string,
   avatar: string,
 }
-export type TDialogsArray = Array<TDialog>;
+export type DialogsArray = Array<DialogShape>;
 
-export type TMessage = {
+export type MessageShape = {
   id: number, my: boolean, text: string
 }
-export type TMessagesArray = Array<TMessage>;
+export type MessagesArray = Array<MessageShape>;
 
-export type TProfileContacts = {
+export type ProfileContactsShape = {
   github: string,
   vk: string,
   facebook: string,
@@ -32,33 +32,33 @@ export type TProfileContacts = {
   youtube: string,
   mainLink: string,
 }
-export type TProfilePhotos = {
+export type PhotosShape = {
   small: string | null,
   large: string | null,
 }
-export type TUserProfile = {
+export type ProfileShape = {
   userId: TUserId,
   lookingForAJob: boolean,
   lookingForAJobDescription: string,
   fullName: string,
-  contacts: TProfileContacts,
-  photos: TProfilePhotos,
+  contacts: ProfileContactsShape,
+  photos: PhotosShape,
 };
 
-export type TPost = {
+export type PostShape = {
   id: number,
   avatar: string,
   text: string,
   likes: number,
 }
 
-export type TPostArray = Array<TPost>;
+export type PostArray = Array<PostShape>;
 
-export type TUser = {
+export type UserShape = {
   id: number,
   name: string,
   status?: string,
-  photos: TProfilePhotos,
+  photos: PhotosShape,
   followed: boolean,
 }
-export type TUsersArray = Array<TUser>;
+export type UsersArray = Array<UserShape>;

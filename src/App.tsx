@@ -1,20 +1,20 @@
-import "./App.css";
-import "./index.css";
+import React, {useEffect} from "react";
+import {connect} from "react-redux";
 import {Redirect, Route, Switch, withRouter} from "react-router-dom";
 import {compose} from "redux";
-import {connect} from "react-redux";
-import React, {useEffect} from "react";
-import {initializeApp} from "./redux/app-reducer";
+import "./App.css";
+import NotFound from "./components/404/404";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import NavigationContainer from "./components/Navigation/NavigationContainer";
 import Music from "./components/Music/Music";
+import NavigationContainer from "./components/Navigation/NavigationContainer";
 import News from "./components/News/News";
 import Preloader from "./components/Preloader/Preloader";
 import withStoreAndRouter from "./hoc/withStoreAndRouter";
 import withSuspense from "./hoc/withSuspense";
-import NotFound from "./components/404/404";
-import {TAppProps} from "./types/base";
+import "./index.css";
+import {initializeApp} from "./redux/app-reducer";
 import {RootState} from "./redux/redux-store";
+import {AppProps} from "./types/base";
 
 const DialogsContainer = React.lazy(() =>
   import("./components/Dialogs/DialogsContainer")
@@ -28,7 +28,7 @@ const ProfileContainer = React.lazy(() =>
 );
 const Login = React.lazy(() => import("./components/Login/Login"));
 
-const App = (props: TAppProps) => {
+const App = (props: AppProps) => {
   useEffect(() => {
     props.initializeApp();
   }, []);
