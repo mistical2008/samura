@@ -74,42 +74,52 @@ const toggleFollowingInProgressAction = (bool: boolean, userId: number): ToggleF
 
 export const unfollow = (userId: number): AppAsyncThunk<UserActions> => {
   return async (dispatch: Dispatch<UserActions>) => {
-    dispatch(toggleFollowingInProgressAction(true, userId));
-    const responce = await usersAPI
-      .unfollow(userId)
-      .catch((err) => console.error(err));
+    try {
+      dispatch(toggleFollowingInProgressAction(true, userId));
+      const responce = await usersAPI
+        .unfollow(userId)
+        .catch((err) => console.error(err));
 
-    dispatch(toggleFollowingInProgressAction(false, userId));
-    if (responce.resultCode === 0) {
-      dispatch(unfollowAction(userId));
+      dispatch(toggleFollowingInProgressAction(false, userId));
+      if (responce.resultCode === 0) {
+        dispatch(unfollowAction(userId));
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 };
 
 export const follow = (userId: number): AppAsyncThunk<UserActions> => {
   return async (dispatch: Dispatch<UserActions>) => {
-    dispatch(toggleFollowingInProgressAction(true, userId));
-    const response = await usersAPI
-      .follow(userId)
-      .catch((err) => console.error(err));
+    try { dispatch(toggleFollowingInProgressAction(true, userId));
+      const response = await usersAPI
+        .follow(userId)
+        .catch((err) => console.error(err));
 
-    dispatch(toggleFollowingInProgressAction(false, userId));
-    if (response.resultCode === 0) {
-      dispatch(followAction(userId));
+      dispatch(toggleFollowingInProgressAction(false, userId));
+      if (response.resultCode === 0) {
+        dispatch(followAction(userId));
+      } 
+    } catch (err) {
+        console.error(err);
     }
   };
 };
 
 export const getUsers = (usersPerPage: number, pageNumber: number): AppAsyncThunk<UserActions> => {
   return async (dispatch: Dispatch<UserActions>) => {
-    dispatch(toggleIsFetchingAction(true));
-    const response = await usersAPI
-      .fetchUsers(usersPerPage, pageNumber)
-      .catch((err) => console.error(err));
+    try { dispatch(toggleIsFetchingAction(true));
+      const response = await usersAPI
+        .fetchUsers(usersPerPage, pageNumber)
+        .catch((err) => console.error(err));
 
-    dispatch(toggleIsFetchingAction(false));
-    dispatch(setUsersAction(response.items));
-    dispatch(setUsersCountAction(response.totalCount));
+      dispatch(toggleIsFetchingAction(false));
+      dispatch(setUsersAction(response.items));
+      dispatch(setUsersCountAction(response.totalCount)); 
+    } catch (err) {
+      console.error(err);
+    }
   };
 };
 
