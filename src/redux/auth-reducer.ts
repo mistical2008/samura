@@ -50,55 +50,67 @@ const toggleIsFetchingAction = (bool: boolean): ToggleIsFetching => ({
 
 export const getUserAuthData = (): AuthAsyncThunk => {
   return async (dispatch: AuthDispatch) => {
-    dispatch(toggleIsFetchingAction(true));
-    const response = await authAPI.getMe().catch((err: any) => console.error(err));
+    try { dispatch(toggleIsFetchingAction(true));
+      const response = await authAPI.getMe().catch((err: any) => console.error(err));
 
-    if (response && response.resultCode === 0) {
-      const {id, email, login} = response.data;
-      dispatch(toggleIsFetchingAction(false));
-      dispatch(setUserAuthData(id, email, login, true));
+      if (response && response.resultCode === 0) {
+        const {id, email, login} = response.data;
+        dispatch(toggleIsFetchingAction(false));
+        dispatch(setUserAuthData(id, email, login, true));
+      } 
+    } catch (err) {
+      console.error(err);
     }
   };
 };
 
 export const login = (email: string, password: string, rememberMe: boolean, captchaUrl = null): AuthAsyncThunk => {
   return async (dispatch: Dispatch<AuthActions | AuthAsyncThunk | FormAction>) => {
-    dispatch(toggleIsFetchingAction(true));
-    const response = await authAPI
-      .login(email, password, rememberMe, captchaUrl)
-      .catch((err: any) => console.error(err));
+    try { dispatch(toggleIsFetchingAction(true));
+      const response = await authAPI
+        .login(email, password, rememberMe, captchaUrl)
+        .catch((err: any) => console.error(err));
 
-    if (response && response.resultCode === 0) {
-      dispatch(getUserAuthData());
-    } else if (response && response.resultCode === 10) {
-      dispatch(getCaptcha());
-    } else {
-      // let [firstMessage] = response.data.messages;
-      if (response) {
-        let {messages} = response;
-        let firstMessage =
-          messages &&
+      if (response && response.resultCode === 0) {
+        dispatch(getUserAuthData());
+      } else if (response && response.resultCode === 10) {
+        dispatch(getCaptcha());
+      } else {
+        // let [firstMessage] = response.data.messages;
+        if (response) {
+          let {messages} = response;
+          let firstMessage =
+            messages &&
             messages.length > 0 ? messages[0] : "Some error occurred.";
-        dispatch(stopSubmit("login", {_error: firstMessage}));
-      }
+          dispatch(stopSubmit("login", {_error: firstMessage}));
+        }
+      } 
+    } catch (err) {
+      console.error(err);
     }
   };
 };
 
 export const getCaptcha = (): AuthAsyncThunk => {
   return async (dispatch: AuthDispatch) => {
-    const {url} = await securityAPI.getCaptcha();
-    dispatch(setCaptcha(url));
+    try { const {url} = await securityAPI.getCaptcha();
+      dispatch(setCaptcha(url)); 
+    } catch (err) {
+      console.error(err);
+    }
   };
 };
 
 export const logout = (): AuthAsyncThunk => {
   return async (dispatch: AuthDispatch) => {
-    dispatch(toggleIsFetchingAction(true));
-    const response = await authAPI.logout().catch((err: any) => console.error(err));
+    try { dispatch(toggleIsFetchingAction(true));
+      const response = await authAPI.logout().catch((err: any) => console.error(err));
 
-    if (response && response.resultCode === 0) {
-      dispatch(setUserAuthData(null, null, null, false));
+      if (response && response.resultCode === 0) {
+        dispatch(setUserAuthData(null, null, null, false));
+      } 
+    } catch (err) {
+      console.error(err);
     }
   };
 };
