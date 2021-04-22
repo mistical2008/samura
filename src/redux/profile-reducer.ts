@@ -54,30 +54,36 @@ const setUserStatus = (status: string): SetUserStatus => ({
 
 export const getUserProfile = (userId: number): ProfileAsyncThunk => {
   return async (dispatch: ProfileDispatch) => {
-    const response = await profileAPI
-      .getUserProfile(userId)
-      .catch((err) => console.log(err));
+    try { const response = await profileAPI
+        .getUserProfile(userId)
+        .catch((err) => console.log(err));
 
-    dispatch(setUserProfileAction(response));
+      dispatch(setUserProfileAction(response)); 
+    } catch (err) {
+      console.error(err);
+    }
   };
 };
 
 export const saveUserProfile = (profile: ProfileShape): ProfileAsyncThunk => {
   return async (dispatch: Dispatch<ProfileActions | AppAsyncThunk<ProfileActions> | FormAction>, getState: any) => {
-    const userId = getState().auth.userId;
+    try { const userId = getState().auth.userId;
 
-    const response = await profileAPI
-      .updateUserProfile(profile)
-      .catch((err) => console.error(err));
+      const response = await profileAPI
+        .updateUserProfile(profile)
+        .catch((err) => console.error(err));
 
-    console.log(response);
+      console.log(response);
 
-    if (response.resultCode === 0) {
-      dispatch(getUserProfile(userId));
-    } else {
-      const message = response.messages[0];
-      dispatch(stopSubmit("editProfile", {_error: message}));
-      return Promise.reject(message);
+      if (response.resultCode === 0) {
+        dispatch(getUserProfile(userId));
+      } else {
+        const message = response.messages[0];
+        dispatch(stopSubmit("editProfile", {_error: message}));
+        return Promise.reject(message);
+      } 
+    } catch (err) {
+      console.error(err);
     }
   };
 };
@@ -95,24 +101,30 @@ export const getUserStatus = (userId: number): ProfileAsyncThunk => {
 
 export const updateUserStatus = (status: string): ProfileAsyncThunk => {
   return async (dispatch: ProfileDispatch) => {
-    const response = await profileAPI
-      .updateUserStatus(status)
-      .catch((err) => console.error(err));
+    try { const response = await profileAPI
+        .updateUserStatus(status)
+        .catch((err) => console.error(err));
 
-    if (response.resultCode === 0) {
-      dispatch(setUserStatus(status));
+      if (response.resultCode === 0) {
+        dispatch(setUserStatus(status));
+      } 
+    } catch (err) {
+      console.error(err);
     }
   };
 };
 
 export const savePhoto = (photo: any): ProfileAsyncThunk => {
   return async (dispatch: ProfileDispatch) => {
-    const response = await profileAPI
-      .updateUserPhoto(photo)
-      .catch((err) => console.error(err));
+    try { const response = await profileAPI
+        .updateUserPhoto(photo)
+        .catch((err) => console.error(err));
 
-    if (response && response.resultCode === 0) {
-      dispatch(setUserPhoto(response.data));
+      if (response && response.resultCode === 0) {
+        dispatch(setUserPhoto(response.data));
+      } 
+    } catch (err) {
+      console.error(err);
     }
   };
 };
