@@ -51,7 +51,7 @@ const toggleIsFetchingAction = (bool: boolean): ToggleIsFetching => ({
 export const getUserAuthData = (): AuthAsyncThunk => {
   return async (dispatch: AuthDispatch) => {
     try { dispatch(toggleIsFetchingAction(true));
-      const response = await authAPI.getMe().catch((err: any) => console.error(err));
+      const response = await authAPI.getMe()
 
       if (response && response.resultCode === 0) {
         const {id, email, login} = response.data;
@@ -69,7 +69,6 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
     try { dispatch(toggleIsFetchingAction(true));
       const response = await authAPI
         .login(email, password, rememberMe, captchaUrl)
-        .catch((err: any) => console.error(err));
 
       if (response && response.resultCode === 0) {
         dispatch(getUserAuthData());
@@ -104,7 +103,7 @@ export const getCaptcha = (): AuthAsyncThunk => {
 export const logout = (): AuthAsyncThunk => {
   return async (dispatch: AuthDispatch) => {
     try { dispatch(toggleIsFetchingAction(true));
-      const response = await authAPI.logout().catch((err: any) => console.error(err));
+      const response = await authAPI.logout()
 
       if (response && response.resultCode === 0) {
         dispatch(setUserAuthData(null, null, null, false));

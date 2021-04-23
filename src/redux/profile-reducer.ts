@@ -56,7 +56,6 @@ export const getUserProfile = (userId: number): ProfileAsyncThunk => {
   return async (dispatch: ProfileDispatch) => {
     try { const response = await profileAPI
         .getUserProfile(userId)
-        .catch((err) => console.log(err));
 
       dispatch(setUserProfileAction(response)); 
     } catch (err) {
@@ -71,7 +70,6 @@ export const saveUserProfile = (profile: ProfileShape): ProfileAsyncThunk => {
 
       const response = await profileAPI
         .updateUserProfile(profile)
-        .catch((err) => console.error(err));
 
       console.log(response);
 
@@ -93,7 +91,6 @@ export const getUserStatus = (userId: number): ProfileAsyncThunk => {
   return async (dispatch: ProfileDispatch) => {
     const response = await profileAPI
       .getUserStatus(userId)
-      .catch((err) => console.error(err));
 
     dispatch(setUserStatus(response));
   };
@@ -103,7 +100,6 @@ export const updateUserStatus = (status: string): ProfileAsyncThunk => {
   return async (dispatch: ProfileDispatch) => {
     try { const response = await profileAPI
         .updateUserStatus(status)
-        .catch((err) => console.error(err));
 
       if (response.resultCode === 0) {
         dispatch(setUserStatus(status));
@@ -118,7 +114,6 @@ export const savePhoto = (photo: any): ProfileAsyncThunk => {
   return async (dispatch: ProfileDispatch) => {
     try { const response = await profileAPI
         .updateUserPhoto(photo)
-        .catch((err) => console.error(err));
 
       if (response && response.resultCode === 0) {
         dispatch(setUserPhoto(response.data));

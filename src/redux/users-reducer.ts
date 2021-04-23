@@ -78,7 +78,6 @@ export const unfollow = (userId: number): AppAsyncThunk<UserActions> => {
       dispatch(toggleFollowingInProgressAction(true, userId));
       const responce = await usersAPI
         .unfollow(userId)
-        .catch((err) => console.error(err));
 
       dispatch(toggleFollowingInProgressAction(false, userId));
       if (responce.resultCode === 0) {
@@ -95,7 +94,6 @@ export const follow = (userId: number): AppAsyncThunk<UserActions> => {
     try { dispatch(toggleFollowingInProgressAction(true, userId));
       const response = await usersAPI
         .follow(userId)
-        .catch((err) => console.error(err));
 
       dispatch(toggleFollowingInProgressAction(false, userId));
       if (response.resultCode === 0) {
@@ -112,7 +110,6 @@ export const getUsers = (usersPerPage: number, pageNumber: number): AppAsyncThun
     try { dispatch(toggleIsFetchingAction(true));
       const response = await usersAPI
         .fetchUsers(usersPerPage, pageNumber)
-        .catch((err) => console.error(err));
 
       dispatch(toggleIsFetchingAction(false));
       dispatch(setUsersAction(response.items));

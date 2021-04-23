@@ -21,7 +21,6 @@ export const usersAPI = {
     try {
       const response = await instance
         .get<UsersResShape>(`users?count=${usersPerPage}&page=${currentPage}`)
-        .catch((err) => console.error(err));
       if (response) {
         return response.data;
       }
@@ -36,7 +35,6 @@ export const usersAPI = {
     try {
       const response = await instance
         .post<BaseResShape>(`follow/${userId}`)
-        .catch((err) => console.error(err));
       if (response) {
         return response.data;
       }
@@ -49,7 +47,6 @@ export const usersAPI = {
     try {
       const response = await instance
         .delete<BaseResShape>(`follow/${userId}`)
-        .catch((err) => console.error(err));
       if (response) {
         return response.data;
       }
@@ -69,7 +66,6 @@ export const profileAPI = {
     try {
       const response = await instance
         .get<ProfileShape>(`profile/${userId}`)
-        .catch((err) => console.error(err));
       if (response) {
         return response.data;
       }
@@ -83,7 +79,6 @@ export const profileAPI = {
     try {
       const response = await instance
         .put<BaseResShape>(`profile`, profile)
-        .catch((err) => console.error(err));
       if (response) {
         return response.data;
       }
@@ -96,7 +91,6 @@ export const profileAPI = {
     try {
       const response = await instance
         .get<string>(`profile/status/${userId}`)
-        .catch((err) => console.error(err));
       if (response) {
         return response.data;
       }
@@ -109,7 +103,6 @@ export const profileAPI = {
     try {
       const response = await instance
         .put<BaseResShape>(`profile/status`, {status: status})
-        .catch((err) => console.error(err));
       if (response) {
         return response.data;
       }
@@ -129,7 +122,6 @@ export const profileAPI = {
             "Content-Type": "multipart/form-data",
           },
         })
-        .catch((err) => console.error(err));
       if (response) {
         return response.data;
       }
