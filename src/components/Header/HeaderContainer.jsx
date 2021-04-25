@@ -1,8 +1,13 @@
-import {compose} from "redux";
-import {connect} from "react-redux";
-import React, {Component} from "react";
-import {logout} from "../../redux/auth-reducer";
+import { compose } from "redux";
+import { connect } from "react-redux";
+import React, { Component } from "react";
+import { logout } from "../../redux/auth-reducer";
 import Header from "./Header";
+import {
+  getIsAuthState,
+  getIsFetchingState,
+  getLoginState,
+} from "../../redux/auth-selectors";
 
 class HeaderContainer extends Component {
   render() {
@@ -12,10 +17,10 @@ class HeaderContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    login: state.auth.login,
-    isAuth: state.auth.isAuth,
-    isFetching: state.auth.isFetching,
+    login: getLoginState(state),
+    isAuth: getIsAuthState(state),
+    isFetching: getIsFetchingState(state),
   };
 };
 
-export default compose(connect(mapStateToProps, {logout}))(HeaderContainer);
+export default compose(connect(mapStateToProps, { logout }))(HeaderContainer);

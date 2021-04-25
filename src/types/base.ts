@@ -1,3 +1,5 @@
+import { InjectedFormProps } from "redux-form";
+
 // Primitives:
 export type TUserId = number | null;
 export type TEmail = string | null;
@@ -62,3 +64,5 @@ export type UserShape = {
   followed: boolean,
 }
 export type UsersArray = Array<UserShape>;
+
+export type FormProps<FD = {}, P = {}> = InjectedFormProps<FD, P> & P;

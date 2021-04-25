@@ -1,10 +1,11 @@
 import { connect } from "react-redux";
 import React from "react";
 import Login from "../components/Login/Login";
+import { getIsAuthState } from "../redux/auth-selectors";
 
 const mapStateToProps = (state) => {
   return {
-    isAuth: state.auth.isAuth,
+    isAuth: getIsAuthState(state),
   };
 };
 

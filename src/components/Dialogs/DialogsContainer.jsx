@@ -1,24 +1,24 @@
-import React from 'react'
+import React from "react";
 import { addMessage } from "../../redux/dialogs-reducer";
 import { withRedirect } from "../../hoc/withRedirect";
 import { connect } from "react-redux";
 import Dialogs from "./Dialogs";
 import { compose } from "redux";
+import { getDialogsPageState } from "../../redux/dialogs-selectors";
 
 const mapStateToProps = (state) => {
   return {
-    dialogsPage: state.dialogsPage,
+    dialogsPage: getDialogsPageState(state),
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-return { 
-  addMessage: (newMessageText) => {
-    dispatch(addMessage(newMessageText))
-  }, 
-}
-}
-
+  return {
+    addMessage: (newMessageText) => {
+      dispatch(addMessage(newMessageText));
+    },
+  };
+};
 
 export default compose(
   withRedirect,

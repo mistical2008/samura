@@ -1,5 +1,6 @@
-import React, {ComponentType} from "react";
-import {Field, reduxForm, InjectedFormProps} from "redux-form";
+import React, {ReactElement} from "react";
+import {Field, reduxForm} from "redux-form";
+import { FormProps } from "../../types/base";
 import {maxLength, minLength} from "../../utils/validators/validators";
 import {Textarea} from "../FormControls/FormControls";
 import s from "./PostForm.module.css";
@@ -7,8 +8,14 @@ import s from "./PostForm.module.css";
 const maxLength130 = maxLength(130);
 const minLength1 = minLength(1);
 
-const PostForm: ComponentType<InjectedFormProps<{}, {}, string>> = ({handleSubmit}) => {
+type FormData = {
+  text: string
+} & {}
 
+const PostForm = (props: FormProps<FormData>): ReactElement => {
+
+  const {handleSubmit} = props;
+  console.log(props);
   return (
     <form onSubmit={handleSubmit} className={s.postForm}>
       <Field
@@ -25,4 +32,4 @@ const PostForm: ComponentType<InjectedFormProps<{}, {}, string>> = ({handleSubmi
   );
 };
 
-export default reduxForm({form: "profile-add-post"})(PostForm);
+export default reduxForm<FormData>({form: "profile-add-post"})(PostForm);

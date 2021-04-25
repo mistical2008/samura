@@ -143,7 +143,7 @@ export const authAPI = {
     }
   },
 
-  async login(email: string, password: string, rememberMe: boolean = false, captcha: null | string = null) {
+  async login(email: string, password: string, rememberMe: boolean = false, captcha: ( null | string ) = null) {
     try {
       const response = await instance.post<BaseResShape>(`auth/login`, {
         email,

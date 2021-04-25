@@ -12,14 +12,14 @@ import Preloader from "../Preloader/Preloader";
 import Users from "./Users";
 import { compose } from "redux";
 import {
-  getAllUsers,
-  getCurrentPage,
-  getCurrentSection,
-  getSectionSize,
-  getUsersCount,
-  getUsersPerPage,
-  getIsFetching,
-  getFollowingInProgress,
+  getAllUsersState,
+  getCurrentPageState,
+  getCurrentSectionState,
+  getSectionSizeState,
+  getUsersCountState,
+  getUsersPerPageState,
+  getIsFetchingState,
+  getFollowingInProgressState,
 } from "../../redux/users-selectors";
 
 class UsersContainer extends Component {
@@ -58,14 +58,14 @@ class UsersContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    users: getAllUsers(state),
-    currentPage: getCurrentPage(state),
-    currentSection: getCurrentSection(state),
-    sectionSize: getSectionSize(state),
-    usersCount: getUsersCount(state),
-    usersPerPage: getUsersPerPage(state),
-    isFetching: getIsFetching(state),
-    followingInProgress: getFollowingInProgress(state),
+    users: getAllUsersState(state),
+    currentPage: getCurrentPageState(state),
+    currentSection: getCurrentSectionState(state),
+    sectionSize: getSectionSizeState(state),
+    usersCount: getUsersCountState(state),
+    usersPerPage: getUsersPerPageState(state),
+    isFetching: getIsFetchingState(state),
+    followingInProgress: getFollowingInProgressState(state),
   };
 };
 

@@ -13,6 +13,7 @@ import withStoreAndRouter from "./hoc/withStoreAndRouter";
 import withSuspense from "./hoc/withSuspense";
 import "./index.css";
 import {initializeApp} from "./redux/app-reducer";
+import {getAppIsInitializedState} from "./redux/app-selectors";
 import {RootState} from "./redux/redux-store";
 import {AppProps} from "./types/base";
 
@@ -30,6 +31,7 @@ const Login = React.lazy(() => import("./components/Login/Login"));
 
 const App = (props: AppProps) => {
   useEffect(() => {
+    /* eslint-disable react-hooks/exhaustive-deps */
     props.initializeApp();
   }, []);
 
@@ -67,7 +69,7 @@ const App = (props: AppProps) => {
 };
 
 const mapStateToProps = (state: RootState) => ({
-  isInitialized: state.app.isInitialized,
+  isInitialized: getAppIsInitializedState(state),
 });
 
 const AppContainer = compose(

@@ -1,18 +1,31 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { Input } from "../../FormControls/FormControls";
+import { FormProps, ProfileContactsShape } from "../../../types/base";
 
-const BioForm = ({
-  profile: {
-    aboutMe,
-    fullName,
-    lookingForAJob,
-    lookingForAJobDescription,
-    contacts,
-  },
-  handleSubmit,
-  error,
-}) => {
+type ProfileFormData = {
+  aboutMe: string,
+  fullName: string,
+  lookingForAJob: boolean,
+  lookingForAJobDescription: string,
+  contacts: ProfileContactsShape,
+};
+type OwnProps = {
+  profile: ProfileFormData,
+};
+
+const BioForm = (props: FormProps<OwnProps, OwnProps>) => {
+  const {
+    profile: {
+      aboutMe,
+      fullName,
+      lookingForAJob,
+      lookingForAJobDescription,
+      contacts,
+    },
+    handleSubmit,
+    error,
+  } = props;
   return (
     <form onSubmit={handleSubmit}>
       <button>Save</button>
@@ -70,4 +83,4 @@ const BioForm = ({
     </form>
   );
 };
-export default reduxForm({ form: "editProfile" })(BioForm);
+export default reduxForm<OwnProps, OwnProps>({ form: "editProfile" })(BioForm);

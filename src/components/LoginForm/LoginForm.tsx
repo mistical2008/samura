@@ -1,18 +1,29 @@
-import { Field, reduxForm } from "redux-form";
 import React from "react";
+import { Field, reduxForm } from "redux-form";
 import {
   maxLength,
   minLength,
   required,
 } from "../../utils/validators/validators";
-import { Input } from "../FormControls/FormControls.jsx";
+import { Input } from "../FormControls/FormControls";
 import s from "./LoginForm.module.css";
+import {FormProps} from "../../types/base";
 
 const minLength8 = minLength(8);
 const maxLength32 = maxLength(32);
-// const required = required();
 
-const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
+type FormData = { 
+  email: string,
+  password: string,
+  rememberMe: boolean, 
+  captcha?: string | null 
+} & {}
+
+type OwnProps = {
+  captchaUrl: string | null
+} & {};
+
+const LoginForm = ({ handleSubmit, error, captchaUrl }: FormProps<FormData, OwnProps>) => {
   return (
     <form onSubmit={handleSubmit} className={s.loginForm}>
       <Field
@@ -33,7 +44,7 @@ const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
         {error && <div className={s.formError}>{error}</div>}
         {captchaUrl && (
           <>
-            <img src={captchaUrl} />
+            <img src={captchaUrl} alt="" />
             <Field type="text" name="captcha" id="captcha" component={Input} />
           </>
         )}
@@ -50,4 +61,4 @@ const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
   );
 };
 
-export default reduxForm({ form: "login" })(LoginForm);
+export default reduxForm<FormData, OwnProps>({ form: "login" })(LoginForm);

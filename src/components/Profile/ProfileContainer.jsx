@@ -11,6 +11,8 @@ import {
 } from "../../redux/profile-reducer";
 import Profile from "./Profile";
 import Login from "../Login/Login";
+import { getProfileState, getStatusState } from "../../redux/profile-selectors";
+import { getIsAuthState, getMyIdState } from "../../redux/auth-selectors";
 
 class ProfileContainer extends Component {
   componentDidMount() {
@@ -57,10 +59,10 @@ class ProfileContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    profile: state.profilePage.profile,
-    status: state.profilePage.status,
-    myId: state.auth.userId,
-    isAuth: state.auth.isAuth,
+    profile: getProfileState(state),
+    status: getStatusState(state),
+    myId: getMyIdState(state),
+    isAuth: getIsAuthState(state),
   };
 };
 

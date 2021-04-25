@@ -64,7 +64,7 @@ export const getUserAuthData = (): AuthAsyncThunk => {
   };
 };
 
-export const login = (email: string, password: string, rememberMe: boolean, captchaUrl = null): AuthAsyncThunk => {
+export const login = (email: string, password: string, rememberMe: boolean, captchaUrl: (string | null) = null): AuthAsyncThunk => {
   return async (dispatch: Dispatch<AuthActions | AuthAsyncThunk | FormAction>) => {
     try { dispatch(toggleIsFetchingAction(true));
       const response = await authAPI
