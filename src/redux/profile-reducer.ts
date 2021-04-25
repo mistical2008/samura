@@ -1,4 +1,3 @@
-import {AnyAction} from 'redux';
 import {FormAction, stopSubmit} from "redux-form";
 import {
   PhotosShape,
@@ -7,57 +6,37 @@ import {
 } from '../types/base';
 import {profileAPI} from "../api/api";
 import {Dispatch} from 'react';
-import {AppAsyncThunk} from './redux-store';
+import {AppAsyncThunk, InferValuesTypes} from './redux-store';
 
-const ADD_POST = `ADD-POST`;
-const SET_USER_PROFILE = `SET_USER_PROFILE`;
-const SET_STATUS = `SET_STATUS`;
-const SET_USER_PHOTO = `SET_USER_PHOTO`;
+export type ActionTypes = ReturnType<InferValuesTypes<typeof actions>>;
+export type ProfileDispatch = Dispatch<ActionTypes>;
+export type ProfileAsyncThunk = AppAsyncThunk<ActionTypes>
 
-export type ProfileActions =
-  | AddPost
-  | SetUserProfile
-  | SetUserPhoto
-  | SetUserStatus
-export type ProfileDispatch = Dispatch<ProfileActions>;
-export type ProfileAsyncThunk = AppAsyncThunk<ProfileActions>
+export const actions = {
+    addPost: (newPostText: string) => ({type: 'ADD_POST', newPostText} as const),
 
-type AddPost = {type: typeof ADD_POST, newPostText: string};
-export const addPost = (newPostText: string): AddPost => ({type: ADD_POST, newPostText});
+    setUserProfileAction: (profile: ProfileShape) => ({
+      type: 'SET_USER_PROFILE',
+      profile,
+    } as const),
 
-type SetUserProfile = {
-  type: typeof SET_USER_PROFILE,
-  profile: ProfileShape,
-};
-const setUserProfileAction = (profile: ProfileShape): SetUserProfile => ({
-  type: SET_USER_PROFILE,
-  profile,
-});
+    setUserPhoto: (photos: PhotosShape) => ({
+      type: 'SET_USER_PHOTO',
+      photos,
+    } as const),
 
-type SetUserPhoto = {
-  type: typeof SET_USER_PHOTO,
-  photos: PhotosShape,
-};
-export const setUserPhoto = (photos: PhotosShape): SetUserPhoto => ({
-  type: SET_USER_PHOTO,
-  photos,
-});
-
-type SetUserStatus = {
-  type: typeof SET_STATUS,
-  status: string,
-};
-const setUserStatus = (status: string): SetUserStatus => ({
-  type: SET_STATUS,
-  status,
-});
+    setUserStatus: (status: string) => ({
+      type: 'SET_STATUS',
+      status,
+    }as const),
+  }
 
 export const getUserProfile = (userId: number): ProfileAsyncThunk => {
   return async (dispatch: ProfileDispatch) => {
     try { const response = await profileAPI
         .getUserProfile(userId)
 
-      dispatch(setUserProfileAction(response)); 
+      dispatch(actions.setUserProfileAction(response)); 
     } catch (err) {
       console.error(err);
     }
@@ -65,7 +44,7 @@ export const getUserProfile = (userId: number): ProfileAsyncThunk => {
 };
 
 export const saveUserProfile = (profile: ProfileShape): ProfileAsyncThunk => {
-  return async (dispatch: Dispatch<ProfileActions | AppAsyncThunk<ProfileActions> | FormAction>, getState: any) => {
+  return async (dispatch: Dispatch<ActionTypes | AppAsyncThunk<ActionTypes> | FormAction>, getState: any) => {
     try { const userId = getState().auth.userId;
 
       const response = await profileAPI
@@ -86,13 +65,12 @@ export const saveUserProfile = (profile: ProfileShape): ProfileAsyncThunk => {
   };
 };
 
-
 export const getUserStatus = (userId: number): ProfileAsyncThunk => {
   return async (dispatch: ProfileDispatch) => {
     const response = await profileAPI
       .getUserStatus(userId)
 
-    dispatch(setUserStatus(response));
+    dispatch(actions.setUserStatus(response));
   };
 };
 
@@ -102,7 +80,7 @@ export const updateUserStatus = (status: string): ProfileAsyncThunk => {
         .updateUserStatus(status)
 
       if (response.resultCode === 0) {
-        dispatch(setUserStatus(status));
+        dispatch(actions.setUserStatus(status));
       } 
     } catch (err) {
       console.error(err);
@@ -116,7 +94,7 @@ export const savePhoto = (photo: any): ProfileAsyncThunk => {
         .updateUserPhoto(photo)
 
       if (response && response.resultCode === 0) {
-        dispatch(setUserPhoto(response.data));
+        dispatch(actions.setUserPhoto(response.data));
       } 
     } catch (err) {
       console.error(err);
@@ -147,9 +125,9 @@ const initialState = {
 };
 type InitialState = typeof initialState;
 
-const profileReducer = (state = initialState, action: ProfileActions): InitialState => {
+const profileReducer = (state = initialState, action: ActionTypes): InitialState => {
   switch (action.type) {
-    case ADD_POST: {
+    case 'ADD_POST': {
       const newPost = {
         id: 5,
         avatar:
@@ -159,17 +137,17 @@ const profileReducer = (state = initialState, action: ProfileActions): InitialSt
       };
       return {...state, posts: [...state.posts, newPost]};
     }
-    case SET_USER_PROFILE:
+    case 'SET_USER_PROFILE':
       return {
         ...state,
         profile: action.profile,
       };
-    case SET_STATUS:
+    case 'SET_STATUS':
       return {
         ...state,
         status: action.status,
       };
-    case SET_USER_PHOTO:
+    case 'SET_USER_PHOTO':
       console.log("Photos have been setted");
       return {
         ...state,

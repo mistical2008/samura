@@ -1,16 +1,13 @@
 import {DialogShape, MessageShape} from '../types/base';
+import {InferValuesTypes} from './redux-store';
 
-const ADD_MESSAGE = `ADD-MESSAGE`;
-
-export type DialogActions = AddMessage;
-type AddMessage = {
-  type: typeof ADD_MESSAGE,
-  newMessageText: string,
-};
-export const addMessage = (newMessageText: string): AddMessage => ({
-  type: ADD_MESSAGE,
-  newMessageText,
-});
+export type ActionTypes = ReturnType<InferValuesTypes<typeof actions>>;
+export const actions = {
+  addMessage: (newMessageText: string) => ({
+    type: 'ADD_MESSAGE',
+    newMessageText,
+  } as const),
+}
 
 const initialState = {
   dialogs: [
@@ -56,9 +53,9 @@ const initialState = {
 };
 export type InitialState = typeof initialState;
 
-const dialogsReducer = (state = initialState, action: DialogActions): InitialState => {
+const dialogsReducer = (state = initialState, action: ActionTypes): InitialState => {
   switch (action.type) {
-    case ADD_MESSAGE: {
+    case 'ADD_MESSAGE': {
       const newMessage = {
         id: 1,
         my: true,

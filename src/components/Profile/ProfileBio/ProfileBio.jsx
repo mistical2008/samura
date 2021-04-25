@@ -104,6 +104,8 @@ const ProfileBio = ({
     savePhoto(files[0]);
   };
 
+  // FIXME: when clicking on user from usersPage
+  // and clicking Profile navlink I can edit this user profile data
   return (
     <section className={s.bio}>
       <h2 className={s.subheading}>{profile.fullName}</h2>

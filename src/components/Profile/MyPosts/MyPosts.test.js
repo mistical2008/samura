@@ -1,6 +1,6 @@
-import { render, screen } from "@testing-library/react";
 import React from "react";
-import { addPost } from "../../../redux/profile-reducer";
+import { render, screen } from "@testing-library/react";
+import { actions } from "../../../redux/profile-reducer";
 import MyPosts from "./MyPosts";
 
 import store from "./../../../redux/redux-store";
@@ -45,32 +45,41 @@ const {
 describe("MyPosts", () => {
   const [{ text: message }] = posts;
   test("Renders MyPosts component", () => {
-    const { debug } = render(<MyPosts posts={posts} addPost={addPost} />, {
-      wrapper: withStoreAndRouter,
-    });
+    const { debug } = render(
+      <MyPosts posts={posts} addPost={actions.addPost} />,
+      {
+        wrapper: withStoreAndRouter,
+      }
+    );
     debug();
   });
 
   test(`Post with text: '${message}' should be in document`, () => {
-    render(<MyPosts posts={posts} addPost={addPost} />, {
+    render(<MyPosts posts={posts} addPost={actions.addPost} />, {
       wrapper: withStoreAndRouter,
     });
     expect(screen.getByText(message)).toBeInTheDocument();
   });
 
   test(`First post likes should be equal to '${firstPostLikes} likes'`, () => {
-    const myPosts = render(<MyPosts posts={posts} addPost={addPost} />, {
-      wrapper: withStoreAndRouter,
-    });
+    const myPosts = render(
+      <MyPosts posts={posts} addPost={actions.addPost} />,
+      {
+        wrapper: withStoreAndRouter,
+      }
+    );
     expect(myPosts.container.querySelector(".likes")).toHaveTextContent(
       `${firstPostLikes} likes`
     );
   });
 
   test(`Posts length should be equal to ${posts.length} `, () => {
-    const myPosts = render(<MyPosts posts={posts} addPost={addPost} />, {
-      wrapper: withStoreAndRouter,
-    });
+    const myPosts = render(
+      <MyPosts posts={posts} addPost={actions.addPost} />,
+      {
+        wrapper: withStoreAndRouter,
+      }
+    );
     expect(myPosts.container.querySelectorAll(".post")).toHaveLength(
       posts.length
     );
