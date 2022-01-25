@@ -109,7 +109,7 @@ const ProfileBio = ({
   return (
     <section className={s.bio}>
       <h2 className={s.subheading}>{profile.fullName}</h2>
-      <Userpic src={profile.photos.large} />
+      { profile?.photos ? <Userpic src={profile.photos.large} /> : null } 
       {isOwner && (
         <input
           name="inputChooseAvatar"
