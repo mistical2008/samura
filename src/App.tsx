@@ -16,6 +16,8 @@ import {initializeApp} from "./redux/app-reducer";
 import {getAppIsInitializedState} from "./redux/app-selectors";
 import {RootState} from "./redux/redux-store";
 import {AppProps} from "./types/base";
+import { ChakraProvider } from '@chakra-ui/react'
+import { theme } from './chakra.theme'
 
 const DialogsContainer = React.lazy(() =>
   import("./components/Dialogs/DialogsContainer")
@@ -40,31 +42,33 @@ const App = (props: AppProps) => {
   }
 
   return (
-    <div className="app-wrapper" >
-      <HeaderContainer />
-      <NavigationContainer />
-      <div className="app-wrapper-content" >
-        <Switch>
-          <Route
-            path="/profile/:userId?"
-            render={withSuspense(ProfileContainer)}
-          />
-          <Route exact path="/login" render={withSuspense(Login)} />
-          <Route
-            exact
-            path="/dialogs"
-            render={withSuspense(DialogsContainer)}
-          />
-          <Route exact path="/users" render={withSuspense(UsersContainer)} />
-          <Route exact path="/news" component={News} />
-          <Route exact path="/music" component={Music} />
-          <Route exact path="/settings" component={withSuspense(Settings)} />
-          <Route exact path="/profile" render={ProfileContainer} />
-          <Route exact path="/" render={() => <Redirect to="/profile" />} />
-          <Route path="*" component={NotFound} />
-        </Switch>
+    <ChakraProvider theme={theme}>
+      <div className="app-wrapper" >
+        <HeaderContainer />
+        <NavigationContainer />
+        <div className="app-wrapper-content" >
+          <Switch>
+            <Route
+              path="/profile/:userId?"
+              render={withSuspense(ProfileContainer)}
+            />
+            <Route exact path="/login" render={withSuspense(Login)} />
+            <Route
+              exact
+              path="/dialogs"
+              render={withSuspense(DialogsContainer)}
+            />
+            <Route exact path="/users" render={withSuspense(UsersContainer)} />
+            <Route exact path="/news" component={News} />
+            <Route exact path="/music" component={Music} />
+            <Route exact path="/settings" component={withSuspense(Settings)} />
+            <Route exact path="/profile" render={ProfileContainer} />
+            <Route exact path="/" render={() => <Redirect to="/profile" />} />
+            <Route path="*" component={NotFound} />
+          </Switch>
+        </div>
       </div>
-    </div>
+    </ChakraProvider>
   );
 };
 

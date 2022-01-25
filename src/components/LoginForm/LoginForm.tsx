@@ -8,6 +8,7 @@ import {
 import { Input } from "../FormControls/FormControls";
 import s from "./LoginForm.module.css";
 import {FormProps} from "../../types/base";
+import { Button } from '@chakra-ui/react'
 
 const minLength8 = minLength(8);
 const maxLength32 = maxLength(32);
@@ -55,7 +56,7 @@ const LoginForm = ({ handleSubmit, error, captchaUrl }: FormProps<FormData, OwnP
           component="input"
         />
         <label htmlFor="rememberMe">remember me</label>
-        <button type="submit">Login</button>
+        <Button type="submit">Login</Button>
       </div>
     </form>
   );
