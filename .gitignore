@@ -3,3 +3,11 @@ node_modules
 dist
 dist-ssr
 *.local
+
+lib/bs/.bsbuild
+lib/bs/.bsdeps
+lib/bs/.ninja_log
+lib/bs/build.ninja
+lib/bs/install.ninja
+lib/bs/.sourcedirs.json
+.merlin
