@@ -1,37 +1,42 @@
-html {
-  box-sizing: border-box;
+.App {
+  text-align: center;
 }
 
-*,*::before,*::after {
-  box-sizing: inherit;
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
 
-.app-wrapper {
-  display: grid;
-  grid-template-rows: 60px auto;
-  grid-template-columns: minmax(250px, 2fr) 10fr;
-  grid-template-areas: "header header"
-                        "nav content";
-  max-width: 980px;
-  margin: 0 auto;
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
 
-.app-wrapper-content {
-  grid-area: content;
-  background-color: #f9f0f0; 
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-.container {
-  padding: 64px;
+.App-link {
+  color: #61dafb;
 }
 
-.u-box {
-  display: block;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-input,
-textarea,
-checkbox,
-radio {
-  margin: 0;
+button {
+  font-size: calc(10px + 2vmin);
 }
