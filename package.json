@@ -14,7 +14,8 @@
     "build-storybook": "concurrently --names 'Rescript,Storybook' --prefix-colors 'bgMagenta.bold,bgBlue.bold' 'yarn re:buid' 'yarn storybook:build'",
     "re:build": "rescript",
     "re:start": "rescript build -w",
-    "prepare": "husky install"
+    "prepare": "husky install && npx hygen init self",
+    "g": "npx hygen"
   },
   "dependencies": {
     "@glennsl/rescript-jest": "^0.9.0",
