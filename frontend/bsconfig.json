@@ -1,0 +1,25 @@
+{
+  "name": "react-samura-social-network",
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "es6",
+      "in-source": true
+    }
+  ],
+  "suffix": ".bs.js",
+  "reason": { "react-jsx": 3 },
+  "bs-dependencies": [
+    "bs-webapi",
+    "@rescript/react",
+    "@ryyppy/rescript-promise",
+    "@glennsl/rescript-jest",
+    "rescript-json",
+    "bs-axios"
+  ]
+}

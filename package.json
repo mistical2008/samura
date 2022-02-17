@@ -1,69 +1,32 @@
 {
-  "name": "samura",
-  "version": "0.1.0",
-  "private": true,
-  "resolutions": {
-    "chokidar": "^3.4.0"
-  },
-  "dependencies": {
-    "@chakra-ui/react": "^1.7.4",
-    "@craco/craco": "^6.4.3",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@testing-library/jest-dom": "^5.11.5",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.21",
-    "@types/node": "^14.14.35",
-    "@types/react": "^17.0.3",
-    "@types/react-dom": "^17.0.3",
-    "@types/redux-form": "^8.3.1",
-    "axios": "^0.21.0",
-    "framer-motion": "^5.6.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-redux": "^7.2.2",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "5.0.0",
-    "redux": "^4.0.5",
-    "redux-devtools-extension": "^2.13.9",
-    "redux-form": "^8.3.7",
-    "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0",
-    "typescript": "^4.2.3",
-    "web-vitals": "^0.2.4"
-  },
+  "name": "react-social-network",
+  "version": "1.0.0",
+  "description": "Social network built on top of the nestjs-realworld-prisma backend",
+  "main": "index.js",
   "scripts": {
-    "start": "craco start",
-    "build": "npx react-scripts build",
-    "test": "npx react-scripts test",
-    "eject": "npx react-scripts eject"
+    "test": "jest"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+  "keywords": [
+    "react",
+    "fullstack",
+    "socialnetwork"
+  ],
+  "author": "Evgeniy Talko",
+  "license": "MIT",
+  "lint-staged": {
+    "**/*/*.{js,jsx,ts,tsx,json,css,scss,md,html}": [
+      "npx prettier --write"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+    "**/*/*.{js,jsx,ts,tsx}": [
+      "npx eslint"
+    ],
+    "**/*/*.{res,resi}": [
+      "rescript format"
     ]
   },
-  "devDependencies": {
-    "@types/react-redux": "^7.1.16",
-    "@types/react-router-dom": "^5.1.7",
-    "autoprefixer": "^10.4.2",
-    "postcss": "^8.4.5",
-    "postcss-loader": "^6.2.1",
-    "postcss-preset-env": "^7.2.3",
-    "prettier": "2.2.1"
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }
