@@ -1,0 +1,7 @@
+rescript = 1
+g_finger := /home/evgeniy/01_Library/02_repos/065-learnReactSamuraWay-repo/rewrite/node_modules/bs-webapi/lib/ocaml/install.stamp
+g_finger := /home/evgeniy/01_Library/02_repos/065-learnReactSamuraWay-repo/rewrite/node_modules/@rescript/react/lib/ocaml/install.stamp
+g_finger := /home/evgeniy/01_Library/02_repos/065-learnReactSamuraWay-repo/rewrite/node_modules/@ryyppy/rescript-promise/lib/ocaml/install.stamp
+g_finger := /home/evgeniy/01_Library/02_repos/065-learnReactSamuraWay-repo/rewrite/node_modules/@glennsl/rescript-jest/lib/ocaml/install.stamp
+g_finger := /home/evgeniy/01_Library/02_repos/065-learnReactSamuraWay-repo/rewrite/node_modules/rescript-json/lib/ocaml/install.stamp
+g_finger := /home/evgeniy/01_Library/02_repos/065-learnReactSamuraWay-repo/rewrite/node_modules/bs-axios/lib/ocaml/install.stamp

@@ -1,0 +1,74 @@
+{
+  "name": "react-samura-social-network",
+  "version": "0.0.0",
+  "scripts": {
+    "test": "jest",
+    "start": "concurrently --names 'Rescript,Vite' --prefix-colors 'bgMagenta.bold,bgBlue.bold' 'yarn re:start' 'yarn dev'",
+    "build": "concurrently 'yarn re:build' 'yarn vite:build'",
+    "dev": "vite",
+    "vite:build": "vite build",
+    "preview": "vite preview",
+    "storybook:start": "start-storybook -p 6006",
+    "storybook:build": "build-storybook",
+    "storybook": "concurrently --names 'Rescript,Storybook' --prefix-colors 'bgMagenta.bold,bgBlue.bold' 'yarn re:start' 'yarn storybook:start' ",
+    "build-storybook": "concurrently --names 'Rescript,Storybook' --prefix-colors 'bgMagenta.bold,bgBlue.bold' 'yarn re:buid' 'yarn storybook:build'",
+    "re:build": "rescript",
+    "re:start": "rescript build -w",
+    "prepare": "husky install && npx hygen init self",
+    "g": "npx hygen"
+  },
+  "dependencies": {
+    "@glennsl/rescript-jest": "^0.9.0",
+    "@rescript/react": "^0.10.3",
+    "@ryyppy/rescript-promise": "^2.1.0",
+    "axios": "^0.25.0",
+    "bs-axios": "^0.0.43",
+    "bs-webapi": "^0.19.1",
+    "framer-motion": "^6.2.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.25.1",
+    "react-location": "^3.3.3",
+    "react-query": "^3.34.12",
+    "react-virtual": "^2.10.4",
+    "rescript-json": "^1.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.12",
+    "@storybook/addon-actions": "^6.4.14",
+    "@storybook/addon-essentials": "^6.4.14",
+    "@storybook/addon-links": "^6.4.14",
+    "@storybook/react": "^6.4.14",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "@vitejs/plugin-legacy": "^1.7.1",
+    "@vitejs/plugin-react": "^1.0.7",
+    "babel-loader": "^8.2.3",
+    "commitizen": "^4.2.4",
+    "concurrently": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^7.0.0",
+    "lint-staged": "^12.3.2",
+    "npm-run-all": "^4.1.5",
+    "rescript": "^9.1.4",
+    "typescript": "^4.4.4",
+    "vite": "^2.7.2"
+  },
+  "lint-staged": {
+    "**/*/*.{js,jsx,ts,tsx,json,css,scss,md,html}": [
+      "npx prettier --write"
+    ],
+    "**/*/*.{js,jsx,ts,tsx}": [
+      "npx eslint"
+    ],
+    "**/*/*.{res,resi}": [
+      "rescript format"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}
